@@ -1,0 +1,32 @@
+server:
+  port: 5555
+
+logging:
+  path: E:\demo_code\cloud\logs
+  config: classpath:logback-spring.xml
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      default-filters:
+        - name: Hystrix
+          args:
+            name: fallbackcmd
+            fallbackUri: forward:/fallback
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allow-credentials: true
+            allowed-origins: "*"
+            allowed-headers: "*"
+            allowed-methods: "*"
+            max-age: 3600
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: DEFAULT_GROUP
+        namespace: 1846c7d2-6bba-4b98-8538-0f7b291d6b41
+      dynamic-route:
+        data-id: gateway-server

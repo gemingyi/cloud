@@ -1,0 +1,36 @@
+server:
+  port: 8880
+
+# 开启 explain 拦截器
+mybatis-plugin:
+  explain:
+    enabled: true
+# mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  type-aliases-package: com.example.userserver.model.*.model
+
+spring:
+  application:
+    name: user-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: DEFAULT_GROUP
+        namespace: 1846c7d2-6bba-4b98-8538-0f7b291d6b41
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch-cluster
+      cluster-nodes: 192.168.31.5:9300
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123456

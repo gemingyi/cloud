@@ -1,0 +1,24 @@
+version: '2'
+networks:
+  redis:
+
+services:
+
+#https://blog.csdn.net/weixin_42370957/article/details/104418633
+
+  # mysql
+  mysql:
+    container_name: redis-compose
+    # 指定镜像tag或者ID
+    image: "redis:5.0.8"
+    # 添加环境变量
+    environment:
+      TZ: Asia/Shanghai
+    #挂载数据卷
+    volumes:
+      - D:/Soft/docker/redis/conf/redis.conf:/etc/redis/redis.conf
+      - D:/Soft/docker/redis/data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - redis

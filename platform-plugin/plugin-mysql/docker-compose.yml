@@ -1,0 +1,45 @@
+version: '2'
+networks:
+  mysql:
+
+services:
+
+#https://www.jianshu.com/p/ab3367b2e6b4
+#https://www.cnblogs.com/Godfunc/p/10302192.html
+
+#  # nginx
+#  nginx:
+#    container_name: nginx-compose
+#    image: "nginx:1.13"
+#    depends_on:
+#      - api-yml
+#    environment:
+#      - TZ=Asia/Shanghai
+#    volumes:
+#      - ./nginx/conf.d/:/etc/nginx/conf.d
+#      - ./nginx/logs:/var/log/nginx
+#    ports:
+#      - "80:80"
+#    # 网络声明
+#    networks:
+#      - mysql
+
+
+  # mysql
+  mysql:
+    container_name: mysql-compose
+    # 指定镜像tag或者ID
+    image: "mysql:5.7.15"
+    # 添加环境变量
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+#      MYSQL_ROOT_HOST: 192.168.31.5
+    #挂载数据卷
+    volumes:
+      - D:/Soft/docker/mysql/data:/var/lib/mysql
+      - D:/Soft/docker/mysql/conf/my.cnf:/etc/my.cnf
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql

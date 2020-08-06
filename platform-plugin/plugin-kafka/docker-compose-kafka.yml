@@ -1,0 +1,80 @@
+version: '2'
+networks:
+  my_kafka:
+
+services:
+  # zookeeper
+  zoo1:
+    container_name: zoo1
+    image: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+#      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=zoo2:2888:3888;2181 server.3=zoo3:2888:3888;2181
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+    networks:
+      - my_kafka
+
+  zoo2:
+    container_name: zoo2
+    image: zookeeper
+    ports:
+      - "2182:2181"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+    depends_on:
+      - zoo1
+    networks:
+      - my_kafka
+
+  zoo3:
+    container_name: zoo3
+    image: zookeeper
+    ports:
+      - "2183:2181"
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+    depends_on:
+      - zoo1
+      - zoo2
+    networks:
+      - my_kafka
+
+
+  # kafka
+  kafka_1:
+    container_name: kafka_1
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.31.5
+      # 暴露给外部的listeners
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.5:9092
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181,zoo2:2181,zoo3:2181"
+      KAFKA_BROKER_ID: 1
+    depends_on:
+      - zoo1
+    networks:
+      - my_kafka
+
+  kafka_2:
+    container_name: kafka_2
+    image: wurstmeister/kafka
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 192.168.31.5
+      # 暴露给外部的listeners
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://192.168.31.5:9093
+      KAFKA_ADVERTISED_PORT: 9093
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181,zoo2:2181,zoo3:2181"
+      KAFKA_BROKER_ID: 2
+    depends_on:
+      - zoo1
+    networks:
+      - my_kafka

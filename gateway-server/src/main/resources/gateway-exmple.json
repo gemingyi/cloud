@@ -1,0 +1,44 @@
+[
+  {
+    "id": "auth-server-7777",
+    "order": 1,
+    "predicates": [
+      {
+        "args": {
+          "_genkey_0": "/uaa/**"
+        },
+        "name": "Path"
+      }
+    ],
+    "filters": [
+      {
+        "args": {
+          "_genkey_0": 1
+        },
+        "name": "StripPrefix"
+      }
+    ],
+    "uri": "lb://auth-server"
+  },
+  {
+    "id": "user-server-8880",
+    "order": 2,
+    "predicates": [
+      {
+        "args": {
+          "_genkey_0": "/user/**"
+        },
+        "name": "Path"
+      }
+    ],
+    "filters": [
+      {
+        "args": {
+          "_genkey_0": 1
+        },
+        "name": "StripPrefix"
+      }
+    ],
+    "uri": "lb://user-server"
+  }
+]

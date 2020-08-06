@@ -1,0 +1,113 @@
+version: '2'
+networks:
+  my_es:
+
+services:
+  # es
+  es_1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+    container_name: es_1
+    volumes:
+      - D:/Soft/docker/ES/node1/data:/usr/share/elasticsearch/data:rw
+      - D:/Soft/docker/ES/node1/logs:/user/share/elasticsearch/logs:rw
+    environment:                          #环境变量配置，可以用数组或字典两种方式
+      - cluster.name=elasticsearch-cluster   #es集群名,所有es节点集群名必须一样才能互相发现
+      - node.name=es_1                      #节点名
+      - network.host=0.0.0.0               #是配置可以访问本节点的路由地址
+      - network.publish_host=192.168.31.5      #设置其它节点和该节点交互的ip地址，如果不设置它会自动判断，值必须是个真实的ip地址
+      - http.port=9200                  #设置对外服务的http端口
+      - transport.tcp.port=9300         #设置节点之间交互的tcp端口
+      - http.cors.enabled=true          #允许跨域
+      - node.master=true                #允许成为master
+      - node.data=true                     #允许保存数据
+      - http.cors.allow-origin=*          #解决跨域问题
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"      #指定JVM参数。机器配置低就稍微调小一点,一般512够用了
+      - "discovery.zen.minimum_master_nodes=1"    #设置这个参数来保证集群中的节点可以知道其它N个有master资格的节点
+    ulimits:  #解除内存限制相关设置
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - my_es
+
+  es_2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+    container_name: es_2
+    volumes:
+      - D:/Soft/docker/ES/node2/data:/usr/share/elasticsearch/data:rw
+      - D:/Soft/docker/ES/node2/logs:/user/share/elasticsearch/logs:rw
+    environment:
+      - cluster.name=elasticsearch-cluster
+      - node.name=es_2
+      - network.host=0.0.0.0
+      - network.publish_host=192.168.31.5
+      - http.port=9201
+      - transport.tcp.port=9301
+      - http.cors.enabled=true
+      - node.master=false
+      - node.data=true
+      - http.cors.allow-origin=*
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=192.168.31.5:9200"  #设置集群内节点的主机,设置一台的话这台默认成为master节点，写多个的话自动选取
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    networks:
+      - my_es
+    depends_on:
+      - es_1
+
+#  es_3:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
+#    container_name: es_3
+#    volumes:
+#      - D:/Soft/docker/ES/node3/data:/usr/share/elasticsearch/data:rw
+#      - D:/Soft/docker/ES/node3/logs:/user/share/elasticsearch/logs:rw
+#    environment:
+#      - cluster.name=elasticsearch-cluster
+#      - node.name=es_3
+#      - network.host=0.0.0.0
+#      - network.publish_host=192.168.31.5
+#      - http.port=9202
+#      - transport.tcp.port=9302
+#      - http.cors.enabled=true
+#      - node.master=false
+#      - node.data=true
+#      - http.cors.allow-origin=*
+#      - bootstrap.memory_lock=false
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#      - "discovery.zen.ping.unicast.hosts=192.168.31.5:9200"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    ports:
+#      - "9202:9200"
+#      - "9302:9300"
+#    networks:
+#      - my_es
+#    depends_on:
+#      - es_1
+
+  # kibana
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.3
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://192.168.31.5:9200   #设置es地址
+      I18N_LOCALE: zh-CN
+    networks:
+      - my_es
+    depends_on:
+      - es_1

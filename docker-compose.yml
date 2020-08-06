@@ -1,0 +1,41 @@
+version: '2'
+networks:
+  cloud_net:
+    driver: bridge
+
+services:
+
+  # auth
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth-server
+      dockerfile: Dockerfile
+    # 环境变量
+    environment:
+      - TZ=Asia/Shanghai
+    # 用于暴露端口
+    ports:
+      - "7777:7777"
+    # 网络声明
+    networks:
+      - cloud_net
+
+  # gateway
+  gateway-server:
+    container_name: gateway-server
+    build:
+      context: ./gateway-server
+      dockerfile: Dockerfile
+    # 指定服务依赖
+    depends_on:
+      - auth-service
+    # 环境变量
+    environment:
+      - TZ=Asia/Shanghai
+    # 用于暴露端口
+    ports:
+      - "5555:5555"
+    # 网络声明
+    networks:
+      - cloud_net

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.pluginredis.config.RedisAutoConfig,com.example.pluginredis.config.LuaScriptConfiguration

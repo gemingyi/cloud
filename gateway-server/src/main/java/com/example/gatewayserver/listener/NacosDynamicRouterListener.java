@@ -69,7 +69,7 @@ public class NacosDynamicRouterListener implements ApplicationEventPublisherAwar
             ConfigService configService = NacosFactory.createConfigService(properties);
 
             String configInfo = configService.getConfig(dataId, group, 5000);
-//            log.info("获取网关当前配置: {}", configInfo);
+            log.info("获取网关当前配置: {}", configInfo);
             this.updateRoute(configInfo);
             configService.addListener(dataId, group, new Listener() {
                 @Override

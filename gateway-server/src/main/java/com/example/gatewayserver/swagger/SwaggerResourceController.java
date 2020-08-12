@@ -18,11 +18,11 @@ import java.util.List;
 @RequestMapping("/swagger-resources")
 public class SwaggerResourceController {
 
-    private SwaggerResourceProvider swaggerProvider;
+    private SwaggerResourceProvider swaggerResourceProvider;
 
     @Autowired
-    public SwaggerResourceController(SwaggerResourceProvider swaggerProvider) {
-        this.swaggerProvider = swaggerProvider;
+    public SwaggerResourceController(SwaggerResourceProvider swaggerResourceProvider) {
+        this.swaggerResourceProvider = swaggerResourceProvider;
     }
 
     @RequestMapping(value = "/configuration/security")
@@ -37,6 +37,6 @@ public class SwaggerResourceController {
 
     @RequestMapping
     public ResponseEntity<List<SwaggerResource>> swaggerResources() {
-        return new ResponseEntity<>(swaggerProvider.get(), HttpStatus.OK);
+        return new ResponseEntity<>(swaggerResourceProvider.get(), HttpStatus.OK);
     }
 }

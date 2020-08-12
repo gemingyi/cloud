@@ -6,6 +6,7 @@ import com.example.commons.result.RestResult;
 import com.example.commons.utils.JWTUtil;
 import com.example.gatewayserver.feign.AuthFeign;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -25,8 +26,38 @@ import java.nio.charset.StandardCharsets;
  */
 public class AuthFilter implements GlobalFilter, Ordered {
 
+    /**
+     * 是否校验token配置
+     */
+    @Value("${gateway.check.token:false}")
+    private boolean checkToken;
+
+    /**
+     * 忽略校验token的路径
+     */
+    @Value("${gateway.check.ignoreToken.path:}")
+    private String ignoreTokenPath;
+
+    /**
+     * staticResource的路径
+     */
+    @Value("${gateway.check.staticResource.path:}")
+    private String staticResourcePath;
+
+
+    /**
+     * 服务鉴权 head
+     */
     private static final String AUTHORIZATION = "Authorization";
-    private static final String ANONYMOUS_PATH = "/uaa/auth/login, /uaa/auth/refresh, /uaa/auth/check, /uaa/auth/info, /baidu";
+    /**
+     * 匿名可访问路径
+     */
+    private static final String ANONYMOUS_PATH = "/auth-server/auth/login, /auth-server/auth/refresh, /auth-server/auth/check, /auth-server/auth/info";
+    /**
+     * 静态文件路径
+     */
+    private static final String STATIC_RESOURCE_PATH = "/**/favicon.ico, /**/v2/api-docs, /**/doc.html, /**/swagger-ui.html, /**/swagger-resources, /**/webjars/**";
+
 
     @Autowired
     private AuthFeign authFeign;
@@ -39,20 +70,20 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         String path = request.getURI().getPath();
-        //匿名访问url
-        boolean flag = this.isAnonymousPath(path);
-        if(flag) {
+        //放行访问url
+        boolean flag = this.isPassThroughPath(path);
+        if (!checkToken || flag) {
             return chain.filter(exchange);
         }
         //未传token
         String token = request.getHeaders().getFirst(AUTHORIZATION);
         if (StringUtils.isEmpty(token)) {
-            return this.error(response);
+            return this.serviceUnauthorized(response);
         }
-        //调用鉴权服务 判断token
+        //调用鉴权服务 判断请求token
         RestResult<Object> result = authFeign.info(token);
         if (!ResultCode.SUCCESS.code().equals(result.getCode())) {
-            return this.error(response);
+            return this.serviceUnauthorized(response);
         }
         JWTUtil.getClaim(token, "roles");
 
@@ -69,12 +100,20 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
 
     /**
-     * 匿名访问路径
+     * 放行路径
      */
-    private boolean isAnonymousPath(String path) {
+    private boolean isPassThroughPath(String path) {
+        //匿名
         String[] urls = ANONYMOUS_PATH.split(", ");
         for (String url : urls) {
-            if (pathMatcher.match(path, url)) {
+            if (pathMatcher.match(url, path)) {
+                return true;
+            }
+        }
+        //静态
+        String[] urls2 = STATIC_RESOURCE_PATH.split(", ");
+        for (String url : urls2) {
+            if (pathMatcher.match(url, path)) {
                 return true;
             }
         }
@@ -82,9 +121,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
     }
 
     /**
-     * 无权限返回信息
+     * 服务调用未认证 相应数据
      */
-    private Mono<Void> error(ServerHttpResponse response) {
+    private Mono<Void> serviceUnauthorized(ServerHttpResponse response) {
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         RestResult<ResultCode> result = RestResult.failure(ResultCode.NO_PERMISSION);

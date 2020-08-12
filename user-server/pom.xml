@@ -48,6 +48,11 @@
             <groupId>com.example</groupId>
             <artifactId>plugin-es</artifactId>
         </dependency>
+        <!-- plugin-swagger -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-swagger</artifactId>
+        </dependency>
         <!-- platform-commons -->
         <dependency>
             <groupId>com.example</groupId>

@@ -34,7 +34,7 @@ public class SwaggerAutoConfigure {
      */
     @Bean
     public Docket createRestApi() {
-        logger.info("###### 已注册Swagger插件 ######");
+        logger.info("###### 已加载Swagger插件 ######");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
@@ -44,9 +44,10 @@ public class SwaggerAutoConfigure {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title(String.format("xxx [%s] 微服务Api文档", applicationName)).version("1.0.0")
-                .description(String.format("xxx [%s] 微服务Api文档", applicationName))
+                .title(String.format("[%s] 微服务Api文档", applicationName)).version("1.0.0")
+                .description(String.format("[%s] 微服务Api文档", applicationName))
                 .contact(new Contact("gmy", "", ""))
                 .build();
     }
+
 }

@@ -1,0 +1,15 @@
+swagger:
+  # 是否启用swagger聚合服务
+  enable: true
+spring:
+  application:
+    # 聚合网关处服务中英文对照
+    names: user-server:用户服务,auth-server:网关鉴权
+gateway:
+  check:
+    # 是否校验token
+    token: false
+    ignoreToken:
+      path: /auth-server/auth/login, /auth-server/auth/refresh, /auth-server/auth/check, /auth-server/auth/info
+    staticResource:
+      path: /**/favicon.ico, /**/v2/api-docs, /**/doc.html, /**/swagger-ui.html, /**/swagger-resources, /**/webjars/**

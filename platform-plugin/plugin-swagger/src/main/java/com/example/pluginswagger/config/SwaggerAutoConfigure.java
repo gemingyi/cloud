@@ -24,8 +24,6 @@ public class SwaggerAutoConfigure {
     @Value("${spring.application.name}")
     private String applicationName;
 
-    private final static Logger logger = LoggerFactory.getLogger(SwaggerAutoConfigure.class);
-
 
     /**
      * swagger配置
@@ -34,7 +32,7 @@ public class SwaggerAutoConfigure {
      */
     @Bean
     public Docket createRestApi() {
-        logger.info("###### 已加载Swagger插件 ######");
+        System.out.println("###### 已加载Swagger插件 ######");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))

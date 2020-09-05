@@ -18,10 +18,7 @@ public enum ResultCode {
     SERVICE_DEMOTION(21002, "服务降级"),
 
     /* 参数错误 */
-    PARAM_IS_INVALID(11001, "参数无效"),
-    PARAM_IS_BLANK(11002, "参数为空"),
-    PARAM_TYPE_BIND_ERROR(11003, "参数类型错误"),
-    PARAM_NOT_COMPLETE(11004, "参数缺失"),
+    PARAM_IS_INVALID(11001, "参数非法"),
 
     /* 系统错误 */
     SYSTEM_INNER_ERROR(12001, "系统内部错误"),
@@ -33,7 +30,7 @@ public enum ResultCode {
 
     /* 权限错误：*/
     USER_NOT_LOGGED_IN(14001, "用户未登录"),
-    PERMISSION_NO_ACCESS(14003, "无访问权限"),
+    PERMISSION_NO_ACCESS(14002, "无访问权限"),
 
     /* 数据错误：*/
     RESULT_DATA_NONE(15001, "数据未找到"),

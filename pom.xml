@@ -23,6 +23,8 @@
         <!--  -->
         <module>analysis-server</module>
         <!-- plugin -->
+        <module>platform-boot</module>
+        <!-- plugin -->
         <module>platform-plugin</module>
         <!-- commons -->
         <module>platform-commons</module>
@@ -65,6 +67,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

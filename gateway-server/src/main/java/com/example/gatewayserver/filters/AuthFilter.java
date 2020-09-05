@@ -49,14 +49,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
      * 服务鉴权 head
      */
     private static final String AUTHORIZATION = "Authorization";
-    /**
-     * 匿名可访问路径
-     */
-    private static final String ANONYMOUS_PATH = "/auth-server/auth/login, /auth-server/auth/refresh, /auth-server/auth/check, /auth-server/auth/info";
-    /**
-     * 静态文件路径
-     */
-    private static final String STATIC_RESOURCE_PATH = "/**/favicon.ico, /**/v2/api-docs, /**/doc.html, /**/swagger-ui.html, /**/swagger-resources, /**/webjars/**";
 
 
     @Autowired
@@ -104,14 +96,14 @@ public class AuthFilter implements GlobalFilter, Ordered {
      */
     private boolean isPassThroughPath(String path) {
         //匿名
-        String[] urls = ANONYMOUS_PATH.split(", ");
+        String[] urls = ignoreTokenPath.split(", ");
         for (String url : urls) {
             if (pathMatcher.match(url, path)) {
                 return true;
             }
         }
         //静态
-        String[] urls2 = STATIC_RESOURCE_PATH.split(", ");
+        String[] urls2 = staticResourcePath.split(", ");
         for (String url : urls2) {
             if (pathMatcher.match(url, path)) {
                 return true;

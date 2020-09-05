@@ -1,4 +1,4 @@
-package com.example.userserver.config;
+package com.example.platformboot.config;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -9,9 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 public class BootWebConfig extends WebMvcConfigurationSupport {
 
 
-    /**
-     * swagger
-     */
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath*:/META-INF/resources/");

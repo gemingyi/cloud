@@ -33,16 +33,16 @@ public class NacosDynamicRouterListener implements ApplicationEventPublisherAwar
     private final static Logger log = LoggerFactory.getLogger(NacosDynamicRouterListener.class);
 
 
-    @Value("${spring.cloud.nacos.dynamic-route.data-id:gateway-server}")
+    @Value("${spring.cloud.nacos.dynamic-route.data-id:}")
     private String dataId;
 
-    @Value("${spring.cloud.nacos.discovery.group:DEFAULT_GROUP}")
+    @Value("${spring.cloud.nacos.discovery.group:}")
     private String group;
 
-    @Value("${spring.cloud.nacos.discovery.namespace:1846c7d2-6bba-4b98-8538-0f7b291d6b41}")
+    @Value("${spring.cloud.nacos.discovery.namespace:}")
     private String namespace;
 
-    @Value("${spring.cloud.nacos.discovery.server-addr:127.0.0.1:8848}")
+    @Value("${spring.cloud.nacos.discovery.server-addr:127.0.0.1:}")
     private String serverAddr;
 
 

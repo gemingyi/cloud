@@ -26,16 +26,6 @@ public enum BusinessExceptionEnum {
     CONFLICT(DataConflictException.class, ResultCode.DATA_ALREADY_EXISTED),
 
     /**
-     * 用户未登录
-     */
-    UNAUTHORIZED(UserNotLoginException.class, ResultCode.USER_NOT_LOGGED_IN),
-
-    /**
-     * 无访问权限
-     */
-    FORBIDDEN(PermissionForbiddenException.class, ResultCode.PERMISSION_NO_ACCESS),
-
-    /**
      * 远程访问时错误
      */
 //    REMOTE_ACCESS_ERROR(RemoteAccessException.class, HttpStatus.INTERNAL_SERVER_ERROR, ResultCode.INTERFACE_OUTTER_INVOKE_ERROR),
@@ -43,7 +33,22 @@ public enum BusinessExceptionEnum {
     /**
      * 系统内部错误
      */
-    INTERNAL_SERVER_ERROR(InternalServerException.class, ResultCode.SYSTEM_INNER_ERROR);
+    INTERNAL_SERVER_ERROR(InternalServerException.class, ResultCode.SYSTEM_INNER_ERROR),
+
+    /**
+     * 非法参数
+     */
+    ILLEGAL_PARAMETER(IllegalParameterException.class, ResultCode.PARAM_IS_INVALID),
+
+    /**
+     * 用户未登录
+     */
+    UNAUTHORIZED(UserNotLoginException.class, ResultCode.USER_NOT_LOGGED_IN),
+
+    /**
+     * 无访问权限
+     */
+    FORBIDDEN(PermissionForbiddenException.class, ResultCode.PERMISSION_NO_ACCESS);
 
 
     private Class<? extends BusinessException> eClass;

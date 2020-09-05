@@ -1,14 +1,9 @@
 package com.example.gatewayserver.swagger;
 
-import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
-import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
@@ -34,7 +29,7 @@ public class SwaggerResourceProvider implements SwaggerResourcesProvider {
     private String self;
 
     @Value("${swagger.enable:true}")
-    private boolean enableSwagger = true;
+    private boolean enableSwagger;
 
     @Autowired
     public SwaggerResourceProvider(RouteLocator routeLocator) {

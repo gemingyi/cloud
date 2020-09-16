@@ -5,9 +5,9 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>cloud</artifactId>
+        <artifactId>platform-boot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
 
     <groupId>com.example</groupId>
@@ -23,27 +23,17 @@
     </properties>
 
     <dependencies>
-        <!-- nacos-config -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <!-- nacos-discovery -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!--  -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!-- platform-commons -->
+        <!-- platform-boot -->
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>platform-commons</artifactId>
+            <artifactId>platform-boot</artifactId>
+            <scope>compile</scope>
         </dependency>
-
+        <!-- plugin-swagger -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-swagger</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

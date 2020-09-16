@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>cloud</artifactId>
+        <artifactId>platform-boot</artifactId>
         <version>0.0.1-SNAPSHOT</version>
 <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
@@ -23,20 +23,11 @@
     </properties>
 
     <dependencies>
-        <!-- nacos-config -->
+        <!-- platform-boot -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <!-- nacos-discovery -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.example</groupId>
+            <artifactId>platform-boot</artifactId>
+            <scope>compile</scope>
         </dependency>
         <!-- plugin-mysql -->
         <dependency>
@@ -58,12 +49,6 @@
             <groupId>com.example</groupId>
             <artifactId>plugin-swagger</artifactId>
         </dependency>
-        <!-- platform-commons -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>platform-commons</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

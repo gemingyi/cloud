@@ -27,7 +27,7 @@ public class RedisKeyBuildUtil {
      * @param args   参数..
      * @return key
      */
-    public static String keyBuilder(String module, String func, String... args) {
+    public static String keyBuilder(String module, String func, Object... args) {
         return keyBuilder(null, module, func, args);
     }
 
@@ -44,15 +44,6 @@ public class RedisKeyBuildUtil {
         return keyBuilder(null, module, func, fields);
     }
 
-    /**
-     * redis的key键规则定义
-     *
-     * @param prefix 项目前缀
-     * @param module 模块名称
-     * @param func   方法名称
-     * @param obj    对象
-     * @return key
-     */
     public static String keyBuilder(String prefix, String module, String func, Object obj) {
         String[] fields = ObjToStrArray(obj);
         return keyBuilder(prefix, module, func, fields);
@@ -67,7 +58,7 @@ public class RedisKeyBuildUtil {
      * @param args   参数...
      * @return key
      */
-    private static String keyBuilder(String prefix, String module, String func, String... args) {
+    public static String keyBuilder(String prefix, String module, String func, Object... args) {
         // 项目前缀
         if (prefix == null) {
             prefix = KEY_PREFIX;
@@ -76,7 +67,7 @@ public class RedisKeyBuildUtil {
         // KEY_SPLIT_CHAR 为分割字符
         key.append(KEY_SPLIT_CHAR).append(module).append(KEY_SPLIT_CHAR).append(func);
         if (args != null) {
-            for (String arg : args) {
+            for (Object arg : args) {
                 if (!StringUtils.isEmpty(arg)) {
                     key.append(KEY_SPLIT_CHAR).append(arg);
                 }
@@ -85,16 +76,19 @@ public class RedisKeyBuildUtil {
         return key.toString();
     }
 
+    /**
+     * @Description
+     * @Author mingyi ge
+     */
     private static String[] ObjToStrArray(Object obj) {
-        Class cls = obj.getClass();
-        Field[] fields = cls.getDeclaredFields();
+        Field[] fields = obj.getClass().getDeclaredFields();
         List<String> list = new ArrayList<>(fields.length);
         try {
             for (Field f : fields) {
                 f.setAccessible(true);
                 Object value = f.get(obj);
                 if (value != null) {
-                    list.add(String.valueOf(value));
+                    list.add(f.getName() + "_" + value);
                 }
             }
         } catch (Exception e) {

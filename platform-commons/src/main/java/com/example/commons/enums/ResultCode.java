@@ -27,10 +27,9 @@ public enum ResultCode {
     INTERFACE_EXCEED_LOAD(13001, "接口负载过高"),
     INTERFACE_REPEAT_COMMIT(13002, "接口重复提交"),
 
-
     /* 权限错误：*/
     USER_NOT_LOGGED_IN(14001, "用户未登录"),
-    PERMISSION_NO_ACCESS(14002, "无访问权限"),
+    PERMISSION_NO_ACCESS(14003, "无访问权限"),
 
     /* 数据错误：*/
     RESULT_DATA_NONE(15001, "数据未找到"),

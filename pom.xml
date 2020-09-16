@@ -22,8 +22,11 @@
         <module>pay-server</module>
         <!--  -->
         <module>analysis-server</module>
+
         <!-- plugin -->
         <module>platform-boot</module>
+        <!-- admin -->
+        <module>platform-admin</module>
         <!-- plugin -->
         <module>platform-plugin</module>
         <!-- commons -->
@@ -87,12 +90,25 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>platform-boot</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <!-- commons -->
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>platform-commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <!-- admin -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>platform-admin</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
             <!-- plugin -->
             <dependency>
                 <groupId>com.example</groupId>
@@ -120,6 +136,17 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
+            <!-- admin -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>2.1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>2.1.4</version>
+            </dependency>
             <!-- nacos-config -->
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>

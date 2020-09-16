@@ -29,6 +29,7 @@ public class RestResult<T> implements Result {
     public static <T> RestResult<T> success() {
         RestResult<T> result = new RestResult<>();
         result.setResultCode(ResultCode.SUCCESS);
+        result.setData(null);
         return result;
     }
 
@@ -81,7 +82,6 @@ public class RestResult<T> implements Result {
         this.data = data;
         return this;
     }
-
 
     private void setResultCode(ResultCode code) {
         this.code = code.code();

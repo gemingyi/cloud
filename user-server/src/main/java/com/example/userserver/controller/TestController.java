@@ -1,6 +1,7 @@
 package com.example.userserver.controller;
 
 
+import com.example.commons.exceptions.DataNotFoundException;
 import com.example.commons.result.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("user")
-@Api(tags = "user接口")
+@Api(tags = "测试接口")
 public class TestController {
 
 
@@ -30,6 +31,16 @@ public class TestController {
     @GetMapping("/test")
     public RestResult<Object> test(@RequestParam(value = "arg", required = false) String arg) {
         System.out.println(arg);
+        return RestResult.success();
+    }
+
+
+    @ApiOperation("测试接口")
+    @GetMapping("/testException")
+    public RestResult<Object> testException() {
+        if (true) {
+            throw new DataNotFoundException("找不到数据");
+        }
         return RestResult.success();
     }
 }

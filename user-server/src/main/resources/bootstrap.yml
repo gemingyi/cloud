@@ -1,9 +1,18 @@
 server:
-  port: 5555
+  port: 8880
 
 logging:
   path: E:\demo_code\cloud\logs
   config: classpath:logback-spring.xml
+
+# 开启 explain 拦截器
+mybatis-plugin:
+  explain:
+    enabled: true
+# mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/*.xml
+  type-aliases-package: com.example.userserver.model.*.model
 
 # monitor
 management:
@@ -17,7 +26,7 @@ management:
 
 spring:
   application:
-    name: gateway-server
+    name: user-server
   cloud:
     nacos:
       config:
@@ -29,47 +38,13 @@ spring:
         server-addr: 127.0.0.1:8848
         group: DEFAULT_GROUP
         namespace: 1846c7d2-6bba-4b98-8538-0f7b291d6b41
-      dynamic-route:
-        data-id: gateway-routers
-#    loadbalancer:
-#      retry:
-#        enabled: true
-    gateway:
-      default-filters:
-        - name: Hystrix
-          args:
-            name: fallbackcmd
-            fallbackUri: forward:/fallback
-#        - name: Retry
-#          args:
-#            retries: 3
-#              series:
-#              - SERVER_ERROR
-#              methods:
-#              - GET
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allow-credentials: true
-            allowed-origins: "*"
-            allowed-headers: "*"
-            allowed-methods: "*"
-            max-age: 3600
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/nacos?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
 
-
-
-#默认为true可不配置
-feign:
-  #  okhttp:
-  #    enabled: true
-  hystrix:
-    enabled: true
-  client:
-    config:
-      default:  # 服务名，default表示所有服务
-        connectTimeout: 5000  #请求连接超时
-        readTimeout: 5000  #请求处理超时
-        loggerLevel: none  # full | basic | none | headers
 
 hystrix:
   command:

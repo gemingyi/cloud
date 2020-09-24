@@ -27,6 +27,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+* @Description 动态路由
+* @Author mingyi ge
+*/
 @Component
 public class NacosDynamicRouterListener implements ApplicationEventPublisherAware {
 

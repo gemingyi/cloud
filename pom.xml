@@ -10,8 +10,6 @@
     </parent>
 
     <modules>
-        <!-- -->
-        <module>nacos-server</module>
         <!--  -->
         <module>gateway-server</module>
         <!--  -->
@@ -26,7 +24,7 @@
         <!-- plugin -->
         <module>platform-boot</module>
         <!-- admin -->
-        <module>platform-admin</module>
+        <module>platform-monitor</module>
         <!-- plugin -->
         <module>platform-plugin</module>
         <!-- commons -->
@@ -105,7 +103,7 @@
             <!-- admin -->
             <dependency>
                 <groupId>com.example</groupId>
-                <artifactId>platform-admin</artifactId>
+                <artifactId>platform-monitor</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
@@ -170,6 +168,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- commons-text -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.8</version>
             </dependency>
             <!-- validator -->
             <dependency>

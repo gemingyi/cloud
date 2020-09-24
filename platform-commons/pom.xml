@@ -23,6 +23,11 @@
     </properties>
 
     <dependencies>
+        <!-- commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+        </dependency>
         <!-- validator -->
         <dependency>
             <groupId>org.hibernate</groupId>

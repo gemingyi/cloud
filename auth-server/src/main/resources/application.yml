@@ -1,8 +1,0 @@
-server:
-  port: 7777
-
-spring:
-  application:
-    name: auth-server
-  profiles:
-    active: dev

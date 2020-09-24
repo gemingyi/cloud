@@ -1,8 +1,23 @@
 server:
   port: 7777
 
+logging:
+  path: E:\demo_code\cloud\logs
+  config: classpath:logback-spring.xml
+
+# monitor
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
 spring:
-  active: dev
+  application:
+    name: auth-server
   cloud:
     nacos:
       config:
@@ -14,3 +29,4 @@ spring:
         server-addr: 127.0.0.1:8848
         group: DEFAULT_GROUP
         namespace: 1846c7d2-6bba-4b98-8538-0f7b291d6b41
+

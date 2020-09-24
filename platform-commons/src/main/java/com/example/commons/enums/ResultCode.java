@@ -13,10 +13,6 @@ public enum ResultCode {
     /* 成功状态码 */
     SUCCESS(10000, "请求成功"),
 
-    /* 微服务 */
-    NO_PERMISSION(21001, "服务未授权"),
-    SERVICE_DEMOTION(21002, "服务降级"),
-
     /* 参数错误 */
     PARAM_IS_INVALID(11001, "参数非法"),
 
@@ -34,7 +30,11 @@ public enum ResultCode {
     /* 数据错误：*/
     RESULT_DATA_NONE(15001, "数据未找到"),
     DATA_IS_WRONG(15002, "数据有误"),
-    DATA_ALREADY_EXISTED(15003, "数据已存在");
+    DATA_ALREADY_EXISTED(15003, "数据已存在"),
+
+    /* 微服务 */
+    NO_PERMISSION(21001, "服务未授权"),
+    SERVICE_DEMOTION(21002, "网关下游服务降级");
 
     /* 用户错误：*/
 

@@ -1,6 +1,15 @@
 server:
   port: 8000
 
+# monitor
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 spring:
   application:

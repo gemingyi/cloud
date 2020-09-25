@@ -1,6 +1,6 @@
 package com.example.userserver.redis;
 
-import com.example.commons.utils.RedisKeyBuildUtil;
+import com.example.pluginredis.RedisKeyBuildUtil;
 import com.example.pluginredis.util.RedisRateLimit;
 import com.example.userserver.model.UserInfo;
 import org.junit.Test;

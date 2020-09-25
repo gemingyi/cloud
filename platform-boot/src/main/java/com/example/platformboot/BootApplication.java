@@ -10,8 +10,9 @@ import org.springframework.context.annotation.FilterType;
 * @Date 2020/9/9 20:59
 */
 @EnableDiscoveryClient
-@ComponentScan(
-        basePackages = {"com.example", "cn.hutool.extra.spring"},
-        excludeFilters = {@ComponentScan.Filter(type = FilterType.REGEX,pattern = "com.example.commons.*")})
+//@ComponentScan(
+//        basePackages = {"com.example", "cn.hutool.extra.spring"},
+//        excludeFilters = {@ComponentScan.Filter(type = FilterType.REGEX,pattern = "com.example.commons.*")})
+@ComponentScan("com.example")
 public class BootApplication {
 }

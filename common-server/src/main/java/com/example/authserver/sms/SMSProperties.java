@@ -1,4 +1,4 @@
-package com.example.commons.utils.aliyun.sms;
+package com.example.authserver.sms;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:config.properties")
-@ConfigurationProperties(prefix="sms", ignoreUnknownFields = true)
+@ConfigurationProperties(prefix="ali.sms", ignoreUnknownFields = true)
 public class SMSProperties {
 
     private String domain;

@@ -17,7 +17,7 @@ management:
 
 spring:
   application:
-    name: auth-server
+    name: common-server
   cloud:
     nacos:
       config:

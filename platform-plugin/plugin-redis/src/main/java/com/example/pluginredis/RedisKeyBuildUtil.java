@@ -1,4 +1,4 @@
-package com.example.commons.utils;
+package com.example.pluginredis;
 
 import org.springframework.util.StringUtils;
 
@@ -6,17 +6,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.pluginredis.RedisKeyConstants.KEY_PREFIX;
+import static com.example.pluginredis.RedisKeyConstants.KEY_SPLIT_CHAR;
+
 public class RedisKeyBuildUtil {
-
-    /**
-     * 默认项目前缀
-     */
-    public static final String KEY_PREFIX = "default";
-
-    /**
-     * 分割字符，默认[:]
-     */
-    private static final String KEY_SPLIT_CHAR = ":";
 
 
     /**

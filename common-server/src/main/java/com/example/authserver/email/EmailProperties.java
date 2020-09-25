@@ -1,4 +1,4 @@
-package com.example.commons.utils.email;
+package com.example.authserver.email;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

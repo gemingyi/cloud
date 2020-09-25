@@ -1,4 +1,4 @@
-package com.example.commons.utils.aliyun.oss;
+package com.example.authserver.oss;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:config.properties")
-@ConfigurationProperties(prefix="oss", ignoreUnknownFields = true)
+@ConfigurationProperties(prefix="ali.oss", ignoreUnknownFields = true)
 public class OSSProperties {
 
     private String endpoint;

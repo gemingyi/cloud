@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * 鉴权远程调用
  */
-//@FeignClient(name = "auth-server", fallbackFactory = AuthFeignServiceFallbackFactory.class)
-@FeignClient(name = "auth-server")
+//@FeignClient(name = "common-server", fallbackFactory = AuthFeignServiceFallbackFactory.class)
+@FeignClient(name = "common-server")
 public interface AuthFeign {
 
     @RequestMapping("check")

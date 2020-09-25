@@ -1,7 +1,6 @@
 package com.example.pluginredis.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
@@ -10,15 +9,13 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.example.pluginredis.RedisKeyConstants.LOCK_NAME_PREFIX;
+
 /**
  * redis 锁
  */
+@Slf4j
 public class RedisLock {
-
-    private final static Logger logger = LoggerFactory.getLogger(RedisLock.class);
-
-    //分布式锁，前缀
-    private String LOCK_NAME_PREFIX = "lock:";
 
     @Autowired
     RedisScript<Long> lockScript;
@@ -41,13 +38,13 @@ public class RedisLock {
         String lockKey = LOCK_NAME_PREFIX + lockName;
         try {
             Long result = redisTemplate.execute(lockScript, Collections.singletonList(lockKey), identifier, String.valueOf(expire));
-            logger.info("distributedLock.key{}: - identifier:{}: - result:{} - expire:{}", lockKey, identifier, result, expire);
+            log.info("distributedLock.key{}: - identifier:{}: - result:{} - expire:{}", lockKey, identifier, result, expire);
             if (!StringUtils.isEmpty(result) && result == 1) {
                 return identifier;
             }
             return null;
         } catch (Exception e) {
-            logger.error("error", e);
+            log.error("error", e);
         }
         return null;
     }
@@ -74,7 +71,7 @@ public class RedisLock {
                 Thread.sleep(100);
             }
         } catch (Exception e) {
-            logger.error("error", e);
+            log.error("error", e);
         }
         return null;
     }
@@ -88,7 +85,7 @@ public class RedisLock {
     public boolean releaseLock(String lockName, String identifier) {
         String lockKey = LOCK_NAME_PREFIX + lockName;
         Long result = redisTemplate.execute(unlockScript, Collections.singletonList(lockKey), identifier);
-        logger.info("distributedLock.key{}: - uuid:{}: - result:{}", lockKey, identifier, result);
+        log.info("distributedLock.key{}: - uuid:{}: - result:{}", lockKey, identifier, result);
         if (!StringUtils.isEmpty(result) && result == 1) {
             return true;
         }

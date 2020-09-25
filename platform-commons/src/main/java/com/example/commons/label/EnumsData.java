@@ -1,4 +1,4 @@
-package com.example.commons.model;
+package com.example.commons.label;
 
 import java.io.Serializable;
 
@@ -10,38 +10,38 @@ public class EnumsData implements Serializable {
     private static final long serialVersionUID = -4047302542887710079L;
 
     /** 名称 */
-    private String name;
+    private String label;
     /** 值 */
-    private String value;
+    private Object value;
 
     public EnumsData() {
     }
 
-    public EnumsData(String name, String value) {
-        this.name = name;
+    public EnumsData(String name, Object value) {
+        this.label = name;
         this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
     @Override
     public String toString() {
         return "EnumsData{" +
-                "name='" + name + '\'' +
+                "label='" + label + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }

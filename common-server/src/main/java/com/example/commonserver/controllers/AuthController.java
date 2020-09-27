@@ -1,4 +1,4 @@
-package com.example.authserver.controllers;
+package com.example.commonserver.controllers;
 
 import com.example.commons.model.JWTToken;
 import com.example.commons.utils.JWTUtil;

@@ -33,17 +33,19 @@ public class SysErrorResult<T> implements Result {
         SysErrorResult<T> result = new SysErrorResult<>();
         result.setCode(resultCode.code());
         result.setMessage(resultCode.message() != null ? resultCode.message() : e.getMessage());
-        result.setData(e.getClass().getName() + ": " + e.getMessage());
+//        result.setData(e.getClass().getName() + ": " + e.getMessage());
+        result.setData(e.getMessage());
         return result;
     }
 
     public static <T> SysErrorResult<T> failure(BusinessException e) {
-        BusinessExceptionEnum ee = BusinessExceptionEnum.getByEClass(e.getClass());
+//        BusinessExceptionEnum ee = BusinessExceptionEnum.getByEClass(e.getClass());
+        BusinessExceptionEnum ee = BusinessExceptionEnum.getByCode(e);
         if (ee != null) {
             return SysErrorResult.failure(ee.getResultCode(), e, e.getData());
         }
 
-        SysErrorResult<T> defaultErrorResult = SysErrorResult.failure(e.getResultCode() == null ? ResultCode.SUCCESS : e.getResultCode(), e, e.getData());
+        SysErrorResult<T> defaultErrorResult = SysErrorResult.failure(e.getResultCode() == null ? ResultCode.SYSTEM_INNER_ERROR : e.getResultCode(), e, e.getData());
         if (!StringUtils.isEmpty(e.getMessage())) {
             defaultErrorResult.setMessage(e.getMessage());
         }

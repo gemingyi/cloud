@@ -1,4 +1,4 @@
-package com.example.authserver.oss;
+package com.example.commonserver.oss;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

@@ -91,4 +91,17 @@ public enum BusinessExceptionEnum {
         }
         return null;
     }
+
+    public static BusinessExceptionEnum getByCode(BusinessException businessException) {
+        if (businessException == null) {
+            return null;
+        }
+        String code = businessException.getCode();
+        for (BusinessExceptionEnum exceptionEnum : BusinessExceptionEnum.values()) {
+            if (exceptionEnum.getResultCode().code().toString().equals(code)) {
+                return exceptionEnum;
+            }
+        }
+        return null;
+    }
 }

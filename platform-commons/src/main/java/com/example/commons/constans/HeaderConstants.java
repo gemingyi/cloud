@@ -1,6 +1,6 @@
 package com.example.commons.constans;
 
-public class HeaderConstants {
+public interface HeaderConstants {
 
     /**
      * 用户的登录token

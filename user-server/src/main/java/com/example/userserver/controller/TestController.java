@@ -3,10 +3,12 @@ package com.example.userserver.controller;
 
 import com.example.commons.exceptions.DataNotFoundException;
 import com.example.commons.result.RestResult;
+import com.example.userserver.client.TestClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("user")
 @Api(tags = "测试接口")
 public class TestController {
+
+    @Autowired
+    private TestClient testClient;
 
 
     @ApiOperation("上传文件")
@@ -35,7 +40,7 @@ public class TestController {
     }
 
 
-    @ApiOperation("测试接口")
+    @ApiOperation("测试异常")
     @GetMapping("/testException")
     public RestResult<Object> testException() {
         if (true) {
@@ -43,4 +48,12 @@ public class TestController {
         }
         return RestResult.success();
     }
+
+    @ApiOperation("测试接口")
+    @GetMapping("/test2")
+    public RestResult<Object> test() {
+        testClient.refresh();
+        return null;
+    }
+
 }

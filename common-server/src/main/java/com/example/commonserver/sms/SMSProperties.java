@@ -1,4 +1,4 @@
-package com.example.authserver.sms;
+package com.example.commonserver.sms;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

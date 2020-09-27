@@ -16,12 +16,12 @@ public class AuthFeignServiceFallbackFactory implements FallbackFactory<AuthFeig
 
             @Override
             public RestResult<Object> check(String token) {
-                return RestResult.failure(ResultCode.SERVICE_DEMOTION);
+                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
             }
 
             @Override
             public RestResult<Object> info(String token) {
-                return RestResult.failure(ResultCode.SERVICE_DEMOTION);
+                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
             }
 
         };

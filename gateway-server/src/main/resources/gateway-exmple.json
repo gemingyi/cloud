@@ -1,11 +1,11 @@
 [
   {
-    "id": "auth-server-7777",
+    "id": "common-server-7777",
     "order": 1,
     "predicates": [
       {
         "args": {
-          "_genkey_0": "/auth-server/**"
+          "_genkey_0": "/common-server/**"
         },
         "name": "Path"
       }
@@ -18,7 +18,7 @@
         "name": "StripPrefix"
       }
     ],
-    "uri": "lb://auth-server"
+    "uri": "lb://common-server"
   },
   {
     "id": "user-server-8880",

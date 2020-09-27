@@ -19,6 +19,12 @@ public class IPUtil {
     private static final String ipPattern = "^(?:(?:[01]?\\d{1,2}|2[0-4]\\d|25[0-5])\\.){3}(?:[01]?\\d{1,2}|2[0-4]\\d|25[0-5])\\b";
 
 
+    /**
+     * 获取亲求头
+     *
+     * @param request
+     * @return
+     */
     public static Map<String, Object> getHeaders(HttpServletRequest request) {
         Map<String, Object> headers = new LinkedHashMap<>();
         Enumeration<String> headerNames = request.getHeaderNames();
@@ -32,6 +38,12 @@ public class IPUtil {
         return headers;
     }
 
+    /**
+     * 获取请求参数
+     *
+     * @param request
+     * @return
+     */
     public static String getParams(HttpServletRequest request) {
         String params = "";
         Map<String, String[]> paramMap = request.getParameterMap();
@@ -46,11 +58,9 @@ public class IPUtil {
         return "";
     }
 
-
     /**
-     * @Description: 获取请求中的ip地址：过了多级反向代理，获取的ip不是唯一的，二是包含中间代理层ip。
-     *
      * @return 可能有多个，例如：192.168.1.110， 192.168.1.120
+     * @Description: 获取请求中的ip地址：过了多级反向代理，获取的ip不是唯一的，二是包含中间代理层ip。
      */
     public static String getIpAddr(HttpServletRequest request) {
         String ip = "127.0.0.1";
@@ -73,9 +83,8 @@ public class IPUtil {
     }
 
     /**
-     *
      * @Description: 获取客户端请求中的真实的ip地址
-     *
+     * <p>
      * 获取客户端的IP地址的方法是：request.getRemoteAddr()，这种方法在大部分情况下都是有效的。
      * 但是在通过了Apache，Squid等反向代理软件就不能获取到客户端的真实IP地址。而且，如果通过了多级反向代理的话，X-Forwarded-For的值并不止一个，
      * 而是一串ip值，例如：192.168.1.110， 192.168.1.120， 192.168.1.130， 192.168.1.100。其中第一个192.168.1.110才是用户真实的ip

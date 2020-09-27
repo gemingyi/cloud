@@ -13,11 +13,13 @@ public enum ResultCode {
     /* 成功状态码 */
     SUCCESS(10000, "请求成功"),
 
-    /* 参数错误 */
-    PARAM_IS_INVALID(11001, "参数非法"),
-
     /* 系统错误 */
-    SYSTEM_INNER_ERROR(12001, "系统内部错误"),
+    SYSTEM_INNER_ERROR(11001, "系统内部错误"),
+
+
+    /* 参数错误 */
+    PARAM_IS_INVALID(12001, "参数非法"),
+
 
     /* 接口错误：*/
     INTERFACE_EXCEED_LOAD(13001, "接口负载过高"),
@@ -34,7 +36,9 @@ public enum ResultCode {
 
     /* 微服务 */
     NO_PERMISSION(21001, "服务未授权"),
-    SERVICE_DEMOTION(21002, "网关下游服务降级");
+    SERVICE_DEMOTION(21002, "下游服务超时"),
+    SERVICE_EXCEPTION(21003, "服务被调用方异常"),
+    SERVICE_DOWNGRADE(21004, "服务被调用方降级");
 
     /* 用户错误：*/
 

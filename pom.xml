@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.15.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
 
     <modules>
@@ -44,10 +44,10 @@
         <!-- https://start.spring.io/actuator/info    cloud版本对照 -->
         <spring-cloud.version>Greenwich.SR6</spring-cloud.version>
         <!-- https://github.com/alibaba/spring-cloud-alibaba/wiki/%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E    ali-cloud版本对照 -->
+        <spring-cloud-alibaba.version>2.1.3.RELEASE</spring-cloud-alibaba.version>
         <nacos.version>2.1.2.RELEASE</nacos.version>
         <lombok.version>1.18.4</lombok.version>
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
-        <hibernate-validator.version>6.0.10.Final</hibernate-validator.version>
         <google-guava.version>23.0</google-guava.version>
         <google-zxing.version>3.3.3</google-zxing.version>
         <auth0-jwt.version>3.8.3</auth0-jwt.version>
@@ -90,6 +90,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba.cloud</groupId>-->
+<!--                <artifactId>spring-cloud-alibaba-dependencies</artifactId>-->
+<!--                <version>${spring-cloud-alibaba.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
 
             <dependency>
                 <groupId>com.example</groupId>
@@ -102,13 +109,6 @@
                 <artifactId>platform-commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-            <!-- admin -->
-            <dependency>
-                <groupId>com.example</groupId>
-                <artifactId>platform-monitor</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
-
             <!-- plugin -->
             <dependency>
                 <groupId>com.example</groupId>
@@ -177,12 +177,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>1.8</version>
-            </dependency>
-            <!-- validator -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
             </dependency>
             <!-- google guava -->
             <dependency>

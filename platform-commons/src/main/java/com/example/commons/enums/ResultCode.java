@@ -19,6 +19,10 @@ public enum ResultCode {
 
     /* 参数错误 */
     PARAM_IS_INVALID(12001, "参数非法"),
+    /* 数据错误：*/
+    RESULT_DATA_NONE(12002, "数据未找到"),
+    DATA_IS_WRONG(12003, "数据有误"),
+    DATA_ALREADY_EXISTED(12004, "数据已存在"),
 
 
     /* 接口错误：*/
@@ -29,14 +33,9 @@ public enum ResultCode {
     USER_NOT_LOGGED_IN(14001, "用户未登录"),
     PERMISSION_NO_ACCESS(14003, "无访问权限"),
 
-    /* 数据错误：*/
-    RESULT_DATA_NONE(15001, "数据未找到"),
-    DATA_IS_WRONG(15002, "数据有误"),
-    DATA_ALREADY_EXISTED(15003, "数据已存在"),
-
     /* 微服务 */
     NO_PERMISSION(21001, "服务未授权"),
-    SERVICE_DEMOTION(21002, "下游服务超时"),
+    SERVICE_DEMOTION(21002, "服务超时"),
     SERVICE_EXCEPTION(21003, "服务被调用方异常"),
     SERVICE_DOWNGRADE(21004, "服务被调用方降级");
 

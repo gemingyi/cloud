@@ -12,7 +12,7 @@
     <groupId>com.example</groupId>
     <artifactId>platform-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+<!--    <packaging>pom</packaging>-->
 
     <name>platform-boot</name>
     <description>Demo project for Spring Boot</description>

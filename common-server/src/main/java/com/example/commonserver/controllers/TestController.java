@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "测试接口")
 public class TestController {
 
-    @ApiOperation("测试接口")
+    @ApiOperation("测试远程异常接口")
     @RequestMapping("test")
-    public RestResult<Object> refresh() {
+    public RestResult<Object> test() {
         if (true) {
             throw new DataConflictException();
         }

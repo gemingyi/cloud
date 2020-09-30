@@ -3,6 +3,7 @@ package com.example.platformboot.handler;
 import com.example.commons.enums.ResultCode;
 import com.example.commons.exceptions.BusinessException;
 import com.example.commons.result.SysErrorResult;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,8 @@ import java.util.List;
  * @CreateDate: 2019/6/12 15:54$
  */
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
-
-    private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
 
     /**

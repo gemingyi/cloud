@@ -8,9 +8,11 @@ import com.example.userserver.model.UserInfo;
 import com.example.userserver.model.UserLogin;
 import com.example.userserver.service.IUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserInfoServiceImpl implements IAbstractService<UserInfo>, IUserInfoService {
 
     @Autowired
@@ -51,6 +53,11 @@ public class UserInfoServiceImpl implements IAbstractService<UserInfo>, IUserInf
     @Override
     public IPage<UserInfo> listPage(Page<UserInfo> page, UserInfo userInfo) {
         return null;
+    }
+
+    @Override
+    public int testResult() {
+        return 0;
     }
 
 }

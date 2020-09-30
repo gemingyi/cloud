@@ -1,5 +1,9 @@
 package com.example.commons.constans;
 
+/**
+* @Description 亲求头常量
+* @Author mingyi ge
+*/
 public interface HeaderConstants {
 
     /**
@@ -22,11 +26,6 @@ public interface HeaderConstants {
      */
     public static final String CALL_SOURCE = "Call-Source";
 
-    /**
-     * 防重复提交token
-     */
-    public static final String REPEAT_TOKEN = "Repeat_Token";
-
 
     public static String getXToken() {
         return X_TOKEN;
@@ -44,7 +43,4 @@ public interface HeaderConstants {
         return CALL_SOURCE;
     }
 
-    public static String getRepeatToken() {
-        return REPEAT_TOKEN;
-    }
 }

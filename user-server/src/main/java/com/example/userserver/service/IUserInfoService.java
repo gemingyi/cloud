@@ -13,4 +13,6 @@ public interface IUserInfoService {
 
     IPage<UserInfo> listPage(Page<UserInfo> page, UserInfo userInfo);
 
+    int testResult();
+
 }

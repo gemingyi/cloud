@@ -5,9 +5,8 @@
  * dev 葛明逸
 
 ### 模块
- * anth-server    微服务鉴权服务
+ * common-server    通用服务
  * gatewat-serrver   网关服务
- * nacos-serrver    注册中心
  * platform-boot    父pom
  * platform-commons    公用包
  * platform-monitor    admin监控

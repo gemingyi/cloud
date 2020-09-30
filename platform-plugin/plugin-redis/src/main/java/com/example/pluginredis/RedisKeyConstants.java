@@ -15,8 +15,7 @@ public class RedisKeyConstants {
     /**
      * 分布式锁，前缀
      */
-    public static final String LOCK_NAME_PREFIX = "lock:";
-
+    public static final String LOCK_NAME_PREFIX = "lock" + KEY_SPLIT_CHAR;
 
     /**
      * 公共

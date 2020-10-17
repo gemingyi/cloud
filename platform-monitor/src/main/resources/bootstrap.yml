@@ -13,7 +13,7 @@ management:
 
 spring:
   application:
-    name: plarform-admin-server
+    name: platform-admin-server
   cloud:
     nacos:
       discovery:

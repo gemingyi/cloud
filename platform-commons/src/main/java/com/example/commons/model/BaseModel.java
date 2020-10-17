@@ -11,13 +11,24 @@ import java.util.Date;
 public class BaseModel implements Serializable {
     private static final long serialVersionUID = 20200314;
 
-
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 创建人
+     */
     private String createBy;
 
+    /**
+     * 更新时间
+     */
     private Date updateTime;
 
+    /**
+     * 更新人
+     */
     private String updateBy;
 
 

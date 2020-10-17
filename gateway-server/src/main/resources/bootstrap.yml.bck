@@ -18,6 +18,8 @@ management:
 spring:
   application:
     name: gateway-server
+  profiles:
+    active: dev
   cloud:
     nacos:
       config:
@@ -35,18 +37,17 @@ spring:
 #      retry:
 #        enabled: true
     gateway:
+      #
       default-filters:
         - name: Hystrix
           args:
             name: fallbackcmd
             fallbackUri: forward:/fallback
-#        - name: Retry
-#          args:
-#            retries: 3
-#              series:
-#              - SERVER_ERROR
-#              methods:
-#              - GET
+        - name: Retry
+          args:
+            retries: 3
+            statuses: SERVER_ERROR
+      # 跨域
       globalcors:
         cors-configurations:
           '[/**]':
@@ -55,8 +56,6 @@ spring:
             allowed-headers: "*"
             allowed-methods: "*"
             max-age: 3600
-
-
 
 #默认为true可不配置
 feign:
@@ -80,11 +79,16 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000 #熔断超时时间
+      circuitBreaker:
+        #在当20秒的时间内，最近50次调用请求，请求错误率超过60%，则触发熔断10秒，期间快速失败。
+        requestVolumeThreshold: 50
+        errorThresholdPercentage: 60
+        sleepWindowInMilliseconds: 10000
+
 ribbon:
   connectTimeout: 2500 #请求连接的超时时间，默认时间为1秒
   readTimeout: 2500 #请求处理的超时时间
   # 重试
-  #  OkToRetryOnAllOperations: true  #对所有操作请求都进行重试 false只重试get
   MaxAutoRetries: 1 #对当前实例的重试次数
   MaxAutoRetriesNextServer: 1 #切换实例的重试次数
-  OkToRetryOnAllOperations: false
+  OkToRetryOnAllOperations: false  #对所有操作请求都进行重试 false只重试get

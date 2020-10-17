@@ -35,7 +35,8 @@
 //    public FilterRegistrationBean<org.springframework.web.filter.CorsFilter> corsFilter() {
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //
-//        source.registerCorsConfiguration("/**", buildConfig()); //CORS 配置对所有接口都有效
+//        //CORS 配置对所有接口都有效
+//        source.registerCorsConfiguration("/**", buildConfig());
 //        FilterRegistrationBean<org.springframework.web.filter.CorsFilter> bean = new FilterRegistrationBean<>(new org.springframework.web.filter.CorsFilter(source));
 //        bean.setOrder(0);
 //        return bean;

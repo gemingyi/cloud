@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 /**
  * 模块信息
- * 
- * @author ckwen
- *
  */
 public class ModuleInfo implements Serializable {
 

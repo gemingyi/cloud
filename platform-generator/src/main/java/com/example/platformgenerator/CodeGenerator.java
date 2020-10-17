@@ -25,22 +25,26 @@ public class CodeGenerator {
     private static final String dataSource = "127.0.0.1:3306/";
     private static final String user = "root";
     private static final String password = "123456";
-    private static final String dataBaseName = "test1";
+    private static final String dataBaseName = "test2";
     // 需要生成的表 ,分割
     private static final String tables = "test";
 
     static {
         // 设置模块信息
         moduleInfoList = new ArrayList<>();
-        // 工程名，包名，表前缀
-        moduleInfoList.add(ModuleInfo.instance("platform-generator", "com.example.platformgenerator", "test_1"));
+        // 模块名， 包名， 表前缀
+        moduleInfoList.add(ModuleInfo.instance("platform-generator", "com.example.commonserver", ""));
     }
 
+    /**
+     * main
+     */
     public static void main(String[] args) {
         for (ModuleInfo info : moduleInfoList) {
             autoGenerator(info);
         }
     }
+
 
     private static void autoGenerator(ModuleInfo moduleInfo) {
         // 代码生成器
@@ -116,12 +120,14 @@ public class CodeGenerator {
         globalConfig.setOpen(true);    //是否打开输出目录 默认值:true
         globalConfig.setFileOverride(true); //是否覆蓋已有文件 默认值：false
 //        globalConfig.setSwagger2(true); //开启 swagger2 模式 默认false
-//        globalConfig.setEntityName("%sEntity");			//实体命名方式  默认值：null 例如：%sEntity 生成 UserEntity
-//        globalConfig.setMapperName("%sMapper");			//mapper 命名方式 默认值：null 例如：%sDao 生成 UserDao
-//        globalConfig.setXmlName("%sMapper");				//Mapper xml 命名方式   默认值：null 例如：%sDao 生成 UserDao.xml
-//        globalConfig.setServiceName("%sService");			//service 命名方式   默认值：null 例如：%sBusiness 生成 UserBusiness
-//        globalConfig.setServiceImplName("%sServiceImpl");	//service impl 命名方式  默认值：null 例如：%sBusinessImpl 生成 UserBusinessImpl
+        globalConfig.setEntityName("generate_%s");			//实体命名方式  默认值：null 例如：%sEntity 生成 UserEntity
+        globalConfig.setMapperName("generate_%sMapper");			//mapper 命名方式 默认值：null 例如：%sDao 生成 UserDao
+        globalConfig.setXmlName("generate_%sMapper");				//Mapper xml 命名方式   默认值：null 例如：%sDao 生成 UserDao.xml
+        globalConfig.setServiceName("generate_%sService");			//service 命名方式   默认值：null 例如：%sBusiness 生成 UserBusiness
+        globalConfig.setServiceImplName("generate_%sServiceImpl");	//service impl 命名方式  默认值：null 例如：%sBusinessImpl 生成 UserBusinessImpl
 //        globalConfig.setControllerName("%sController");	//controller 命名方式    默认值：null 例如：%sAction 生成 UserAction
+        globalConfig.setBaseResultMap(true);// XML ResultMap
+        globalConfig.setBaseColumnList(true);// XML columList
         return globalConfig;
     }
 

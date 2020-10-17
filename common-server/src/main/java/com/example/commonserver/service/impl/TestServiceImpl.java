@@ -1,6 +1,7 @@
 package com.example.commonserver.service.impl;
 
 import com.example.commons.IAbstractService;
+import com.example.commons.exceptions.DataConflictException;
 import com.example.commonserver.dao.TestMapper;
 import com.example.commonserver.model.Test;
 import com.example.commonserver.service.ITestService;
@@ -39,5 +40,12 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
     @Override
     public Test getById(Integer id) {
         return null;
+    }
+
+    @Override
+    public void seataTest() {
+        Test test = new Test();
+        test.setName("userTest");
+        this.testMapper.insert(test);
     }
 }

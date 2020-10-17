@@ -5,6 +5,7 @@ import com.example.commons.exceptions.DataNotFoundException;
 import com.example.commons.result.RestResult;
 import com.example.pluginredis.javascript.JavascriptTemplate;
 import com.example.userserver.client.TestClient;
+import com.example.userserver.service.ITestService;
 import com.example.userserver.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -21,6 +22,8 @@ public class TestController {
 
     @Autowired
     private TestClient testClient;
+    @Autowired
+    private ITestService testService;
 
     @Autowired
     private JavascriptTemplate javascriptTemplate;
@@ -70,4 +73,11 @@ public class TestController {
         return null;
     }
 
+
+    @ApiOperation("测试seata事务接口")
+    @PostMapping("/test3")
+    public RestResult<Object> test3() {
+        testService.seataTest();
+        return null;
+    }
 }

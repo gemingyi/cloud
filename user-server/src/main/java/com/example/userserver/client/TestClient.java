@@ -1,7 +1,9 @@
 package com.example.userserver.client;
 
 import com.example.commons.result.RestResult;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -14,4 +16,7 @@ public interface TestClient {
     @RequestMapping("test")
     RestResult<Object> refresh();
 
+
+    @PostMapping("seata")
+    RestResult<Object> seataTest();
 }

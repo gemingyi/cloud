@@ -1,12 +1,14 @@
 package com.example.userserver.service.impl;
 
 import com.example.commons.IAbstractService;
+import com.example.userserver.client.TestClient;
 import com.example.userserver.dao.TestMapper;
 import com.example.userserver.model.Test;
 import com.example.userserver.service.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -14,6 +16,8 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
 
     @Autowired
     private TestMapper testMapper;
+    @Autowired
+    private TestClient testClient;
 
 
     @Override
@@ -39,5 +43,18 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
     @Override
     public Test getById(Integer id) {
         return null;
+    }
+
+
+    @Override
+//    @GlobalTransactional(name = "seata-test",rollbackFor = RuntimeException.class)
+    public void seataTest() {
+
+        testClient.seataTest();
+
+        Test test = new Test();
+        test.setName("userTest");
+        test.setPrice(BigDecimal.ZERO);
+        this.testMapper.insert(test);
     }
 }

@@ -34,7 +34,7 @@ public class SysErrorResult<T> implements Result {
         result.setCode(resultCode.code());
         result.setMessage(resultCode.message() != null ? resultCode.message() : e.getMessage());
 //        result.setData(e.getClass().getName() + ": " + e.getMessage());
-        result.setData(e.getMessage());
+//        result.setData(e.getMessage());
         return result;
     }
 

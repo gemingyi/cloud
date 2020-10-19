@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
      * 处理请求参数验证异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<SysErrorResult<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<SysErrorResult<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         StringBuilder sb = new StringBuilder();
         List<FieldError> fieldErrorList = e.getBindingResult().getFieldErrors();
         for (FieldError fieldError : fieldErrorList) {
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
      * 处理自定义异常
      */
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<SysErrorResult<Object>> handleBusinessException(BusinessException e, HttpServletRequest request) {
+    public ResponseEntity<SysErrorResult<Object>> handleBusinessException(BusinessException e) {
         SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
     }
@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
      * 处理运行时异常
      */
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<SysErrorResult<Object>> handleThrowable(Throwable e, HttpServletRequest request) {
+    public ResponseEntity<SysErrorResult<Object>> handleThrowable(Throwable e) {
         SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.SYSTEM_INNER_ERROR, e, null);
         //TODO 可通过邮件、发送信息至开发人员、记录存档等操作
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);

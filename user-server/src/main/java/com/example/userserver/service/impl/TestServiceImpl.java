@@ -5,6 +5,7 @@ import com.example.userserver.client.TestClient;
 import com.example.userserver.dao.TestMapper;
 import com.example.userserver.model.Test;
 import com.example.userserver.service.ITestService;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,14 +48,14 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
 
 
     @Override
-//    @GlobalTransactional(name = "seata-test",rollbackFor = RuntimeException.class)
+    @GlobalTransactional(name = "seata-test",rollbackFor = RuntimeException.class)
     public void seataTest() {
-
-        testClient.seataTest();
 
         Test test = new Test();
         test.setName("userTest");
         test.setPrice(BigDecimal.ZERO);
         this.testMapper.insert(test);
+
+        testClient.seataTest();
     }
 }

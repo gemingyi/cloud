@@ -2,7 +2,7 @@ package com.example.commonserver.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.example.commons.model.BaseModel;
+import com.example.pluginmysql.model.BaseModel;
 
 /**
  * <p>

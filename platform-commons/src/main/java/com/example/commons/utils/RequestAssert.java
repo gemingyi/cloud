@@ -1,6 +1,6 @@
 package com.example.commons.utils;
 
-import com.example.commons.exceptions.IllegalParameterException;
+import com.example.commons.exceptionHandle.exceptions.IllegalParameterException;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;

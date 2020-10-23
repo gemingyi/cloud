@@ -1,8 +1,7 @@
 package com.example.commons.result;
 
-import com.example.commons.enums.BusinessExceptionEnum;
-import com.example.commons.enums.ResultCode;
-import com.example.commons.exceptions.BusinessException;
+import com.example.commons.exceptionHandle.BusinessExceptionEnum;
+import com.example.commons.exceptionHandle.exceptions.BusinessException;
 import org.springframework.util.StringUtils;
 
 
@@ -29,27 +28,32 @@ public class SysErrorResult<T> implements Result {
     private T data;
 
 
-    public static <T> SysErrorResult<T> failure(ResultCode resultCode, Throwable e, Object errors) {
-        SysErrorResult<T> result = new SysErrorResult<>();
-        result.setCode(resultCode.code());
-        result.setMessage(resultCode.message() != null ? resultCode.message() : e.getMessage());
-//        result.setData(e.getClass().getName() + ": " + e.getMessage());
-//        result.setData(e.getMessage());
-        return result;
-    }
-
     public static <T> SysErrorResult<T> failure(BusinessException e) {
 //        BusinessExceptionEnum ee = BusinessExceptionEnum.getByEClass(e.getClass());
         BusinessExceptionEnum ee = BusinessExceptionEnum.getByCode(e);
         if (ee != null) {
-            return SysErrorResult.failure(ee.getResultCode(), e, e.getData());
+            return SysErrorResult.failure(ee.getResultCode(), e);
         }
 
-        SysErrorResult<T> defaultErrorResult = SysErrorResult.failure(e.getResultCode() == null ? ResultCode.SYSTEM_INNER_ERROR : e.getResultCode(), e, e.getData());
+        SysErrorResult<T> defaultErrorResult = SysErrorResult.failure(e.getResultCode() == null ? ResultCode.SYSTEM_INNER_ERROR : e.getResultCode(), e);
         if (!StringUtils.isEmpty(e.getMessage())) {
             defaultErrorResult.setMessage(e.getMessage());
         }
         return defaultErrorResult;
+    }
+
+    public static <T> SysErrorResult<T> failure(ResultCode resultCode, Throwable e) {
+        SysErrorResult<T> result = new SysErrorResult<>();
+        result.setCode(resultCode.code());
+        result.setMessage(resultCode.message() != null ? resultCode.message() : e.getMessage());
+        return result;
+    }
+
+    public static <T> SysErrorResult<T> failure(ResultCode resultCode, String msg) {
+        SysErrorResult<T> result = new SysErrorResult<>();
+        result.setCode(resultCode.code());
+        result.setMessage(msg);
+        return result;
     }
 
 
@@ -73,7 +77,7 @@ public class SysErrorResult<T> implements Result {
         return data;
     }
 
-    public void setData(Object data) {
-        this.data = (T) data;
+    public void setData(T data) {
+        this.data = data;
     }
 }

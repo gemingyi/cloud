@@ -1,4 +1,4 @@
-package com.example.commons.model;
+package com.example.commons.jwt;
 
 public class JWTToken {
 

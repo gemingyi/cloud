@@ -1,4 +1,4 @@
-package com.example.commons.enums;
+package com.example.commons.result;
 
 import java.util.ArrayList;
 import java.util.List;

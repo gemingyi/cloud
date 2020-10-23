@@ -1,9 +1,9 @@
 package com.example.gatewayserver.filters;
 
 import com.alibaba.fastjson.JSON;
-import com.example.commons.enums.ResultCode;
+import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
-import com.example.commons.utils.JWTUtil;
+import com.example.commons.jwt.JWTUtil;
 import com.example.gatewayserver.feign.AuthFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

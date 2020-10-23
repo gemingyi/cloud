@@ -1,8 +1,8 @@
-package com.example.commons.exceptions;
+package com.example.commons.exceptionHandle.exceptions;
 
 
-import com.example.commons.enums.BusinessExceptionEnum;
-import com.example.commons.enums.ResultCode;
+import com.example.commons.exceptionHandle.BusinessExceptionEnum;
+import com.example.commons.result.ResultCode;
 
 /**
  * @Description: 业务异常类统一父类

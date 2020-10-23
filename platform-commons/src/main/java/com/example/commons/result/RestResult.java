@@ -1,8 +1,6 @@
 package com.example.commons.result;
 
 
-import com.example.commons.enums.ResultCode;
-
 /**
  * @Description:
  * @Author: mingyi ge

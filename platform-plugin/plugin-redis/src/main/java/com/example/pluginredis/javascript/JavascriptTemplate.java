@@ -1,6 +1,6 @@
 package com.example.pluginredis.javascript;
 
-import com.example.commons.enums.ResultCode;
+import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
 import com.example.commons.utils.RequestAssert;
 import com.example.pluginredis.util.RedisLock;

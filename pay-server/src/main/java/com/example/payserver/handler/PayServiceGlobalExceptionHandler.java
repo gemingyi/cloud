@@ -1,7 +1,7 @@
 //package com.example.payserver.handler;
 //
-//import com.example.commons.enums.ResultCode;
-//import com.example.commons.exceptions.BusinessException;
+//import com.example.commons.result.ResultCode;
+//import com.example.commons.exceptionHandle.exceptions.BusinessException;
 //import com.example.commons.result.SysErrorResult;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

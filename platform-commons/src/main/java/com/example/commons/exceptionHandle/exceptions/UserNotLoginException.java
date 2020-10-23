@@ -1,4 +1,4 @@
-package com.example.commons.exceptions;
+package com.example.commons.exceptionHandle.exceptions;
 
 /**
  * @Description:    未登录

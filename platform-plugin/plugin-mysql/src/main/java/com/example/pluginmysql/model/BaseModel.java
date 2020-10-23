@@ -1,4 +1,4 @@
-package com.example.commons.model;
+package com.example.pluginmysql.model;
 
 import java.io.Serializable;
 import java.util.Date;

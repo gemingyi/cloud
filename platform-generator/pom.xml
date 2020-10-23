@@ -26,16 +26,16 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <!-- plugin-mysql -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-mysql</artifactId>
+        </dependency>
         <!-- mybatis-plus-generator -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
-        <!-- plugin-common -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>platform-commons</artifactId>
-            <scope>provided</scope>
+            <version>3.2.0</version>
         </dependency>
         <!-- velocity模板 -->
         <dependency>

@@ -1,6 +1,6 @@
 package com.example.gatewayserver.feign.fallback;
 
-import com.example.commons.enums.ResultCode;
+import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
 import com.example.gatewayserver.feign.AuthFeign;
 import feign.hystrix.FallbackFactory;

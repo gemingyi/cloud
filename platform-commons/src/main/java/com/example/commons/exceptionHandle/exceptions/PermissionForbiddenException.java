@@ -1,7 +1,7 @@
-package com.example.commons.exceptions;
+package com.example.commons.exceptionHandle.exceptions;
 
 
-import com.example.commons.enums.ResultCode;
+import com.example.commons.result.ResultCode;
 
 /**
  * @Description:    权限不足

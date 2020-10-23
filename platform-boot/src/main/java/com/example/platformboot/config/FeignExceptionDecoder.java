@@ -1,6 +1,6 @@
 package com.example.platformboot.config;
 
-import com.example.commons.exceptions.InternalServerException;
+import com.example.commons.exceptionHandle.exceptions.InternalServerException;
 import com.example.commons.utils.JSONUtil;
 import feign.Response;
 import feign.Util;

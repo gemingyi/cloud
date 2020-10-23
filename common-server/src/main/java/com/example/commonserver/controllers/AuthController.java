@@ -1,7 +1,7 @@
 package com.example.commonserver.controllers;
 
-import com.example.commons.model.JWTToken;
-import com.example.commons.utils.JWTUtil;
+import com.example.commons.jwt.JWTToken;
+import com.example.commons.jwt.JWTUtil;
 import com.example.commons.result.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,20 +1,14 @@
 package com.example.platformboot.handler;
 
-import com.example.commons.enums.ResultCode;
-import com.example.commons.exceptions.BusinessException;
+import com.example.commons.result.ResultCode;
+import com.example.commons.exceptionHandle.exceptions.BusinessException;
 import com.example.commons.result.SysErrorResult;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @Description: 单体全局异常处理
@@ -27,21 +21,17 @@ public class GlobalExceptionHandler {
 
 
     /**
-     * 处理请求参数验证异常
+     *  处理RequestBody参数验证异常
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<SysErrorResult<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        StringBuilder sb = new StringBuilder();
-        List<FieldError> fieldErrorList = e.getBindingResult().getFieldErrors();
-        for (FieldError fieldError : fieldErrorList) {
-            sb.append(fieldError.getField()).append("字段：").append(fieldError.getDefaultMessage());
-        }
-        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.PARAM_IS_INVALID, e, sb);
+//        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.PARAM_IS_INVALID, e);
+        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.PARAM_IS_INVALID, e.getBindingResult().getFieldError().getDefaultMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
     }
 
     /**
-     * 处理自定义异常
+     * 处理自定义业务异常
      */
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<SysErrorResult<Object>> handleBusinessException(BusinessException e) {
@@ -54,7 +44,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<SysErrorResult<Object>> handleThrowable(Throwable e) {
-        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.SYSTEM_INNER_ERROR, e, null);
+        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.SYSTEM_INNER_ERROR, e);
         //TODO 可通过邮件、发送信息至开发人员、记录存档等操作
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
     }

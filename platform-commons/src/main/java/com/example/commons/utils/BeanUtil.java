@@ -1,6 +1,5 @@
 package com.example.commons.utils;
 
-import org.json.JSONObject;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.StringUtils;
@@ -18,7 +17,7 @@ import java.util.Map;
 public class BeanUtil {
 
     public static Map<String, Object> Obj2Map(Object obj) throws Exception {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);

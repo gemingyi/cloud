@@ -1,6 +1,6 @@
 package com.example.gatewayserver;
 
-import com.example.commons.enums.ResultCode;
+import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

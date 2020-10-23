@@ -33,7 +33,7 @@ public class CodeGenerator {
         // 设置模块信息
         moduleInfoList = new ArrayList<>();
         // 模块名， 包名， 表前缀
-        moduleInfoList.add(ModuleInfo.instance("platform-generator", "com.example.commonserver", ""));
+        moduleInfoList.add(ModuleInfo.instance("common-server", "com.example.commonserver", ""));
     }
 
     /**
@@ -161,7 +161,7 @@ public class CodeGenerator {
         strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);  //数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
 //        strategyConfig.setEntityLombokModel(true);    //【实体】是否为lombok模型（默认 false
 
-        strategyConfig.setSuperEntityClass("com.example.commons.model.BaseModel");   // 公共父类
+        strategyConfig.setSuperEntityClass("com.example.pluginmysql.model.BaseModel");   // 公共父类
 //        strategyConfig.setSuperEntityColumns("id");   // 父类中的公共字段
 
 //        strategyConfig.setSuperControllerClass("你自己的父类控制器,没有就不用设置!"); //自定义继承的Controller类全称，带包名

@@ -1,7 +1,8 @@
-package com.example.commons.enums;
+package com.example.commons.exceptionHandle;
 
 
-import com.example.commons.exceptions.*;
+import com.example.commons.result.ResultCode;
+import com.example.commons.exceptionHandle.exceptions.*;
 
 /**
  * @Description:

@@ -1,0 +1,12 @@
+# 定义组，应用中也需要对应
+service.vgroupMapping.my_test_tx_group=default
+#这里的名字与file.conf中default.grouplist = "127.0.0.1:8091"相同
+service.default.grouplist=127.0.0.1:8091
+# store
+store.mode=db
+store.db.datasource=druid
+store.db.dbType=mysql
+store.db.driverClassName=com.mysql.jdbc.Driver
+store.db.url=jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true
+store.db.user=root
+store.db.password=123456

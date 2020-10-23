@@ -1,6 +1,7 @@
 package com.example.payserver.service;
 
 import com.example.commons.utils.BeanUtil;
+import com.example.commons.utils.QRBarCodeUtil;
 import com.example.payserver.commons.weixin.MyConfig;
 import com.example.payserver.commons.weixin.WXPay;
 import com.example.payserver.commons.weixin.WXPayConstants;
@@ -37,7 +38,7 @@ public class WeixinPayService {
         params.put("product_id", "商品ID");
         params = wxpay.fillRequestData(params);
 
-        StringBuffer qrCode = new StringBuffer();
+        StringBuilder qrCode = new StringBuilder();
         qrCode.append("weixin://wxpay/bizpayurl?");
         qrCode.append("appid=").append(params.get("appid"));
         qrCode.append("&mch_id=").append(params.get("mch_id"));
@@ -45,6 +46,7 @@ public class WeixinPayService {
         qrCode.append("&product_id=").append(params.get("product_id"));
         qrCode.append("&time_stamp=").append(params.get("time_stamp"));
         qrCode.append("&sign=").append(params.get("sign"));
+        QRBarCodeUtil.generateQrCode(qrCode.toString());
     }
 
     /**

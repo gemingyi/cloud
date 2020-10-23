@@ -1,6 +1,6 @@
 //package com.example.gatewayserver.filters;
 //
-//import com.example.commons.enums.ResultCode;
+//import com.example.commons.result.ResultCode;
 //import com.example.commons.result.RestResult;
 //import com.google.common.cache.CacheBuilder;
 //import com.google.common.cache.CacheLoader;

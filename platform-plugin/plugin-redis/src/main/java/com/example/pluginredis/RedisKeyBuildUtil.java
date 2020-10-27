@@ -3,14 +3,22 @@ package com.example.pluginredis;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.pluginredis.RedisKeyConstants.KEY_PREFIX;
 import static com.example.pluginredis.RedisKeyConstants.KEY_SPLIT_CHAR;
+import static org.apache.commons.lang3.StringUtils.prependIfMissing;
+import static org.apache.commons.lang3.StringUtils.uncapitalize;
 
 public class RedisKeyBuildUtil {
 
+    private static final String GET = "get";
+    private static final String IS = "is";
+    private static final String GET_IS = "get|is";
+    private static final String GET_CLASS = "getClass";
 
     /**
      * redis的key键规则定义
@@ -74,6 +82,38 @@ public class RedisKeyBuildUtil {
      * @Author mingyi ge
      */
     private static String[] ObjToStrArray(Object obj) {
+//        Method[] methods = obj.getClass().getMethods();
+//        List<String> list = new ArrayList<>(methods.length);
+//        try {
+//            for (Method m : methods) {
+//                if (m.getParameterTypes().length > 0) {
+//                    continue;
+//                }
+//                if (m.getReturnType() == Boolean.class || m.getReturnType() == boolean.class) {
+//                    // 如果返回值是 boolean 则兼容 isXxx 的写法
+//                    if (m.getName().startsWith(IS)) {
+//                        String fieldName = uncapitalize(m.getName().substring(2));
+//                        Object value = m.invoke(obj);
+//                        if (value != null) {
+//                            list.add(fieldName + "_" + value);
+//                        }
+//                        continue;
+//                    }
+//                }
+//                // 以get开头但排除getClass()方法
+//                if (m.getName().startsWith(GET) && !GET_CLASS.equals(m.getName())) {
+//                    String fieldName = uncapitalize(m.getName().replaceFirst(GET_IS, ""));
+//                    Object value = m.invoke(obj);
+//                    if (value != null) {
+//                        list.add(fieldName + "_" + value);
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return list.toArray(new String[methods.length]);
+
         Field[] fields = obj.getClass().getDeclaredFields();
         List<String> list = new ArrayList<>(fields.length);
         try {

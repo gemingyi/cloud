@@ -25,9 +25,9 @@ public class CodeGenerator {
     private static final String dataSource = "127.0.0.1:3306/";
     private static final String user = "root";
     private static final String password = "123456";
-    private static final String dataBaseName = "test2";
+    private static final String dataBaseName = "test1";
     // 需要生成的表 ,分割
-    private static final String tables = "test";
+    private static final String tables = "common_image,common_sms";
 
     static {
         // 设置模块信息
@@ -131,6 +131,9 @@ public class CodeGenerator {
         return globalConfig;
     }
 
+    /**
+     * 生成路径
+     */
     private static PackageConfig initPackageConfig(ModuleInfo moduleInfo) {
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setModuleName(null);
@@ -143,6 +146,9 @@ public class CodeGenerator {
         return packageConfig;
     }
 
+    /**
+     * 配置生成那些类
+     */
     private static TemplateConfig initTemplateConfig() {
         TemplateConfig templateConfig = new TemplateConfig();
         // 配置自定义输出模板
@@ -162,7 +168,7 @@ public class CodeGenerator {
 //        strategyConfig.setEntityLombokModel(true);    //【实体】是否为lombok模型（默认 false
 
         strategyConfig.setSuperEntityClass("com.example.pluginmysql.model.BaseModel");   // 公共父类
-//        strategyConfig.setSuperEntityColumns("id");   // 父类中的公共字段
+//        strategyConfig.setSuperEntityColumns("createTime,createBy,updateTime,updateBy");   // 父类中的公共字段
 
 //        strategyConfig.setSuperControllerClass("你自己的父类控制器,没有就不用设置!"); //自定义继承的Controller类全称，带包名
 //        strategyConfig.setRestControllerStyle(true);  //生成 @RestController 控制器

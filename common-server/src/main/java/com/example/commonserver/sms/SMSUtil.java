@@ -1,4 +1,4 @@
-//package com.example.authserver.sms;
+//package com.example.commonserver.sms;
 //
 //import com.aliyuncs.CommonRequest;
 //import com.aliyuncs.CommonResponse;
@@ -9,8 +9,6 @@
 //import com.aliyuncs.http.MethodType;
 //import com.aliyuncs.profile.DefaultProfile;
 //import lombok.extern.slf4j.Slf4j;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
 //

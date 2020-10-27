@@ -1,4 +1,4 @@
-//package com.example.authserver.email;
+//package com.example.commonserver.email;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.core.io.FileSystemResource;

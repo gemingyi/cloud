@@ -16,6 +16,8 @@ import java.util.Date;
 
 public class JWTUtil {
 
+    // token过期时间 一天
+    private static final long expiresIn = 1000 * 60 * 60 * 24L;
     // 密钥
     private static final String secret = "#2020-06-17^^!))(><-+%";
 
@@ -28,10 +30,8 @@ public class JWTUtil {
      */
     public static JWTToken sign(String account, String role) {
         try {
-            //过期时间 一天
-            long expiresIn = 1000 * 60 * 60 * 24L;
             Date date = new Date(System.currentTimeMillis() + expiresIn);
-
+            //
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withSubject(account)
@@ -53,7 +53,6 @@ public class JWTUtil {
             return null;
         }
     }
-
 
     /**
      * 刷新token
@@ -82,7 +81,11 @@ public class JWTUtil {
         }
     }
 
-
+    /**
+    * @Description 获取当前用户信息（账户）
+    * @Author mingyi ge
+    * @Date 2020/10/23 16:27
+    */
     public static String getSubject(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);

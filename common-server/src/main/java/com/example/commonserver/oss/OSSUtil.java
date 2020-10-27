@@ -1,9 +1,10 @@
-//package com.example.authserver.oss;
+//package com.example.commonserver.oss;
 //
 //import com.aliyun.oss.OSSClient;
 //import com.aliyun.oss.model.DeleteObjectsRequest;
 //import com.aliyun.oss.model.OSSObjectSummary;
 //import com.aliyun.oss.model.ObjectListing;
+//import com.example.commons.utils.DateUtil8;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Component;
@@ -175,11 +176,10 @@
 //     * @params:
 //     */
 //    private String generateOSSKey(String prefix, String fileName) {
-//        return null;
-////        Date date = new Date();
-////        String year = DateUtil.getYearStr(date);
-////        String month = DateUtil.getMonthStr(date);
-////        return prefix + SEPARATOR + year + SEPARATOR + month + SEPARATOR + DateUtil.getYMDHMS(date) + "-" + fileName;
+//        Integer year = DateUtil8.getNodeTime("year");
+//        Integer month = DateUtil8.getNodeTime("month");
+//        String YMD = DateUtil8.getTime("yyyyMMdd");
+//        return prefix + SEPARATOR + year + SEPARATOR + month + SEPARATOR + YMD + "-" + fileName;
 //    }
 //
 //}

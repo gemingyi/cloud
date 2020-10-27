@@ -37,15 +37,20 @@ public class RedisLimitTest {
         userInfo.setGender(1);
         userInfo.setPhone("123123");
 
-        String str = RedisKeyBuildUtil.keyBuilder("user", "list_user", userInfo);
-        System.out.println(str);
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 500; i++) {
+            String str = RedisKeyBuildUtil.keyBuilder("user", "list_user", userInfo);
+//            System.err.println(str);
+        }
+        System.out.println(System.currentTimeMillis() - start);
 
-        String str2 = RedisKeyBuildUtil.keyBuilder("user", "get_user", String.valueOf(1));
-        System.out.println(str2);
+        String str2 = RedisKeyBuildUtil.keyBuilder("user", "get_user", "aaa", "bbb", "ccc");
+        System.err.println(str2);
 
 
         String str3 = RedisKeyBuildUtil.keyBuilder("user", "get_user", null);
-        System.out.println(str3);
+        System.err.println(str3);
     }
 
 }
+

@@ -52,12 +52,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
         <!-- commons -->
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>platform-commons</artifactId>
         </dependency>
     </dependencies>
-
 
 </project>

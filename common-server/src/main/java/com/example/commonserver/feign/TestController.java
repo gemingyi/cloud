@@ -1,4 +1,4 @@
-package com.example.commonserver.controllers;
+package com.example.commonserver.feign;
 
 import com.example.commons.exceptionHandle.exceptions.DataConflictException;
 import com.example.commons.result.RestResult;

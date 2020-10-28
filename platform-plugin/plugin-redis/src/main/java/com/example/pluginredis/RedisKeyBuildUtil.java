@@ -3,15 +3,11 @@ package com.example.pluginredis;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.pluginredis.RedisKeyConstants.KEY_PREFIX;
 import static com.example.pluginredis.RedisKeyConstants.KEY_SPLIT_CHAR;
-import static org.apache.commons.lang3.StringUtils.prependIfMissing;
-import static org.apache.commons.lang3.StringUtils.uncapitalize;
 
 public class RedisKeyBuildUtil {
 

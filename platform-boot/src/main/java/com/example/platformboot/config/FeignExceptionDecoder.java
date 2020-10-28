@@ -1,7 +1,7 @@
 package com.example.platformboot.config;
 
 import com.example.commons.exceptionHandle.exceptions.InternalServerException;
-import com.example.commons.utils.JSONUtil;
+import com.example.commons.utils.AliJsonUtil;
 import feign.Response;
 import feign.Util;
 import feign.codec.ErrorDecoder;
@@ -24,7 +24,7 @@ public class FeignExceptionDecoder implements ErrorDecoder {
         try {
             // 获取Service中抛出异常提示信息
             String message = Util.toString(response.body().asReader());
-            internalServerException = JSONUtil.JsonToBean(message, InternalServerException.class);
+            internalServerException = AliJsonUtil.jsonStrToBean(message, InternalServerException.class);
             if (StringUtils.isBlank(internalServerException.getMessage()) && internalServerException.getMessage().length() > 50){
                 internalServerException.setMessage("服务被调用方异常");
             }

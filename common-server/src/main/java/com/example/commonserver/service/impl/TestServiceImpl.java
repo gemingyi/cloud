@@ -44,8 +44,8 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
     @Override
     public void seataTest() {
         Test test = new Test();
-        int i = 1 % 0;
         test.setName("userTest");
         this.testMapper.insert(test);
+        throw new RuntimeException("aaaaaaaaaaaaaa");
     }
 }

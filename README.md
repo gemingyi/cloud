@@ -13,5 +13,9 @@
  * platform-plugin    公用组件
  * user-server    用户服务
  
+ ### 包
+ * controller   正常控制层
+ * feign    服务提供
+ * client   服务调用
  
- ### xxx
+ ### x

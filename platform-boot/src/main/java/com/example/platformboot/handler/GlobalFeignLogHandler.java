@@ -6,7 +6,10 @@ import com.google.common.base.Stopwatch;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,14 +23,14 @@ import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
-public class GlobalRequestLogHandler {
+public class GlobalFeignLogHandler {
 
-    private Logger log = LoggerFactory.getLogger(GlobalRequestLogHandler.class);
+    private Logger log = LoggerFactory.getLogger(GlobalFeignLogHandler.class);
 
     /**
-     * 定义日志切点   控制层接口日志
+     * 定义日志切点   feign服务提供者接口日志
      */
-    @Pointcut("execution(public * com.example.*.controller..*(..))")
+    @Pointcut("execution(public * com.example.*.feign..*(..))")
     public void logPointcut() {
     }
 
@@ -41,7 +44,7 @@ public class GlobalRequestLogHandler {
         String ip = IPUtil.getRealIp(request);
         long thread = Thread.currentThread().getId();
         String arg = Arrays.toString(joinPoint.getArgs());
-        log.info(String.format("[%s] ###请求开始### 请求方式=[%s] URL=[%s] 请求IP=[%s] 请求参数=[%s]", thread, method, uri, ip, arg));
+        log.info(String.format("[%s] ###服务提供开始### 请求方式=[%s] URL=[%s] 请求IP=[%s] 请求参数=[%s]", thread, method, uri, ip, arg));
     }
 
 
@@ -54,7 +57,7 @@ public class GlobalRequestLogHandler {
         String arg = null != object ? JSON.toJSONString(object) : "";
         long millis = start.stop().elapsed(TimeUnit.MILLISECONDS);
         long thread = Thread.currentThread().getId();
-        log.info(String.format("[%s] ^^^请求结束^^^ 耗时=[%sms] 请求方式=[%s] URL=[%s]  响应参数=%s", thread, millis, method, uri, arg));
+        log.info(String.format("[%s] ^^^服务提供结束^^^ 耗时=[%sms] 请求方式=[%s] URL=[%s]  响应参数=%s", thread, millis, method, uri, arg));
     }
 
 
@@ -68,7 +71,7 @@ public class GlobalRequestLogHandler {
         String arg = Arrays.toString(joinPoint.getArgs());
         String stackTrace = ExceptionUtils.getStackTrace(e);
         long thread = Thread.currentThread().getId();
-        log.error(String.format("[%s] ***请求异常*** URL=[%s] 请求方式=[%s] 请求参数=%s 异常详情=%s", thread, uri, method, arg, stackTrace));
+        log.error(String.format("[%s] ***服务提供异常*** URL=[%s] 请求方式=[%s] 请求参数=%s 异常详情=%s", thread, uri, method, arg, stackTrace));
     }
 
 

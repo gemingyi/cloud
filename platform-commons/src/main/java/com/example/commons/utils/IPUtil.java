@@ -48,7 +48,7 @@ public class IPUtil {
         String params = "";
         Map<String, String[]> paramMap = request.getParameterMap();
         if (!paramMap.isEmpty()) {
-            params = JSONUtil.BeanToJson(paramMap);
+            params = AliJsonUtil.mapToJsonStr(paramMap);
             return params;
         }
         params = request.getQueryString();

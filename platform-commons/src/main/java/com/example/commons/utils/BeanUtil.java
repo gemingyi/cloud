@@ -16,32 +16,7 @@ import java.util.Map;
  */
 public class BeanUtil {
 
-    public static Map<String, Object> Obj2Map(Object obj) throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        Field[] fields = obj.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            if (field.get(obj) != null)
-                map.put(field.getName(), String.valueOf(field.get(obj)));
-        }
-        return map;
-    }
-
-    public static Object map2Obj(Map<String, Object> map, Class<?> clz) throws Exception {
-        Object obj = clz.newInstance();
-        Field[] declaredFields = obj.getClass().getDeclaredFields();
-        for (Field field : declaredFields) {
-            int mod = field.getModifiers();
-            if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
-                continue;
-            }
-            field.setAccessible(true);
-            field.set(obj, map.get(field.getName()));
-        }
-        return obj;
-    }
-
-    public static <T> void setInitValue(T t, String userName, Date date) {
+    public static <T> void setCreateValue(T t, String userName, Date date) {
         if (t == null) {
             return;
         }
@@ -56,8 +31,8 @@ public class BeanUtil {
         }
 
         if (!StringUtils.isEmpty(date)) {
-            if (wrapper.isWritableProperty("createDate")) {
-                wrapper.setPropertyValue("createDate", date);
+            if (wrapper.isWritableProperty("createTime")) {
+                wrapper.setPropertyValue("createTime", date);
             }
         }
 
@@ -81,8 +56,8 @@ public class BeanUtil {
         }
 
         if (!StringUtils.isEmpty(date)) {
-            if (wrapper.isWritableProperty("modifyDate")) {
-                wrapper.setPropertyValue("modifyDate", date);
+            if (wrapper.isWritableProperty("modifyTime")) {
+                wrapper.setPropertyValue("modifyTime", date);
             }
         }
     }

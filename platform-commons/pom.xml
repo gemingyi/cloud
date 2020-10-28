@@ -23,6 +23,11 @@
     </properties>
 
     <dependencies>
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
         <!-- commons-text -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -53,21 +58,26 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
+        <!-- fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
         <!-- jwt -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
         </dependency>
-        <!-- 表情转换 -->
-        <dependency>
-            <groupId>com.vdurmont</groupId>
-            <artifactId>emoji-java</artifactId>
-        </dependency>
-        <!-- 汉字转拼音工具类 -->
-        <dependency>
-            <groupId>com.belerweb</groupId>
-            <artifactId>pinyin4j</artifactId>
-        </dependency>
+<!--        &lt;!&ndash; 表情转换 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.vdurmont</groupId>-->
+<!--            <artifactId>emoji-java</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; 汉字转拼音工具类 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.belerweb</groupId>-->
+<!--            <artifactId>pinyin4j</artifactId>-->
+<!--        </dependency>-->
         <!-- spring-web -->
         <dependency>
             <groupId>org.springframework</groupId>

@@ -45,7 +45,7 @@ public class SysErrorResult<T> implements Result {
     public static <T> SysErrorResult<T> failure(ResultCode resultCode, Throwable e) {
         SysErrorResult<T> result = new SysErrorResult<>();
         result.setCode(resultCode.code());
-        result.setMessage(resultCode.message() != null ? resultCode.message() : e.getMessage());
+        result.setMessage(resultCode.message() != null ? e.getMessage() : resultCode.message());
         return result;
     }
 

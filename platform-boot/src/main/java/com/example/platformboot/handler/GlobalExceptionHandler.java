@@ -1,5 +1,6 @@
 package com.example.platformboot.handler;
 
+import com.example.commons.exceptionHandle.exceptions.InternalServerException;
 import com.example.commons.result.ResultCode;
 import com.example.commons.exceptionHandle.exceptions.BusinessException;
 import com.example.commons.result.SysErrorResult;
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Throwable.class)
     public ResponseEntity<SysErrorResult<Object>> handleThrowable(Throwable e) {
-        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.SYSTEM_INNER_ERROR, e);
+        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(new InternalServerException());
         //TODO 可通过邮件、发送信息至开发人员、记录存档等操作
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
     }

@@ -1,6 +1,8 @@
 package com.example.userserver.service.impl;
 
 import com.example.commons.IAbstractService;
+import com.example.commons.result.RestResult;
+import com.example.commons.result.ResultCode;
 import com.example.userserver.client.TestClient;
 import com.example.userserver.dao.TestMapper;
 import com.example.userserver.model.Test;
@@ -48,7 +50,7 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
 
 
     @Override
-    @GlobalTransactional(name = "seata-test",rollbackFor = RuntimeException.class)
+    @GlobalTransactional(name = "seata-test", rollbackFor = RuntimeException.class)
     public void seataTest() {
 
         Test test = new Test();
@@ -56,6 +58,7 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
         test.setPrice(BigDecimal.ZERO);
         this.testMapper.insert(test);
 
-        testClient.seataTest();
+        RestResult<Object> restResult = testClient.seataTest();
+        System.out.println(restResult);
     }
 }

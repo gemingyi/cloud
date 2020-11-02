@@ -1,11 +1,14 @@
 package com.example.commonserver.service.impl;
 
 import com.example.commons.IAbstractService;
+import com.example.commons.exceptionHandle.exceptions.IllegalParameterException;
+import com.example.commons.exceptionHandle.exceptions.InternalServerException;
 import com.example.commonserver.dao.TestMapper;
 import com.example.commonserver.model.Test;
 import com.example.commonserver.service.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,10 +45,13 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
     }
 
     @Override
+    @Transactional
     public void seataTest() {
         Test test = new Test();
+//        int i = 1 % 0;
         test.setName("userTest");
         this.testMapper.insert(test);
-        throw new RuntimeException("aaaaaaaaaaaaaa");
+        throw new InternalServerException();
+//        throw new RuntimeException("aaaaaaaaaaaaaa");
     }
 }

@@ -69,7 +69,7 @@ public class TestController {
     @GetMapping("/test2")
     public RestResult<Object> test2() {
         testClient.refresh();
-        return null;
+        return RestResult.success();
     }
 
 
@@ -77,7 +77,7 @@ public class TestController {
     @PostMapping("/test3")
     public RestResult<Object> test3() {
         testService.seataTest();
-        return null;
+        return RestResult.success();
     }
 
     /**

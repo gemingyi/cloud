@@ -1,0 +1,56 @@
+#
+logging.path=E:\\demo_code\\cloud\\logs
+logging.config=classpath:logback-spring.xml
+
+# kafka https://www.cnblogs.com/alexgl2008/articles/12392044.html
+spring.kafka.bootstrap-servers=127.0.0.1:9092
+# producer
+# 消息的确认模式 （0：不保证消息的到达确认 1：会等待leader 收到确认后, -1 all：等待leader收到确认，并进行复制操作后）
+spring.kafka.producer.acks=all
+# 消息发送失败后的重试次数
+spring.kafka.producer.retries=1
+# 当有多个消息需要被发送到同一个分区时，生产者会把它们放在同一个批次里。该参数指定了一个批次可以使用的内存大小，按照字节数计算
+spring.kafka.producer.batch-size=16384
+# 设置生产者内存缓冲区的大小
+spring.kafka.producer.buffer-memory=33554432
+# key:value 序列化
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=com.example.pluginkafka.serialization.ObjectSerializer
+# 事务
+spring.kafka.producer.transaction-id-prefix=kafka-transactional
+# 多久发一次 ms
+spring.kafka.producer.properties.linger.ms=500
+
+# consumer
+# 是否自动提交偏移量
+spring.kafka.consumer.enable-auto-commit=false
+# consumer向zookeeper提交offset的时间间隔, 自动提交时需要设置这个 ms
+#spring.kafka.consumer.auto-commit-interval=5000
+# 一次从kafka中poll出来的数据条数
+spring.kafka.consumer.max-poll-records=1
+# earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+# latest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
+# none topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
+spring.kafka.consumer.auto-offset-reset=latest
+# 每次fetch请求时，server应该返回的最小字节数。如果没有足够的数据返回，请求会等待，直到足够的数据才会返回。默认：1
+#spring.kafka.consumer.fetch-min-size=1
+# Fetch请求发给broker后，在broker中可能会被阻塞的（当topic中records的总size小于fetch.min.bytes时），\
+# 此时这个fetch请求耗时就会比较长。这个配置就是来配置consumer最多等待response多久
+#spring.kafka.consumer.fetch-max-wait=500
+# key:value 反序列化
+spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.consumer.value-deserializer=com.example.pluginkafka.serialization.ObjectDeserializer
+# poll最大间隔时间 ms
+spring.kafka.consumer.properties.max.poll.interval.ms=100000
+# 在使用Kafka的团队管理设施时，用于检测消费者失败的超时时间。消费者定期发送心跳来向经纪人表明其活跃度。
+# 如果代理在该会话超时到期之前没有收到心跳，那么代理将从该组中删除该消费者并启动重新平衡。
+spring.kafka.consumer.properties.session.timeout.ms=
+
+# listener
+# 控制多线程消费,并发数(如果topic有3各分区。设置成3，并发数就是3个线程，加快消费), 不设置setConcurrency就会变成单线程配置,
+# MAX_POLL_RECORDS_CONFIG也会失效，接收的消息列表也不会是ConsumerRecord
+spring.kafka.listener.concurrency=1
+# 拉取超时时间 ms
+spring.kafka.listener.poll-timeout=3000
+# 设置为批量消费，每个批次数量在Kafka配置参数中设置（max.poll.records）
+spring.kafka.listener.type=batch

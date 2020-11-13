@@ -35,6 +35,7 @@ public class SwaggerAutoConfigure {
         System.out.println("###### 已加载Swagger插件 ######");
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo()).select()
+//                .apis(RequestHandlerSelectors.basePackage("com.example.*.controller"))
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();

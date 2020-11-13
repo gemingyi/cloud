@@ -55,6 +55,7 @@ public class TestController {
 
     @ApiOperation("测试响应对象字段顺序")
     @GetMapping("/test")
+//    @SentinelResource(value="/test")
     public RestResult<Object> test() {
         RestResult<Object> restResult = new RestResult<>();
         Test test = new Test();
@@ -65,16 +66,19 @@ public class TestController {
     }
 
 
+    //--------------------------------------------------------------------------
+
     @ApiOperation("测试远程异常接口")
     @GetMapping("/test2")
+//    @SentinelResource(value="/test2")
     public RestResult<Object> test2() {
-        testClient.refresh();
-        return RestResult.success();
+        return testClient.test();
     }
 
 
     @ApiOperation("测试seata事务接口")
     @PostMapping("/test3")
+//    @SentinelResource(value="/test3")
     public RestResult<Object> test3() {
         testService.seataTest();
         return RestResult.success();
@@ -93,8 +97,13 @@ public class TestController {
             @ApiImplicitParam(name = "file", value = "文件", required = true, dataType = "file")
     })
     public RestResult<Object> testImport(@RequestPart(value = "file", required = false) MultipartFile file) {
-        System.out.println(file.getName());
-        return RestResult.success();
+        return testClient.testImport(file);
+    }
+
+    @ApiOperation("校验图片验证码")
+    @GetMapping(value = "/checkValidateCode")
+    RestResult<Object> checkValidateCode(String token, String validateCode) {
+        return testClient.checkValidateCode(token, validateCode);
     }
 
 }

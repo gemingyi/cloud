@@ -28,6 +28,7 @@ public enum ResultCode {
     /* 接口错误：*/
     INTERFACE_EXCEED_LOAD(13001, "接口负载过高"),
     INTERFACE_REPEAT_COMMIT(13002, "接口重复提交"),
+    INTERFACE_NOT_FOUND(13003, "找不到接口"),
 
     /* 权限错误：*/
     USER_NOT_LOGGED_IN(14001, "用户未登录"),

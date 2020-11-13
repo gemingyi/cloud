@@ -1,18 +1,20 @@
-package com.example.gatewayserver.feign.fallback;
+package com.example.gatewayserver.client.fallback;
 
 import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
-import com.example.gatewayserver.feign.AuthFeign;
+import com.example.gatewayserver.client.AuthClient;
 import feign.hystrix.FallbackFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * 鉴权远程调用降级
  */
-public class AuthFeignServiceFallbackFactory implements FallbackFactory<AuthFeign> {
+@Component
+public class AuthClientFallbackFactory implements FallbackFactory<AuthClient> {
 
     @Override
-    public AuthFeign create(Throwable throwable) {
-        return new AuthFeign() {
+    public AuthClient create(Throwable throwable) {
+        return new AuthClient() {
 
             @Override
             public RestResult<Object> check(String token) {
@@ -25,10 +27,6 @@ public class AuthFeignServiceFallbackFactory implements FallbackFactory<AuthFeig
             }
 
         };
-    }
-    
-    private void test(int i, int q) {
-
     }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.pluginredis.RedisKeyConstants.KEY_PREFIX;
@@ -110,7 +111,19 @@ public class RedisKeyBuildUtil {
 //        }
 //        return list.toArray(new String[methods.length]);
 
-        Field[] fields = obj.getClass().getDeclaredFields();
+        Class<?> aClass = obj.getClass();
+        if ("java.lang.String".equals(aClass.getName())) {
+            return new String[]{(String) obj};
+        }
+        if ("java.lang.Integer".equals(aClass.getName())) {
+            obj = String.valueOf(obj);
+            return new String[]{(String) obj};
+        }
+        if ("java.lang.Long".equals(aClass.getName())) {
+            obj = String.valueOf(obj);
+            return new String[]{(String) obj};
+        }
+        Field[] fields = aClass.getDeclaredFields();
         List<String> list = new ArrayList<>(fields.length);
         try {
             for (Field f : fields) {

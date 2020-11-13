@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.example.commons.result.ResultCode;
 import com.example.commons.result.RestResult;
 import com.example.commons.jwt.JWTUtil;
-import com.example.gatewayserver.feign.AuthFeign;
+import com.example.gatewayserver.client.AuthClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -14,8 +15,8 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -24,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 /**
  * 微服务网关鉴权
  */
+@Component
+@RefreshScope
 public class AuthFilter implements GlobalFilter, Ordered {
 
     /**
@@ -52,7 +55,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
 
     @Autowired
-    private AuthFeign authFeign;
+    private AuthClient authFeign;
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -62,16 +65,16 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
         String path = request.getURI().getPath();
-        //放行访问url
-        boolean flag = this.isPassThroughPath(path);
-        if (!checkToken || flag) {
+        // checkToken是否检查token    isPassThroughPath放行访问url
+        if (!checkToken || this.isPassThroughPath(path)) {
             return chain.filter(exchange);
         }
         //未传token
-        String token = request.getHeaders().getFirst(AUTHORIZATION);
-        if (StringUtils.isEmpty(token)) {
-            return this.serviceUnauthorized(response);
-        }
+//        String token = request.getHeaders().getFirst(AUTHORIZATION);
+//        if (StringUtils.isEmpty(token)) {
+//            return this.serviceUnauthorized(response);
+//        }
+        String token = "aaa";
         //调用鉴权服务 判断请求token
         RestResult<Object> result = authFeign.info(token);
         if (!ResultCode.SUCCESS.code().equals(result.getCode())) {

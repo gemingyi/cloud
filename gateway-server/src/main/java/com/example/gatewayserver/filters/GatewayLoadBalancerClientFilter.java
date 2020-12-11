@@ -1,6 +1,8 @@
 package com.example.gatewayserver.filters;
 
-import lombok.Data;
+import com.example.gatewayserver.properties.GrayscaleProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.gateway.config.LoadBalancerProperties;
@@ -11,47 +13,43 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
-import java.io.Serializable;
 import java.net.URI;
 
 /**
-* @Description: 网关灰度发布过滤器 向下游传递一些信息（GrayscaleLoadBalancerRule 好根据信息判断）
+* @Description: 网关灰度发布过滤器 向RibbonLoadBalancerClient 添加一些信息（GrayscaleLoadBalancerRule类 好根据信息 负载路由）
 * @author mingyi ge
 * @date 2020/12/10 11:59
-* @params
 */
 @Component
+@ConditionalOnProperty(prefix = "gray", value = "open", havingValue = "true")
 public class GatewayLoadBalancerClientFilter extends LoadBalancerClientFilter {
+
+    @Value("${gray.api.version.mark:api-version}")
+    private String apiVersion;
 
     public GatewayLoadBalancerClientFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties) {
         super(loadBalancer, properties);
     }
+
+
     @Override
     protected ServiceInstance choose(ServerWebExchange exchange) {
 
         if (this.loadBalancer instanceof RibbonLoadBalancerClient) {
             RibbonLoadBalancerClient client = (RibbonLoadBalancerClient) this.loadBalancer;
             HttpHeaders headers = exchange.getRequest().getHeaders();
-            String version = headers.getFirst("api-version");
+            // 前端请求头 version
+            String version = headers.getFirst(apiVersion);
+            //
             String serviceId = ((URI) exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR)).getHost();
-//            GrayscaleProperties build = GrayscaleProperties.builder().version( version ).serverName( serviceId ).build();
             GrayscaleProperties build = new GrayscaleProperties();
             build.setVersion(version);
             build.setServerName(serviceId);
-            //这里使用服务ID 和 version 做为选择服务实例的key
-            //TODO 这里也可以根据实际业务情况做自己的对象封装
+            // 这里使用服务ID 和 version 做为选择服务实例的key
             return client.choose(serviceId, build);
         }
         return super.choose(exchange);
     }
 
-    @Data
-    class GrayscaleProperties implements Serializable {
-        private String version;
-        private String serverName;
-        private String serverGroup;
-        private String active;
-        private double weight = 1.0D;
-    }
 
 }

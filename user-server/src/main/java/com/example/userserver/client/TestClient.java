@@ -1,8 +1,8 @@
 package com.example.userserver.client;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.commons.result.RestResult;
 import com.example.userserver.client.fallback.TestClientFallbackFactory;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +15,12 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(value = "common-server", path = "test", fallbackFactory = TestClientFallbackFactory.class)
 public interface TestClient {
 
-    @RequestMapping("test")
-    RestResult<Object> test();
+
+    @RequestMapping("test1")
+    RestResult<Object> test1();
+
+    @RequestMapping("test2")
+    RestResult<Object> test2();
 
 
     @PostMapping("seata")

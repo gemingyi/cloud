@@ -18,7 +18,9 @@ import reactor.core.publisher.Mono;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-
+/**
+ * sentinel 处理
+ */
 public class GlobalSentinelExceptionHandler extends SentinelGatewayBlockExceptionHandler {
 
 

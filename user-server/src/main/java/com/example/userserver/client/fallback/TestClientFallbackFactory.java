@@ -15,7 +15,12 @@ public class TestClientFallbackFactory implements FallbackFactory<TestClient> {
         return new TestClient() {
 
             @Override
-            public RestResult<Object> test() {
+            public RestResult<Object> test1() {
+                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+            }
+
+            @Override
+            public RestResult<Object> test2() {
                 return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
             }
 

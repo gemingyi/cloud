@@ -4,6 +4,7 @@ import com.example.commons.result.RestResult;
 import com.example.gatewayserver.client.fallback.AuthClientFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 鉴权远程调用
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface AuthClient {
 
     @GetMapping("check")
-    RestResult<Object> check(String token);
+    RestResult<Object> check(@RequestParam("token") String token);
 
     @GetMapping("info")
-    RestResult<Object> info(String token);
+    RestResult<Object> info(@RequestParam("token") String token);
 
 }

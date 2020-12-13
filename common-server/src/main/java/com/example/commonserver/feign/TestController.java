@@ -24,8 +24,16 @@ public class TestController {
     /**
      * 测试远程异常接口
      */
-    @GetMapping("test")
-    public RestResult<Object> test() {
+    @GetMapping("test1")
+    public RestResult<Object> test1() {
+        return RestResult.success();
+    }
+
+    /**
+     * 测试远程异常接口
+     */
+    @GetMapping("test2")
+    public RestResult<Object> test2() {
         if (true) {
             throw new DataConflictException();
         }

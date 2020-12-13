@@ -31,6 +31,7 @@ public class ESCURDTest {
     @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
+
     @Test
     public void createIndex() {
         // 创建索引，会根据Item类的@Document注解信息来创建

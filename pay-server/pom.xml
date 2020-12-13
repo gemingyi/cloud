@@ -21,25 +21,21 @@
     </properties>
 
     <dependencies>
-        <!-- nacos-discovery -->
+        <!-- platform-boot -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>com.example</groupId>
+            <artifactId>platform-boot</artifactId>
+            <scope>compile</scope>
         </dependency>
-        <!-- web -->
+        <!-- plugin-mysql -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-mysql</artifactId>
         </dependency>
         <!-- httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-        </dependency>
-        <!-- platform-commons -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>platform-commons</artifactId>
         </dependency>
     </dependencies>
 

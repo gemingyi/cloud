@@ -55,7 +55,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
 
     @Autowired
-    private AuthClient authFeign;
+    private AuthClient authClient;
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -76,7 +76,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 //        }
         String token = "aaa";
         //调用鉴权服务 判断请求token
-        RestResult<Object> result = authFeign.info(token);
+        RestResult<Object> result = authClient.info(token);
         if (!ResultCode.SUCCESS.code().equals(result.getCode())) {
             return this.serviceUnauthorized(response);
         }

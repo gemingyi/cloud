@@ -68,11 +68,18 @@ public class TestController {
 
     //--------------------------------------------------------------------------
 
+    @ApiOperation("测试远程接口")
+    @GetMapping("/test1")
+//    @SentinelResource(value="/test2")
+    public RestResult<Object> test1() {
+        return testClient.test1();
+    }
+
     @ApiOperation("测试远程异常接口")
     @GetMapping("/test2")
 //    @SentinelResource(value="/test2")
     public RestResult<Object> test2() {
-        return testClient.test();
+        return testClient.test2();
     }
 
 

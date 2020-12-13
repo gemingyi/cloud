@@ -16,8 +16,8 @@ services:
       TZ: Asia/Shanghai
     #挂载数据卷
     volumes:
-      - D:/Soft/docker/redis/conf/redis.conf:/etc/redis/redis.conf
-      - D:/Soft/docker/redis/data:/data
+      - E:/docker/data/redis/conf/redis.conf:/etc/redis/redis.conf
+      - E:/docker/data/redis/data:/data
     ports:
       - "6379:6379"
     networks:

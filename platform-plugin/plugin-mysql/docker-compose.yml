@@ -37,8 +37,8 @@ services:
 #      MYSQL_ROOT_HOST: 192.168.31.5
     #挂载数据卷
     volumes:
-      - D:/Soft/docker/mysql/data:/var/lib/mysql
-      - D:/Soft/docker/mysql/conf/my.cnf:/etc/my.cnf
+      - E:/docker/data/mysql/data:/var/lib/mysql
+      - E:/docker/data/mysql/conf/my.cnf:/etc/my.cnf
     ports:
       - "3306:3306"
     networks:

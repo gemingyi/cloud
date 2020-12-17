@@ -16,6 +16,7 @@
         <module>plugin-kafka</module>
         <module>plugin-es</module>
         <module>plugin-swagger</module>
+        <module>plugin-gray</module>
     </modules>
 
     <groupId>com.example</groupId>

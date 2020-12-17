@@ -137,6 +137,11 @@
                 <artifactId>plugin-swagger</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>plugin-gray</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
 
             <!-- admin -->
             <dependency>

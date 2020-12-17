@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.plugingray.config.FeignGrayscaleLoadBalancerAutoConfig,\
+com.example.plugingray.config.GatewayGrayscaleLoadBalancerAutoConfig

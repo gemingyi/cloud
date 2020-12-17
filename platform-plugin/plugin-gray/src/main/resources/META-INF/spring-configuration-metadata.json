@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "loverent.gray",
+      "type": "org.gz.loverentgrayspringbootstarter.properties.GrayscaleLoadProperties",
+      "sourceType": "org.gz.loverentgrayspringbootstarter.properties.GrayscaleLoadProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "loverent.gray.api-version-mark",
+      "type": "java.lang.String",
+      "description": "api请求头版本",
+      "sourceType": "org.gz.loverentgrayspringbootstarter.properties.GrayscaleLoadProperties"
+    },
+    {
+      "name": "loverent.gray.gateway-open",
+      "type": "java.lang.Boolean",
+      "description": "gateway 灰度负载",
+      "sourceType": "org.gz.loverentgrayspringbootstarter.properties.GrayscaleLoadProperties"
+    },
+    {
+      "name": "loverent.gray.service-open",
+      "type": "java.lang.Boolean",
+      "description": "feign ribbon 灰度负载",
+      "sourceType": "org.gz.loverentgrayspringbootstarter.properties.GrayscaleLoadProperties"
+    }
+  ],
+  "hints": []
+}

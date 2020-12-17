@@ -78,7 +78,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.example.authserver.AuthServerApplicationTests</mainClass>
+                            <mainClass>com.example.userserver.UserServerApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

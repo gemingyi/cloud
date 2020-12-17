@@ -1,8 +1,6 @@
-package com.example.gatewayserver.filters;
+package com.example.plugingray.gateway;
 
-import com.example.gatewayserver.properties.GrayscaleProperties;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.gateway.config.LoadBalancerProperties;
@@ -10,27 +8,23 @@ import org.springframework.cloud.gateway.filter.LoadBalancerClientFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.cloud.netflix.ribbon.RibbonLoadBalancerClient;
 import org.springframework.http.HttpHeaders;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.net.URI;
 
 /**
-* @Description: 网关灰度发布过滤器 向RibbonLoadBalancerClient 添加一些信息（GrayscaleLoadBalancerRule类 好根据信息 负载路由）
-* @author mingyi ge
-* @date 2020/12/10 11:59
-*/
-@Component
-@ConditionalOnProperty(prefix = "gray", value = "open", havingValue = "true")
+ * @author mingyi ge
+ * @Description: 网关灰度发布过滤器 向RibbonLoadBalancerClient 添加一些信息（GrayscaleLoadBalancerRule类 好根据信息 负载路由）
+ * @date 2020/12/10 11:59
+ */
 public class GatewayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 
-    @Value("${gray.api.version.mark:api-version}")
+    @Value("${loverent.gray.api-version-mark:api-version}")
     private String apiVersion;
 
     public GatewayLoadBalancerClientFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties) {
         super(loadBalancer, properties);
     }
-
 
     @Override
     protected ServiceInstance choose(ServerWebExchange exchange) {
@@ -50,6 +44,5 @@ public class GatewayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         }
         return super.choose(exchange);
     }
-
 
 }

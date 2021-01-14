@@ -1,6 +1,6 @@
-package com.example.pluginredis;
+package com.example.pluginredis.constant;
 
-public class RedisKeyConstants {
+public class RedisKeyConstant {
 
     /**
      * 默认项目前缀

@@ -2,7 +2,7 @@ package com.example.commonserver.service.impl;
 
 import com.example.commonserver.service.ICommonService;
 import com.example.pluginredis.RedisKeyBuildUtil;
-import com.example.pluginredis.RedisKeyConstants;
+import com.example.pluginredis.constant.RedisKeyConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,7 +27,7 @@ public class CommonServiceImpl implements ICommonService {
     public String generateValidateCode(String token) throws Exception {
         // 生成验证码code
         String text = kaptcha.createText();
-        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstants.COMMON_MODULE, "generateValidateCode", token);
+        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstant.COMMON_MODULE, "generateValidateCode", token);
         redisTemplate.opsForValue().set(key, text, 3, TimeUnit.MINUTES);
         // 生成图片验证码
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -38,7 +38,7 @@ public class CommonServiceImpl implements ICommonService {
 
     @Override
     public boolean checkValidateCode(String token, String validateCode) {
-        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstants.COMMON_MODULE, "generateValidateCode", token);
+        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstant.COMMON_MODULE, "generateValidateCode", token);
         Boolean exist = redisTemplate.hasKey(key);
         if (exist == null || !exist) {
             return false;

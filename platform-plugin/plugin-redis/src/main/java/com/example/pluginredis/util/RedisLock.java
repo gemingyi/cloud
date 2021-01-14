@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.UUID;
 
-import static com.example.pluginredis.RedisKeyConstants.LOCK_NAME_PREFIX;
+import static com.example.pluginredis.constant.RedisKeyConstant.LOCK_NAME_PREFIX;
 
 /**
  * redis 锁

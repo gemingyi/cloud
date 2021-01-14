@@ -4,11 +4,10 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static com.example.pluginredis.RedisKeyConstants.KEY_PREFIX;
-import static com.example.pluginredis.RedisKeyConstants.KEY_SPLIT_CHAR;
+import static com.example.pluginredis.constant.RedisKeyConstant.KEY_PREFIX;
+import static com.example.pluginredis.constant.RedisKeyConstant.KEY_SPLIT_CHAR;
 
 public class RedisKeyBuildUtil {
 

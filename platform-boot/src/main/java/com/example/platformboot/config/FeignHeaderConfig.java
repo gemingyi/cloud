@@ -1,6 +1,7 @@
 package com.example.platformboot.config;
 
 import feign.RequestInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -15,6 +16,8 @@ import java.util.Enumeration;
 * @Date 2020/9/9 20:36
 */
 @Configuration
+// gray 里面已经有一个配置了
+@ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "false")
 public class FeignHeaderConfig {
 
 
@@ -40,7 +43,5 @@ public class FeignHeaderConfig {
             }
         };
     }
-
-
 
 }

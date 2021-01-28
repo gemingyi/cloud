@@ -54,13 +54,13 @@ public class GatewayNacosGrayscaleLoadBalancerRule extends AbstractLoadBalancerR
             // 所有 被调用实例
             List<Instance> instances = namingService.selectInstances(serverName, true);
             if (CollectionUtils.isEmpty(instances)) {
-                log.warn("找不到实例服务 {}", serverName);
+                log.warn("找不到实例服务[{}]", serverName);
                 return null;
             }
             // 筛选指定版本 version为空 筛选version为空的实例
             List<Instance> metadataMatchInstances = screenVersion(instances, version);
             if (CollectionUtils.isEmpty(metadataMatchInstances)) {
-                log.warn("未找到元数据匹配的目标实例！请检查配置。version = {}, instance = {}", version, instances);
+                log.warn("未找到元数据匹配的目标实例！请检查配置。version = [{}], instance = [{}]", version, instances);
                 return null;
             }
 
@@ -72,7 +72,7 @@ public class GatewayNacosGrayscaleLoadBalancerRule extends AbstractLoadBalancerR
                         .collect(Collectors.toList());
                 if (CollectionUtils.isEmpty(clusterMetadataMatchInstances)) {
                     clusterMetadataMatchInstances = metadataMatchInstances;
-                    log.warn("发生跨集群调用。clusterName = {}, version = {}, clusterMetadataMatchInstances = {}", clusterName, version, clusterMetadataMatchInstances);
+                    log.warn("发生跨集群调用。clusterName = [{}], version = [{}], clusterMetadataMatchInstances = [{}]", clusterName, version, clusterMetadataMatchInstances);
                 }
             }
 
@@ -94,14 +94,20 @@ public class GatewayNacosGrayscaleLoadBalancerRule extends AbstractLoadBalancerR
      */
     private List<Instance> screenVersion(List<Instance> instances, String version) {
         // version为空不筛选
-//        if (StringUtils.isBlank(version)) {
-//            return instances;
-//        }
+        if (StringUtils.isBlank(version)) {
+            return instances;
+        }
 
         // 进行按版本分组排序(version为空也可以)
         Map<String, List<Instance>> versionMap = groupInstanceByVersion(instances);
+        List<Instance> versionInstanceList = versionMap.get(version);
 
-        return versionMap.get(version);
+        // 筛选不到则返回全部
+        if (versionInstanceList.isEmpty()) {
+            return instances;
+        }
+
+        return versionInstanceList;
     }
 
     /**
@@ -110,6 +116,9 @@ public class GatewayNacosGrayscaleLoadBalancerRule extends AbstractLoadBalancerR
      * @param instances 服务实列
      */
     private Map<String, List<Instance>> groupInstanceByVersion(List<Instance> instances) {
+//        Map<String, List<Instance>> versionMap = instances.stream()
+//        .collect(Collectors.groupingBy(temp -> temp.getMetadata().get(apiVersion)));
+
         Map<String, List<Instance>> versionMap = new HashMap<>(instances.size());
         for (Instance instance : instances) {
             String version = instance.getMetadata().get(apiVersion);

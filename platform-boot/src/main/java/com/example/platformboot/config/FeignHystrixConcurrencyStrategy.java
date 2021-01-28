@@ -12,6 +12,7 @@
 //import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
 //import com.netflix.hystrix.strategy.properties.HystrixProperty;
 //import lombok.extern.slf4j.Slf4j;
+//import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 //import org.springframework.stereotype.Component;
 //import org.springframework.web.context.request.RequestAttributes;
 //import org.springframework.web.context.request.RequestContextHolder;
@@ -29,6 +30,8 @@
 //*/
 //@Slf4j
 //@Component
+////gray 里面已经有一个配置了
+//@ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "false")
 //public class FeignHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 //
 //    //Hystrix并发策略

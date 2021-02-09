@@ -1,5 +1,6 @@
 package com.example.pluginnetty.netty.handler.webSocket;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -11,6 +12,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
@@ -94,10 +96,19 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
             return;
         }
 
-        // 文本或者二进制
-        String text = ((TextWebSocketFrame) frame).text();
-        System.out.println("收到消息" + text);
-        ctx.writeAndFlush(text);
+        if (frame instanceof TextWebSocketFrame) {
+            // 文本或者二进制
+            String text = ((TextWebSocketFrame) frame).text();
+            System.out.println("收到消息" + text);
+            ctx.writeAndFlush(text);
+        }
+
+        if (frame instanceof BinaryWebSocketFrame) {
+            // 文本或者二进制
+            byte[] contentBytes = new byte[frame.content().readableBytes()];
+            ByteBuf byteBuf = frame.content().readBytes(contentBytes);
+            ctx.writeAndFlush(contentBytes);
+        }
     }
 
 

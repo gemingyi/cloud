@@ -1,12 +1,16 @@
-package com.example.pluginnetty;
+package com.example.pluginnetty.webSocket.text;
 
+import com.example.pluginnetty.anno.EnableWebSocket;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
 
 
+@ComponentScan("com.example.pluginnetty.*")
 @SpringBootApplication
+@EnableWebSocket
 public class PluginNettyApplication {
 
     public static void main(String[] args) {
@@ -15,6 +19,5 @@ public class PluginNettyApplication {
                 .bannerMode(Banner.Mode.OFF)
                 .run(args);
     }
-
 
 }

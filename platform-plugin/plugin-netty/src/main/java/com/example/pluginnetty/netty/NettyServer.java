@@ -3,14 +3,10 @@ package com.example.pluginnetty.netty;
 
 import com.example.pluginnetty.config.SocketConfiguration;
 import com.example.pluginnetty.netty.adapter.ChannelPipelineAdapter;
-import com.example.pluginnetty.netty.adapter.WriteChannelOutboundHandler;
 import com.example.pluginnetty.netty.handler.HeartBeatServerHandler;
-import com.example.pluginnetty.netty.handler.webSocket.TextWebSocketFrameServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.epoll.EpollChannelOption;
@@ -19,11 +15,7 @@ import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpResponseEncoder;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.HttpServerExpectContinueHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
+
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import sun.awt.OSInfo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -48,7 +39,7 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
     @Autowired
     private SocketConfiguration socketConfiguration;
     @Autowired
-    private ChannelPipelineAdapter webSocketSocketChannelPipelineAdapter;
+    private ChannelPipelineAdapter channelPipelineAdapter;
 
     EventLoopGroup bossGroup = null;
     EventLoopGroup workerGroup = null;
@@ -94,7 +85,7 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
                     pipeline.addLast(new IdleStateHandler(socketConfiguration.getHeartTimeout(), 0, 0, TimeUnit.SECONDS));
 
                     // 选择服务启动
-                    webSocketSocketChannelPipelineAdapter.adapterChannelPipeline(pipeline);
+                    channelPipelineAdapter.adapterChannelPipeline(pipeline);
                     pipeline.addLast(new HeartBeatServerHandler());
                 }
             });

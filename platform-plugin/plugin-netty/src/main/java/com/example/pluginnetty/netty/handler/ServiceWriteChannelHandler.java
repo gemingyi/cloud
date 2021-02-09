@@ -1,5 +1,7 @@
-package com.example.pluginnetty.netty.adapter;
+package com.example.pluginnetty.netty.handler;
 
+import com.example.pluginnetty.netty.adapter.TCPSocketChannelPipelineAdapter;
+import com.example.pluginnetty.util.SpringApplicationContextHolder;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
@@ -12,20 +14,20 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
  * @author: mingyi ge
  * @date: 2021/2/4 14:23
  */
-public class WriteChannelOutboundHandler extends ChannelOutboundHandlerAdapter {
+public class ServiceWriteChannelHandler extends ChannelOutboundHandlerAdapter {
 
-    private static final String SOCKET_HANDLER_BUILDER_NAME = "socketHandlerBuilder";
+    private static final String SOCKET_HANDLER_BUILDER_NAME = "channelPipelineAdapter";
 
-//    public final boolean isTcp =  SpringApplicationContextHolder.getBean(SOCKET_HANDLER_BUILDER_NAME) instanceof TCPSocketChannelPipelineAdapter;
+    public final boolean isTcp = SpringApplicationContextHolder.getBean(SOCKET_HANDLER_BUILDER_NAME) instanceof TCPSocketChannelPipelineAdapter;
 
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-//        if (isTcp) {
-//            tcpWrite(ctx, msg, promise);
-//        } else {
+        if (isTcp) {
+            tcpWrite(ctx, msg, promise);
+        } else {
             wsWrite(ctx, msg, promise);
-//        }
+        }
     }
 
     private void tcpWrite(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) {

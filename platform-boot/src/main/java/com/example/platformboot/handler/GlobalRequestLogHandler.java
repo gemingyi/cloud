@@ -18,6 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @Description 全局controller日志打印
+ * @Author mingyi ge
+ * @Date 2020/9/25 17:29
+ */
 @Aspect
 @Component
 public class GlobalRequestLogHandler {
@@ -29,32 +34,6 @@ public class GlobalRequestLogHandler {
      */
     @Pointcut("execution(public * com.example.*.controller..*(..))")
     public void logPointcut() {
-    }
-
-
-//    @Before("logPointcut()")
-    public void logBefore(JoinPoint joinPoint) {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        String method = request.getMethod();
-        String uri = request.getRequestURI();
-        String ip = IPUtil.getRealIp(request);
-        long thread = Thread.currentThread().getId();
-        String arg = Arrays.toString(joinPoint.getArgs());
-        log.info(String.format("[%s] ###请求开始### 请求方式=[%s] URL=[%s] 请求IP=[%s] 请求参数=[%s]", thread, method, uri, ip, arg));
-    }
-
-
-//    @AfterReturning(value = "logPointcut()", returning = "object")
-    public void logAfterReturning(Object object, Stopwatch start) {
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        String method = request.getMethod();
-        String uri = request.getRequestURI();
-        String arg = null != object ? JSON.toJSONString(object) : "";
-        long millis = start.stop().elapsed(TimeUnit.MILLISECONDS);
-        long thread = Thread.currentThread().getId();
-        log.info(String.format("[%s] ^^^请求结束^^^ 耗时=[%sms] 请求方式=[%s] URL=[%s]  响应参数=%s", thread, millis, method, uri, arg));
     }
 
 
@@ -75,9 +54,34 @@ public class GlobalRequestLogHandler {
     @Around("logPointcut()")
     public Object logAopAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Stopwatch start = Stopwatch.createStarted();
-        logBefore(joinPoint);
+        logBeforeReturning(joinPoint);
         Object object = joinPoint.proceed(joinPoint.getArgs());
         logAfterReturning(object, start);
         return object;
+    }
+
+    //    @Before("logPointcut()")
+    public void logBeforeReturning(JoinPoint joinPoint) {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        String method = request.getMethod();
+        String uri = request.getRequestURI();
+        String ip = IPUtil.getRealIp(request);
+        long thread = Thread.currentThread().getId();
+        String arg = Arrays.toString(joinPoint.getArgs());
+        log.info(String.format("[%s] ###请求开始### 请求方式=[%s] URL=[%s] 请求IP=[%s] 请求参数=[%s]", thread, method, uri, ip, arg));
+    }
+
+
+    //    @AfterReturning(value = "logPointcut()", returning = "object")
+    public void logAfterReturning(Object object, Stopwatch start) {
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        String method = request.getMethod();
+        String uri = request.getRequestURI();
+        String arg = null != object ? JSON.toJSONString(object) : "";
+        long millis = start.stop().elapsed(TimeUnit.MILLISECONDS);
+        long thread = Thread.currentThread().getId();
+        log.info(String.format("[%s] ^^^请求结束^^^ 耗时=[%sms] 请求方式=[%s] URL=[%s]  响应参数=%s", thread, millis, method, uri, arg));
     }
 }

@@ -7,8 +7,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
-
+/**
+ * @Description 全局跨域配置
+ * @Author mingyi ge
+ * @Date 2020/9/25 17:29
+ */
 @Configuration
 public class CorsConfig {
 
@@ -31,7 +34,7 @@ public class CorsConfig {
 //        bean.setEnabled(corsProperties.isEnable());
 //        return bean;
 //    }
-//
+
     @Bean
     public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -46,9 +49,12 @@ public class CorsConfig {
 
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // 1
-        corsConfiguration.addAllowedHeader("*"); // 2
-        corsConfiguration.addAllowedMethod("*"); // 3
+        //
+        corsConfiguration.addAllowedOrigin("*");
+        //
+        corsConfiguration.addAllowedHeader("*");
+        //
+        corsConfiguration.addAllowedMethod("*");
         return corsConfiguration;
     }
 

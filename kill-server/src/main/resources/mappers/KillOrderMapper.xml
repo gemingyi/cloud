@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.killserver.dao.KillOrderMapper">
+    <resultMap id="BaseResultMap" type="com.example.killserver.model.KillOrder">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="kill_goods_id" jdbcType="INTEGER" property="killGoodsId"/>
+        <result column="business_id" jdbcType="INTEGER" property="businessId"/>
+        <result column="order_number" jdbcType="VARCHAR" property="orderNumber"/>
+        <result column="order_money" jdbcType="DECIMAL" property="orderMoney"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="pay_time" jdbcType="TIMESTAMP" property="payTime"/>
+        <result column="adder" jdbcType="VARCHAR" property="adder"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+</mapper>

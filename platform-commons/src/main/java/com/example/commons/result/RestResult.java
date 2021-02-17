@@ -45,10 +45,11 @@ public class RestResult<T> implements Result {
         return result;
     }
 
-    public static <T> RestResult<T> failure(ResultCode resultCode, T data) {
+    public static <T> RestResult<T> failure(Integer code, String message) {
         RestResult<T> result = new RestResult<>();
-        result.setResultCode(resultCode);
-        result.setData(data);
+        result.setCode(code);
+        result.setMessage(message);
+        result.setData(null);
         return result;
     }
 
@@ -58,12 +59,6 @@ public class RestResult<T> implements Result {
         result.setMessage(message);
         result.setData(null);
         return result;
-    }
-
-    public RestResult<T> codeMessage(ResultCode resultCode) {
-        this.code = resultCode.code();
-        this.message = resultCode.message();
-        return this;
     }
 
     public RestResult<T> code(Integer code) {

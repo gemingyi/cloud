@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * @description:
+ * @description:    非对称加密 RSA工具类
  * @author: mingyi ge
  * @date: 2021/1/4 14:43
  */
@@ -28,6 +28,11 @@ public class SignatureUtil {
     public static final Integer RSA_KEY_SIZE = 1024;
 
 
+    /**
+     * 公钥加密
+     * @param str 待加密字符串
+     * @param publicKey 公钥
+     */
     public static String publicEncrypt(String str, PublicKey publicKey) throws Exception {
         //base64编码的公钥
         //RSA加密
@@ -36,8 +41,13 @@ public class SignatureUtil {
         return encryptBASE64(cipher.doFinal(str.getBytes("UTF-8")));
     }
 
+    /**
+     * 私钥解密
+     * @param str   被加密的字符串
+     * @param privateKey    私钥
+     */
     public static String privateDecrypt(String str, PrivateKey privateKey) throws Exception {
-        //64位解码加密后的字符串
+        //base64解码加密后的字符串
         byte[] inputByte = decryptBASE64(str);
         //RSA解密
         Cipher cipher = Cipher.getInstance("RSA");
@@ -63,7 +73,7 @@ public class SignatureUtil {
     }
 
     /**
-     * 公钥验证
+     * 公钥验证签名
      * @param str   str
      * @param sign  签名
      * @param publicKey 公钥
@@ -83,7 +93,7 @@ public class SignatureUtil {
 
 
 
-    /*
+    /**
      * @function: 获取PublicKey格式的公钥，本例中未使用
      * @param: [key]
      * @return: java.security.PublicKey
@@ -110,7 +120,7 @@ public class SignatureUtil {
     }
 
 
-    /*
+    /**
      * @function: 获取PublicKey格式的私钥，本例中未使用
      * @param: [key]
      * @return: java.security.PrivateKey
@@ -134,7 +144,7 @@ public class SignatureUtil {
         return privateKey;
     }
 
-    /*
+    /**
      * @function: 初始化公钥和私钥
      * @param: []
      * @return: java.util.Map<java.lang.String,java.lang.Object>

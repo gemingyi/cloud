@@ -2,8 +2,7 @@ package com.example.userserver.service.impl;
 
 import com.example.commons.IAbstractService;
 import com.example.commons.result.RestResult;
-import com.example.commons.result.ResultCode;
-import com.example.userserver.client.TestClient;
+import com.example.userserver.feign.TestFeign;
 import com.example.userserver.dao.TestMapper;
 import com.example.userserver.model.Test;
 import com.example.userserver.service.ITestService;
@@ -20,7 +19,7 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
     @Autowired
     private TestMapper testMapper;
     @Autowired
-    private TestClient testClient;
+    private TestFeign testFeign;
 
 
     @Override
@@ -58,7 +57,7 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
         test.setPrice(BigDecimal.ZERO);
         this.testMapper.insert(test);
 
-        RestResult<Object> restResult = testClient.seataTest();
+        RestResult<Object> restResult = testFeign.seataTest();
         System.out.println(restResult);
     }
 }

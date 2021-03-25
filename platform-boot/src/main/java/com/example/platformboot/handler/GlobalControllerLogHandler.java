@@ -25,9 +25,9 @@ import java.util.concurrent.TimeUnit;
  */
 @Aspect
 @Component
-public class GlobalRequestLogHandler {
+public class GlobalControllerLogHandler {
 
-    private Logger log = LoggerFactory.getLogger(GlobalRequestLogHandler.class);
+    private Logger log = LoggerFactory.getLogger(GlobalControllerLogHandler.class);
 
     /**
      * 定义日志切点   控制层接口日志

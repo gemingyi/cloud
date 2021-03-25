@@ -3,6 +3,7 @@ package com.example.pluginnetty.netty.handler.webSocket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
@@ -23,7 +24,7 @@ public class ByteWebSocketFrameServerHandler extends SimpleChannelInboundHandler
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext,  Object msg){
         //首次请求之后先进行握手，通过http请求来实现
-        if (msg instanceof FullHttpRequest) {
+        if (msg instanceof HttpRequest) {
             handleHttpRequest(channelHandlerContext, (FullHttpRequest) msg);
         } else if (msg instanceof WebSocketFrame) {
             handleWebSocketRequest(channelHandlerContext, (WebSocketFrame) msg);

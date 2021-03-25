@@ -25,8 +25,6 @@ import org.springframework.context.annotation.Primary;
 @AutoConfigureBefore({GatewayLoadBalancerClientAutoConfiguration.class})
 public class GatewayGrayscaleLoadBalancerAutoConfig {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(GatewayGrayscaleLoadBalancerAutoConfig.class);
-
     /**
      * @Description: 自定义网关 灰度路由 config
      * @author mingyi ge
@@ -35,19 +33,9 @@ public class GatewayGrayscaleLoadBalancerAutoConfig {
     @Bean
     @Primary
     public LoadBalancerClientFilter gatewayLoadBalancerClientFilter(LoadBalancerClient loadBalancerClient, LoadBalancerProperties loadBalancerProperties) {
+        System.out.println("###### 已启动gateway灰度路由LoadBalancerClientFilter starter ######");
         GatewayLoadBalancerClientFilter gatewayLoadBalancerClientFilter = new GatewayLoadBalancerClientFilter(loadBalancerClient, loadBalancerProperties);
         return gatewayLoadBalancerClientFilter;
-    }
-
-    /**
-     * @Description: 自定义网关 灰度路由 config
-     * @author mingyi ge
-     * @date 2020/12/14 11:15
-     */
-    @Bean
-    public IRule gatewayNacosGrayscaleLoadBalancerRule() {
-        LOGGER.info("###### 已启动gateway灰度路由starter ######");
-        return new GatewayNacosGrayscaleLoadBalancerRule();
     }
 
 }

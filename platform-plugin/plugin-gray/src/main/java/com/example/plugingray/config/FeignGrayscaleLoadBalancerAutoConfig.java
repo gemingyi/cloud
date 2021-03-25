@@ -24,9 +24,6 @@ import java.util.Enumeration;
 @ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "true")
 public class FeignGrayscaleLoadBalancerAutoConfig {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(FeignGrayscaleLoadBalancerAutoConfig.class);
-
-
     /**
      * feign拦截器
      */
@@ -56,20 +53,9 @@ public class FeignGrayscaleLoadBalancerAutoConfig {
      */
     @Bean
     public HystrixConcurrencyStrategy feignHystrixConcurrencyStrategy() {
+        System.out.println("###### 已启动server灰度路由Hystrix策略 starter ######");
         return new FeignHystrixConcurrencyStrategy();
     }
 
     //-------------------------------------------------------------
-
-    /**
-     * @Description: 自定义服务feign调用 灰度路由 config
-     * @author mingyi ge
-     * @date 2020/12/14 10:03
-     */
-    @Bean
-    public IRule nacosGrayscaleRule() {
-        LOGGER.info("###### 已启动service灰度路由starter ######");
-        return new FeignNacosGrayscaleLoadBalancerRule();
-    }
-
 }

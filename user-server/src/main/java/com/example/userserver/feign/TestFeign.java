@@ -1,8 +1,7 @@
-package com.example.userserver.client;
+package com.example.userserver.feign;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.commons.result.RestResult;
-import com.example.userserver.client.fallback.TestClientFallbackFactory;
+import com.example.userserver.feign.fallback.TestFeignFallbackFactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
  * 远程调用
  */
 //@FeignClient(value = "common-server", path = "test")
-@FeignClient(value = "common-server", path = "test", fallbackFactory = TestClientFallbackFactory.class)
-public interface TestClient {
+@FeignClient(value = "common-server", path = "test", fallbackFactory = TestFeignFallbackFactory.class)
+public interface TestFeign {
 
 
     @RequestMapping("test1")

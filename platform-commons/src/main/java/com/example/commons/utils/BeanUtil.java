@@ -4,11 +4,7 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -56,8 +52,8 @@ public class BeanUtil {
         }
 
         if (!StringUtils.isEmpty(date)) {
-            if (wrapper.isWritableProperty("modifyTime")) {
-                wrapper.setPropertyValue("modifyTime", date);
+            if (wrapper.isWritableProperty("updateTime")) {
+                wrapper.setPropertyValue("updateTime", date);
             }
         }
     }

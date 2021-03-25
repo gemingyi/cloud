@@ -1,4 +1,4 @@
-package com.example.userserver;
+package com.example.killserver;
 
 import com.example.platformboot.BootApplication;
 import org.mybatis.spring.annotation.MapperScan;
@@ -9,16 +9,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-@MapperScan("com.example.userserver.dao")
-public class UserServerApplication extends BootApplication {
+@MapperScan("com.example.killserver.dao")
+public class KillServerApplication extends BootApplication {
 
-    public UserServerApplication() {
-        System.setProperty("es.set.netty.runtime.available.processors", "false");
-    }
 
     public static void main(String[] args) {
 
-        SpringApplication.run(UserServerApplication.class, args);
+        SpringApplication.run(KillServerApplication.class, args);
     }
 
 }

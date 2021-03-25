@@ -1,15 +1,13 @@
-package com.example.commonserver.feign;
+package com.example.commonserver.rest;
 
 import com.example.commons.jwt.JWTToken;
 import com.example.commons.jwt.JWTUtil;
 import com.example.commons.result.RestResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
-public class AuthController {
+public class AuthRest {
 
 
     /**

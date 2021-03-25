@@ -1,11 +1,9 @@
-package com.example.commonserver.feign;
+package com.example.commonserver.rest;
 
 import com.example.commons.exceptionHandle.exceptions.DataConflictException;
 import com.example.commons.result.RestResult;
 import com.example.commonserver.service.ICommonService;
 import com.example.commonserver.service.ITestService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("test")
-public class TestController {
+public class TestRest {
 
     @Autowired
     private ITestService testService;

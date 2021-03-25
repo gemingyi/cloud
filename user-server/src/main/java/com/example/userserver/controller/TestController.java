@@ -4,7 +4,7 @@ package com.example.userserver.controller;
 import com.example.commons.exceptionHandle.exceptions.DataNotFoundException;
 import com.example.commons.result.RestResult;
 import com.example.pluginredis.javascript.JavascriptTemplate;
-import com.example.userserver.client.TestClient;
+import com.example.userserver.feign.TestFeign;
 import com.example.userserver.model.Test;
 import com.example.userserver.service.ITestService;
 import com.example.userserver.service.IUserInfoService;
@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 public class TestController {
 
     @Autowired
-    private TestClient testClient;
+    private TestFeign testFeign;
     @Autowired
     private ITestService testService;
 
@@ -72,14 +72,14 @@ public class TestController {
     @GetMapping("/test1")
 //    @SentinelResource(value="/test2")
     public RestResult<Object> test1() {
-        return testClient.test1();
+        return testFeign.test1();
     }
 
     @ApiOperation("测试远程异常接口")
     @GetMapping("/test2")
 //    @SentinelResource(value="/test2")
     public RestResult<Object> test2() {
-        return testClient.test2();
+        return testFeign.test2();
     }
 
 
@@ -104,13 +104,13 @@ public class TestController {
             @ApiImplicitParam(name = "file", value = "文件", required = true, dataType = "file")
     })
     public RestResult<Object> testImport(@RequestPart(value = "file", required = false) MultipartFile file) {
-        return testClient.testImport(file);
+        return testFeign.testImport(file);
     }
 
     @ApiOperation("校验图片验证码")
     @GetMapping(value = "/checkValidateCode")
     RestResult<Object> checkValidateCode(String token, String validateCode) {
-        return testClient.checkValidateCode(token, validateCode);
+        return testFeign.checkValidateCode(token, validateCode);
     }
 
 }

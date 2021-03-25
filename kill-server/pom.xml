@@ -7,11 +7,11 @@
         <groupId>com.example</groupId>
         <artifactId>cloud</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+        <!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
     </parent>
 
     <groupId>com.example</groupId>
-    <artifactId>user-server</artifactId>
+    <artifactId>kill-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -39,44 +39,18 @@
             <groupId>com.example</groupId>
             <artifactId>plugin-redis</artifactId>
         </dependency>
-        <!-- plugin-es -->
-<!--        <dependency>-->
-<!--            <groupId>com.example</groupId>-->
-<!--            <artifactId>plugin-es</artifactId>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>org.elasticsearch</groupId>
-            <artifactId>elasticsearch</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-        </dependency>
-        <!-- plugin-swagger -->
+        <!-- plugin-common -->
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>plugin-swagger</artifactId>
+            <artifactId>platform-commons</artifactId>
         </dependency>
-
-        <!-- seata -->
+        <!-- rabbitMQ -->
         <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-jexl3</artifactId>
-            <version>3.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>xml-security</groupId>
-            <artifactId>xmlsec</artifactId>
-            <version>1.3.0</version>
-        </dependency>
-
     </dependencies>
+
 
     <build>
         <finalName>${project.name}</finalName>
@@ -93,7 +67,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.example.userserver.UserServerApplication</mainClass>
+                            <mainClass>com.example.killserver.KillServerApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

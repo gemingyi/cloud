@@ -3,6 +3,7 @@ package com.example.pluginmysql.strengthen;
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.example.pluginmysql.strengthen.method.InsertBatch;
+import com.example.pluginmysql.strengthen.method.UpdateBatch;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class CommonSqlInjector extends DefaultSqlInjector {
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
         methodList.add(new InsertBatch());
+        methodList.add(new UpdateBatch());
         return methodList;
     }
 

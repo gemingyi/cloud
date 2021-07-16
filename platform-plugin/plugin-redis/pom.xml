@@ -38,11 +38,11 @@
             <artifactId>guava</artifactId>
         </dependency>
         <!-- plugin-common -->
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>platform-commons</artifactId>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.example</groupId>-->
+<!--            <artifactId>platform-commons</artifactId>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

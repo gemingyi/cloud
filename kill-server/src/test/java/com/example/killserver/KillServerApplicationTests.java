@@ -1,10 +1,11 @@
 package com.example.killserver;
 
-import com.example.killserver.model.KillOrder;
+import com.example.killserver.dao.entity.KillOrder;
+import com.example.killserver.mq.constans.ExchangeConstant;
+import com.example.killserver.mq.constans.RoutingKeyConstant;
+import com.example.pluginmq.producer.rabbit.RabbitBusinessMessageProducer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,8 +17,10 @@ import java.util.Date;
 @SpringBootTest
 public class KillServerApplicationTests {
 
+//    @Autowired
+//    private RabbitTemplate rabbitTemplate;
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private RabbitBusinessMessageProducer rabbitBusinessMessageProducer;
 
     @Test
     public void contextLoads() {
@@ -31,9 +34,7 @@ public class KillServerApplicationTests {
         killOrder.setAdder("测试收货地址111");
         killOrder.setCreateTime(new Date());
         //
-        rabbitTemplate.convertAndSend("timeOutOrderExchange", "timeOutOrderRouting", killOrder, message -> {
-            return message;
-        });
+        rabbitBusinessMessageProducer.sendBusinessMsg(ExchangeConstant.TIMEOUT_ORDER_EXCHANGE, RoutingKeyConstant.TIMEOUT_ORDER_KEY, killOrder);
     }
 
 }

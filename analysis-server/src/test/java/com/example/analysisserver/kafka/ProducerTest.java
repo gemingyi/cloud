@@ -1,5 +1,6 @@
 package com.example.analysisserver.kafka;
 
+import com.example.pluginmq.producer.kafka.KafkaBusinessMessageProducer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 
@@ -16,6 +18,9 @@ public class ProducerTest {
 
     @Autowired
     private KafkaTemplate<String, Object> producertemplate;
+
+    @Autowired
+    private KafkaBusinessMessageProducer kafkaBusinessMessageProducer;
 
 
     @Test
@@ -54,6 +59,12 @@ public class ProducerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void test3() {
+        kafkaBusinessMessageProducer.sendBusinessMsg("topic1", null, "111");
     }
 
 }

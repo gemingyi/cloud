@@ -1,10 +1,9 @@
 package com.example.commonserver.service.impl;
 
 import com.example.commons.IAbstractService;
-import com.example.commons.exceptionHandle.exceptions.IllegalParameterException;
 import com.example.commons.exceptionHandle.exceptions.InternalServerException;
-import com.example.commonserver.dao.TestMapper;
-import com.example.commonserver.model.Test;
+import com.example.commonserver.dao.mapper.TestMapper;
+import com.example.commonserver.dao.entity.Test;
 import com.example.commonserver.service.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +52,10 @@ public class TestServiceImpl implements IAbstractService<Test>, ITestService {
         this.testMapper.insert(test);
         throw new InternalServerException();
 //        throw new RuntimeException("aaaaaaaaaaaaaa");
+    }
+
+    @Override
+    public void seataTest2() {
+
     }
 }

@@ -1,7 +1,7 @@
 package com.example.killserver.service.impl;
 
-import com.example.killserver.dao.KillGoodsMapper;
-import com.example.killserver.model.KillGoods;
+import com.example.killserver.dao.mapper.KillGoodsMapper;
+import com.example.killserver.dao.entity.KillGoods;
 import com.example.killserver.service.IKillGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

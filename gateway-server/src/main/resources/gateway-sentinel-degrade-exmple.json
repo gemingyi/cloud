@@ -1,0 +1,8 @@
+[
+  {
+    "resource": "/common-server/**",
+    "count": 100,
+    "grade": 0,
+    "timeWindow": 30
+  }
+]

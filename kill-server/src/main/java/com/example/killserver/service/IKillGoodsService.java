@@ -1,7 +1,7 @@
 package com.example.killserver.service;
 
 
-import com.example.killserver.model.KillGoods;
+import com.example.killserver.dao.entity.KillGoods;
 
 public interface IKillGoodsService {
 

@@ -1,6 +1,7 @@
 package com.example.gatewayserver.handler;
 
 import com.example.commons.result.RestResult;
+import com.example.commons.result.ResultCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
@@ -44,7 +45,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         return response.writeWith(Mono.fromSupplier(() -> {
             DataBufferFactory bufferFactory = response.bufferFactory();
             try {
-                return bufferFactory.wrap(objectMapper.writeValueAsBytes(RestResult.failure("gateway:" + ex.getMessage())));
+                return bufferFactory.wrap(objectMapper.writeValueAsBytes(RestResult.failure(ResultCode.SERVICE_DOWNGRADE)));
             } catch (JsonProcessingException e) {
                 return bufferFactory.wrap(new byte[0]);
             }

@@ -2,7 +2,7 @@ package com.example.userserver.redis;
 
 import com.example.pluginredis.RedisKeyBuildUtil;
 import com.example.pluginredis.util.RedisRateLimit;
-import com.example.userserver.model.UserInfo;
+import com.example.userserver.dao.entity.UserInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,12 @@ package com.example.killserver.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.commons.result.RestResult;
-import com.example.killserver.dao.KillGoodsMapper;
-import com.example.killserver.dao.KillOrderMapper;
-import com.example.killserver.model.KillGoods;
-import com.example.killserver.model.KillOrder;
+import com.example.killserver.dao.mapper.KillGoodsMapper;
+import com.example.killserver.dao.mapper.KillOrderMapper;
+import com.example.killserver.dao.entity.KillGoods;
+import com.example.killserver.dao.entity.KillOrder;
+import com.example.killserver.mq.constans.ExchangeConstant;
+import com.example.killserver.mq.constans.RoutingKeyConstant;
 import com.example.killserver.service.IKillOrderService;
 import com.example.pluginredis.util.RedisLock;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -142,15 +144,14 @@ public class KillOrderServiceImpl implements IKillOrderService {
         killOrder.setStatus("new");
         killOrder.setAdder("测试收货地址111");
         killOrder.setCreateTime(new Date());
-        //redis保存订单信息
-        redisTemplate.opsForHash().put("kill:order", killOrder.getOrderNumber(), killOrder);
         //数据库保存订单信息 可异步保存
         killOrderMapper.insert(killOrder);
 
+        //redis保存订单信息
+        redisTemplate.opsForHash().put("kill:order", killOrder.getOrderNumber(), killOrder);
+
         //
-        rabbitTemplate.convertAndSend("timeOutOrderExchange", "timeOutOrderRouting", killOrder, message -> {
-            return message;
-        });
+        rabbitTemplate.convertAndSend(ExchangeConstant.TIMEOUT_ORDER_EXCHANGE, RoutingKeyConstant.TIMEOUT_ORDER_KEY, killOrder, message -> message);
     }
 
 }

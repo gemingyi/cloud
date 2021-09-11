@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
  * 没有引入gray依赖 && 没有开启service灰度
  */
 @ConditionalOnMissingClass("com.example.plugingray.config.FeignGrayscaleLoadBalancerAutoConfig")
-@ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "false")
+//@ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "false")
 public class FeignHystrixConfig extends HystrixConcurrencyStrategy {
 
     /**

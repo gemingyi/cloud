@@ -16,7 +16,7 @@ public class EnumUtil {
      */
     public static List<EnumsData> getEnumDataList(Class<?> enumClass) throws Exception {
         List<EnumsData> list = new ArrayList<>();
-        Method key = enumClass.getMethod("getKey");
+        Method key = enumClass.getMethod("getLabel");
         Method value = enumClass.getMethod("getValue");
         for (Object o : enumClass.getEnumConstants()){
             list.add(new EnumsData(key.invoke(o).toString(), value.invoke(o)));
@@ -29,7 +29,7 @@ public class EnumUtil {
      */
     public static HashMap<String, Object> getEnumMaps(Class<?> enumClass) throws Exception {
         HashMap<String, Object> map = new HashMap<>(4);
-        Method k = enumClass.getMethod("getKey");
+        Method k = enumClass.getMethod("getLabel");
         Method v = enumClass.getMethod("getValue");
         for (Object o : enumClass.getEnumConstants()){
             map.put(k.invoke(o).toString(), v.invoke(o));
@@ -42,7 +42,7 @@ public class EnumUtil {
      */
     public static HashMap<String, Object> getEnumTypeMaps(Class<?> enumClass) throws Exception {
         HashMap<String, Object> map = new HashMap<>(4);
-        Method k = enumClass.getMethod("getKey");
+        Method k = enumClass.getMethod("getLabel");
         Method valueOf = enumClass.getMethod("valueOf", String.class);
         for (Object o : enumClass.getEnumConstants()){
             map.put(k.invoke(o).toString(), valueOf.invoke(o, k.invoke(o).toString()));

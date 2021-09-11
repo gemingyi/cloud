@@ -18,12 +18,12 @@ public class AuthClientFallbackFactory implements FallbackFactory<AuthClient> {
 
             @Override
             public RestResult<Object> check(String token) {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
             @Override
             public RestResult<Object> info(String token) {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
         };

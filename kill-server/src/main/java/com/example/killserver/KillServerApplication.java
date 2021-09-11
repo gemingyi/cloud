@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
-@MapperScan("com.example.killserver.dao")
+@MapperScan({"com.example.killserver.dao.mapper", "com.example.pluginmq.dao.mapper"})
 public class KillServerApplication extends BootApplication {
 
 

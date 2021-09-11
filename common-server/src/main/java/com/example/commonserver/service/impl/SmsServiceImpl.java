@@ -4,7 +4,7 @@
 //import com.baomidou.mybatisplus.core.metadata.IPage;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 //import com.example.commonserver.dao.CommonSmsMapper;
-//import com.example.commonserver.model.CommonSms;
+//import com.example.commonserver.dao.model.CommonSms;
 //import com.example.commonserver.service.ISmsService;
 //import com.example.commonserver.sms.SMSUtil;
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -16,28 +16,34 @@ public class TestFeignFallbackFactory implements FallbackFactory<TestFeign> {
 
             @Override
             public RestResult<Object> test1() {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
             @Override
             public RestResult<Object> test2() {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
             @Override
             public RestResult<Object> seataTest() {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
+            }
+
+            @Override
+            public RestResult<Object> seataTest2() {
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
             @Override
             public RestResult<Object> testImport(MultipartFile file) {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
 
             @Override
             public RestResult<Object> checkValidateCode(String token, String validateCode) {
-                return RestResult.failure(ResultCode.SERVICE_DOWNGRADE);
+                return RestResult.failure(ResultCode.SERVICE_CALL_EXCEPTION);
             }
         };
     }
+
 }

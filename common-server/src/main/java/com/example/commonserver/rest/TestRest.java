@@ -47,6 +47,12 @@ public class TestRest {
         return RestResult.success();
     }
 
+    @PostMapping("seata2")
+    public RestResult<Object> seataTest2() {
+        testService.seataTest2();
+        return RestResult.success();
+    }
+
     /**
      * 测试远程文件上传
      */

@@ -42,12 +42,12 @@ public class GlobalControllerLogHandler {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String uri = request.getRequestURI();
+        String tid = request.getHeader("tid");
         String method = request.getMethod();
 //        Map<String, Object> headers = IPUtil.getHeaders(request);
         String arg = Arrays.toString(joinPoint.getArgs());
         String stackTrace = ExceptionUtils.getStackTrace(e);
-        long thread = Thread.currentThread().getId();
-        log.error(String.format("[%s] ***请求异常*** URL=[%s] 请求方式=[%s] 请求参数=%s 异常详情=%s", thread, uri, method, arg, stackTrace));
+        log.error("[tid={}] ***请求异常*** URL=[{}],请求方式=[{}],请求参数=[{}],异常详情=[{}]", tid, uri, method, arg, stackTrace);
     }
 
 
@@ -66,10 +66,10 @@ public class GlobalControllerLogHandler {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String method = request.getMethod();
         String uri = request.getRequestURI();
+        String tid = request.getHeader("tid");
         String ip = IPUtil.getRealIp(request);
-        long thread = Thread.currentThread().getId();
         String arg = Arrays.toString(joinPoint.getArgs());
-        log.info(String.format("[%s] ###请求开始### 请求方式=[%s] URL=[%s] 请求IP=[%s] 请求参数=[%s]", thread, method, uri, ip, arg));
+        log.info("[tid={}] ###请求开始### 请求方式=[{}],URL=[{}],请求IP=[{}],请求参数=[{}]", tid, method, uri, ip, arg);
     }
 
 
@@ -79,9 +79,10 @@ public class GlobalControllerLogHandler {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String method = request.getMethod();
         String uri = request.getRequestURI();
+        String tid = request.getHeader("tid");
         String arg = null != object ? JSON.toJSONString(object) : "";
         long millis = start.stop().elapsed(TimeUnit.MILLISECONDS);
-        long thread = Thread.currentThread().getId();
-        log.info(String.format("[%s] ^^^请求结束^^^ 耗时=[%sms] 请求方式=[%s] URL=[%s]  响应参数=%s", thread, millis, method, uri, arg));
+        log.info("[tid={}] ^^^请求结束^^^ 耗时=[{}],请求方式=[{}],URL=[{}],响应参数=[{}]", tid, millis, method, uri, arg);
     }
+
 }

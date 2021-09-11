@@ -2,8 +2,8 @@ package com.example.userserver.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.userserver.model.UserInfo;
-import com.example.userserver.model.UserLogin;
+import com.example.userserver.dao.entity.UserInfo;
+import com.example.userserver.dao.entity.UserLogin;
 
 
 public interface IUserInfoService {

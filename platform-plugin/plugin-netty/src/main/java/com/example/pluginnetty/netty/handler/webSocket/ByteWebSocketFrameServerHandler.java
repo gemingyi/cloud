@@ -32,6 +32,22 @@ public class ByteWebSocketFrameServerHandler extends SimpleChannelInboundHandler
 
     }
 
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) {
+        System.out.println(ctx.channel().toString());
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        System.out.println("连接断开=" + ctx.channel().toString());
+        ctx.fireChannelInactive();
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) {
+        ctx.flush();
+    }
+
 
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest req) {
         //
@@ -46,7 +62,6 @@ public class ByteWebSocketFrameServerHandler extends SimpleChannelInboundHandler
                 // 打印连接上
 
             }
-
         }
     }
 

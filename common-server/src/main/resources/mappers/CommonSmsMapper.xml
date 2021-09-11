@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.commonserver.dao.CommonSmsMapper">
+<mapper namespace="com.example.commonserver.dao.mapper.CommonSmsMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.example.commonserver.model.CommonSms">
+    <resultMap id="BaseResultMap" type="com.example.commonserver.dao.entity.CommonSms">
         <id column="id" property="id" />
         <result column="sms_phone" property="smsPhone" />
         <result column="sms_content" property="smsContent" />

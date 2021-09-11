@@ -28,6 +28,7 @@ public class TextTcpSocketServerHandler extends SimpleChannelInboundHandler<Byte
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         System.out.println("断开连接=" + ctx.channel().toString());
+        ctx.fireChannelInactive();
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.pluginnetty.netty.handler.webSocket;
 
+import com.example.pluginnetty.util.Person;
+import com.example.pluginnetty.util.SerializationUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelFuture;
@@ -107,6 +109,7 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
             // 文本或者二进制
             byte[] contentBytes = new byte[frame.content().readableBytes()];
             ByteBuf byteBuf = frame.content().readBytes(contentBytes);
+            System.out.println("server byte message:"+ SerializationUtil.deserializer(contentBytes, Person.class));
             ctx.writeAndFlush(contentBytes);
         }
     }

@@ -18,4 +18,11 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      */
     int insertBatch(@Param("list") List<T> list);
 
+    /**
+     * 批量更新
+     * @param list  实体对象集合
+     * @return  修改的条数
+     */
+    int updateBatch(@Param("list") List<T> list);
+
 }

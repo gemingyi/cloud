@@ -57,9 +57,7 @@ public class TestController {
     @ApiOperation("测试重复提交接口")
     @GetMapping("/repeatSubmission")
     public RestResult<?> repeatSubmission() {
-        Integer execute = javascriptTemplate.execute("repeatSubmission", 2, () -> {
-            return userInfoService.testResult();
-        });
+        Integer execute = javascriptTemplate.execute("repeatSubmission", 2, () -> userInfoService.testResult());
         return RestResult.success(execute);
 
 //        return javascriptTemplate.execute("repeatSubmission", 2, () -> {

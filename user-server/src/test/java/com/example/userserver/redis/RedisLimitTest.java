@@ -40,7 +40,7 @@ public class RedisLimitTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < 500; i++) {
             String str = RedisKeyBuildUtil.keyBuilder("user", "list_user", userInfo);
-//            System.err.println(str);
+            System.err.println(str);
         }
         System.out.println(System.currentTimeMillis() - start);
 

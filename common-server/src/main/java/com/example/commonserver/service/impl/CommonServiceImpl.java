@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CommonServiceImpl implements ICommonService {
 
+    private static final String COMMON_MODULE = "common";
+
     @Autowired
     private DefaultKaptcha kaptcha;
     @Autowired
@@ -27,7 +29,7 @@ public class CommonServiceImpl implements ICommonService {
     public String generateValidateCode(String token) throws Exception {
         // 生成验证码code
         String text = kaptcha.createText();
-        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstant.COMMON_MODULE, "generateValidateCode", token);
+        String key = RedisKeyBuildUtil.keyBuilder(COMMON_MODULE, "generateValidateCode", token);
         redisTemplate.opsForValue().set(key, text, 3, TimeUnit.MINUTES);
         // 生成图片验证码
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -38,7 +40,7 @@ public class CommonServiceImpl implements ICommonService {
 
     @Override
     public boolean checkValidateCode(String token, String validateCode) {
-        String key = RedisKeyBuildUtil.keyBuilder(RedisKeyConstant.COMMON_MODULE, "generateValidateCode", token);
+        String key = RedisKeyBuildUtil.keyBuilder(COMMON_MODULE, "generateValidateCode", token);
         Boolean exist = redisTemplate.hasKey(key);
         if (exist == null || !exist) {
             return false;

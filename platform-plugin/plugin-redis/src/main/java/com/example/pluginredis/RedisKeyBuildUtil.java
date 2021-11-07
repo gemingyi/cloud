@@ -28,23 +28,23 @@ public class RedisKeyBuildUtil {
         return keyBuilder(null, module, func, args);
     }
 
-    /**
-     * redis的key键规则定义
-     *
-     * @param module 模块名称
-     * @param func   方法名称
-     * @param obj    对象
-     * @return key
-     */
-    public static String keyBuilder(String module, String func, Object obj) {
-        String[] fields = ObjToStrArray(obj);
-        return keyBuilder(null, module, func, fields);
-    }
-
-    public static String keyBuilder(String prefix, String module, String func, Object obj) {
-        String[] fields = ObjToStrArray(obj);
-        return keyBuilder(prefix, module, func, fields);
-    }
+//    /**
+//     * redis的key键规则定义
+//     *
+//     * @param module 模块名称
+//     * @param func   方法名称
+//     * @param obj    对象
+//     * @return key
+//     */
+//    public static String keyBuilder(String module, String func, Object obj) {
+//        String[] fields = ObjToStrArray(obj);
+//        return keyBuilder(null, module, func, fields);
+//    }
+//
+//    public static String keyBuilder(String prefix, String module, String func, Object obj) {
+//        String[] fields = ObjToStrArray(obj);
+//        return keyBuilder(prefix, module, func, fields);
+//    }
 
     /**
      * redis的key键规则定义
@@ -77,7 +77,7 @@ public class RedisKeyBuildUtil {
      * @Description
      * @Author mingyi ge
      */
-    private static String[] ObjToStrArray(Object obj) {
+  /*  private static String[] ObjToStrArray(Object obj) {
 //        Method[] methods = obj.getClass().getMethods();
 //        List<String> list = new ArrayList<>(methods.length);
 //        try {
@@ -136,7 +136,7 @@ public class RedisKeyBuildUtil {
             e.printStackTrace();
         }
         return list.toArray(new String[fields.length]);
-    }
+    }*/
 
 }
 

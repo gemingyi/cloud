@@ -53,10 +53,10 @@
 //            log.info("SmsUtil INFO : 发送短信至 {} - {} - {}", phoneNumbers, code, response.getData());
 //            return response.getData();
 //        } catch (ServerException e) {
-//            log.error("SmsUtil ServerException : {}", e);
+//            log.error("SmsUtil ServerException:", e);
 //            e.printStackTrace();
 //        } catch (ClientException e) {
-//            log.error("SmsUtil ClientException : {}", e);
+//            log.error("SmsUtil ClientException:", e);
 //            e.printStackTrace();
 //        }
 //        return null;
@@ -68,10 +68,10 @@
 //     * @Date 2019/8/21 18:32
 //     */
 //    public String generateRandomNumber(int n) {
-//        String rn = "";
+//        StringBuilder rn = new StringBuilder();
 //        for (int i = 0; i < n; i++) {
-//            rn += random.nextInt(10);
+//            rn.append(random.nextInt(10));
 //        }
-//        return rn;
+//        return rn.toString();
 //    }
 //}

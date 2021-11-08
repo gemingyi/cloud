@@ -170,10 +170,34 @@ public class IdWorker {
         return new Random().nextInt(maxWorkerId + 1);
     }
 
+//    public static void main(String[] args) {
+//        IdWorker idWorker = new IdWorker(null);
+//        for (int j = 0; j < 10; j++) {
+//            System.out.println(idWorker.nextId());
+//        }
+//    }
+
     public static void main(String[] args) {
+        long userId = 12230;
+        String userIdGene = String.format("%04d", Long.valueOf(Long.toBinaryString(userId % 16)));
         IdWorker idWorker = new IdWorker(null);
-        for (int j = 0; j < 10; j++) {
-            System.out.println(idWorker.nextId());
+
+        for (int i = 1; i < 10; i++) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            long articleId = idWorker.nextId();
+
+            String s = Long.toBinaryString(articleId);
+            s = s.substring(0, 59);
+            s = s + userIdGene;
+            long lastArticleId = Long.parseLong(s, 2);
+
+            System.out.println(articleId + "----" + lastArticleId);
+            System.out.println(lastArticleId % 16);
+            System.out.println(userId % 16);
         }
     }
 }

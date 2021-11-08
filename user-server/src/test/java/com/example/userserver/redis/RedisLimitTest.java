@@ -14,31 +14,35 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class RedisLimitTest {
 
-    @Autowired
-    private RedisRateLimit redisRateLimit;
+//    @Autowired
+//    private RedisRateLimit redisRateLimit;
+//
+//
+//    @Test
+//    public void test() {
+//        for (int i = 0; i < 10; i++) {
+//            boolean flag = this.redisRateLimit.limit("test", 5, 1);
+//            if(!flag) {
+//                System.out.println(Thread.currentThread() +  "限流");
+//            } else {
+//                System.out.println(Thread.currentThread() +  "通过");
+//            }
+//        }
+//    }
 
+//    @Test
+//    public void testKeyBuild() {
+//
+//    }
 
-    @Test
-    public void test() {
-        for (int i = 0; i < 10; i++) {
-            boolean flag = this.redisRateLimit.limit("test", 5, 1);
-            if(!flag) {
-                System.out.println(Thread.currentThread() +  "限流");
-            } else {
-                System.out.println(Thread.currentThread() +  "通过");
-            }
-        }
-    }
-
-    @Test
-    public void testKeyBuild() {
+    public static void main(String[] args) {
         UserInfo userInfo = new UserInfo();
         userInfo.setNickName("小明");
         userInfo.setGender(1);
         userInfo.setPhone("123123");
 
         long start = System.currentTimeMillis();
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 1; i++) {
             String str = RedisKeyBuildUtil.keyBuilder("user", "list_user", userInfo);
             System.err.println(str);
         }

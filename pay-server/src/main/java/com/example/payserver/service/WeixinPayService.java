@@ -1,6 +1,6 @@
 //package com.example.payserver.service;
 //
-//import com.example.commons.utils.BeanUtil;
+//import com.example.commons.utils.bean.BeanUtil;
 //import com.example.commons.utils.QRBarCodeUtil;
 //import com.example.payserver.commons.weixin.MyConfig;
 //import com.example.payserver.commons.weixin.WXPay;

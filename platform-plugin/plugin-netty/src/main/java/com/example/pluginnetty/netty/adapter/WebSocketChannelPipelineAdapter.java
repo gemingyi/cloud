@@ -26,7 +26,7 @@ public class WebSocketChannelPipelineAdapter implements ChannelPipelineAdapter {
         pipeline.addLast(new HttpServerExpectContinueHandler());
         pipeline.addLast(new ServiceWriteChannelHandler());
         if("text".equals(socketConfiguration.getProtocolType())){
-            pipeline.addLast(new TextWebSocketFrameServerHandler());
+            pipeline.addLast(new TextWebSocketFrameServerHandler(socketConfiguration));
         }else{
             pipeline.addLast(new ByteWebSocketFrameServerHandler());
         }

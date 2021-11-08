@@ -1,8 +1,13 @@
 package com.example.pluginnetty.config;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelId;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @description:
@@ -43,5 +48,9 @@ public class SocketConfiguration {
      * SSL相关配置
      */
 //    SslInfo sslInfo = new SslInfo();
+
+
+    //连接id与容器的关系
+    private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();
 
 }

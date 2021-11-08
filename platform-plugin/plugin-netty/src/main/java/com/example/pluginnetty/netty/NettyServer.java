@@ -5,7 +5,9 @@ import com.example.pluginnetty.config.SocketConfiguration;
 import com.example.pluginnetty.netty.adapter.ChannelPipelineAdapter;
 import com.example.pluginnetty.netty.handler.HeartBeatServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
@@ -13,7 +15,6 @@ import io.netty.channel.epoll.EpollChannelOption;
 import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.epoll.EpollServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import io.netty.handler.timeout.IdleStateHandler;
@@ -73,10 +74,19 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
         }
 
         try {
-            bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+            bootstrap.childHandler(new ChannelInitializer<Channel>() {
                 @Override
-                protected void initChannel(SocketChannel socketChannel) {
-                    ChannelPipeline pipeline = socketChannel.pipeline();
+                protected void initChannel(Channel channel) {
+                    ChannelPipeline pipeline = channel.pipeline();
+
+                    //
+                    socketConfiguration.getChannelMap().put(channel.id(), channel);
+                    log.info("new channel{}", channel);
+
+//                    channel.closeFuture().addListener((ChannelFutureListener) future -> {
+//                        log.info("channel close future {}", channel);
+//                        socketConfiguration.getChannelMap().remove(future.channel().id());
+//                    });
 
                     // 开启SSL验证
 //                  pipeline.addLast("ssl", SslFactory.createSslContext(sslInfo.getCertFilePath(), sslInfo.getKeyFilePath()).newHandler(socketChannel.alloc()));

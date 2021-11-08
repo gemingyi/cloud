@@ -1,4 +1,4 @@
-package com.example.commons.utils;
+package com.example.commons.utils.bean;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;

@@ -1,12 +1,12 @@
 package com.example.pluginnetty.netty.handler.webSocket;
 
-import com.example.pluginnetty.util.Person;
-import com.example.pluginnetty.util.SerializationUtil;
-import io.netty.buffer.ByteBuf;
+import com.example.pluginnetty.config.SocketConfiguration;
 import io.netty.buffer.ByteBufUtil;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.HttpRequest;
@@ -14,7 +14,6 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpUtil;
-import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PingWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.PongWebSocketFrame;
@@ -22,6 +21,8 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+
+import java.util.Map;
 
 
 /**
@@ -32,6 +33,13 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private WebSocketServerHandshaker handshaker;
+
+
+    SocketConfiguration socketConfiguration;
+
+    public TextWebSocketFrameServerHandler(SocketConfiguration socketConfiguration) {
+        this.socketConfiguration = socketConfiguration;
+    }
     
 
     @Override
@@ -53,6 +61,7 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
     public void channelInactive(ChannelHandlerContext ctx) {
         System.out.println("连接断开=" + ctx.channel().toString());
         ctx.fireChannelInactive();
+        socketConfiguration.getChannelMap().remove(ctx.channel().id());
     }
 
     @Override
@@ -102,16 +111,21 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
             // 文本或者二进制
             String text = ((TextWebSocketFrame) frame).text();
             System.out.println("收到消息" + text);
-            ctx.writeAndFlush(text);
+//            ctx.channel().writeAndFlush(text);
+//            ctx.writeAndFlush(text);
+
+            ChannelId id = ctx.channel().id();
+            System.out.println(id);
+            Map<ChannelId, Channel> map = socketConfiguration.getChannelMap();
+            map.forEach((k,v) -> {
+                System.out.println("current" + ctx.channel().id() + ", map" + v.id());
+//                if(id.toString().equals(k)){
+//                    return;
+//                }
+                v.writeAndFlush(text);
+            });
         }
 
-        if (frame instanceof BinaryWebSocketFrame) {
-            // 文本或者二进制
-            byte[] contentBytes = new byte[frame.content().readableBytes()];
-            ByteBuf byteBuf = frame.content().readBytes(contentBytes);
-            System.out.println("server byte message:"+ SerializationUtil.deserializer(contentBytes, Person.class));
-            ctx.writeAndFlush(contentBytes);
-        }
     }
 
 

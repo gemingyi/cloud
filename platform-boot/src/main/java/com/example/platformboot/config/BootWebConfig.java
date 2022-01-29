@@ -23,6 +23,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * https://www.cnblogs.com/crazy-lc/p/12312715.html 处理JSON
+ * https://www.jianshu.com/p/becf73e7b06e   WebMvcConfigurationSupport 详解
+ */
 @Configuration
 public class BootWebConfig extends WebMvcConfigurationSupport {
 

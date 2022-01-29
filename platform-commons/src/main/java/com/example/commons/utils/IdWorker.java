@@ -1,6 +1,7 @@
 package com.example.commons.utils;
 
 import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
@@ -178,6 +179,13 @@ public class IdWorker {
 //    }
 
     public static void main(String[] args) {
+//        ThreadLocal<SimpleDateFormat> simpleDateFormat = ThreadLocal.withInitial(() ->
+//                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        );
+        ThreadLocal<SimpleDateFormat> simpleDateFormat = new ThreadLocal<>();
+        simpleDateFormat.set(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+
         long userId = 12230;
         String userIdGene = String.format("%04d", Long.valueOf(Long.toBinaryString(userId % 16)));
         IdWorker idWorker = new IdWorker(null);
@@ -200,4 +208,5 @@ public class IdWorker {
             System.out.println(userId % 16);
         }
     }
+
 }

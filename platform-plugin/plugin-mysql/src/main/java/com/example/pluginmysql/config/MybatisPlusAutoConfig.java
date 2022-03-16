@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.SqlExplainInterceptor;
+import com.example.pluginmysql.handler.InitValueMetaObjectHandler;
 import com.example.pluginmysql.strengthen.CommonSqlInjector;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -57,6 +58,16 @@ public class MybatisPlusAutoConfig {
         LOGGER.info("###### 已加载Mybatis-Plus explain拦截器 ######");
         return sqlExplainInterceptor;
     }
+
+    /**
+     * mybatis 数据更新 初始化值handler
+     * @TableField(fill = FieldFill.INSERT_UPDATE)
+     */
+//    @Bean
+//    public InitValueMetaObjectHandler initValueMetaObjectHandler() {
+//        LOGGER.info("###### 已加载Mybatis-Plus数据更新handler ######");
+//        return new InitValueMetaObjectHandler();
+//    }
 
 
     //---------------------------------------------------------------------------------------------

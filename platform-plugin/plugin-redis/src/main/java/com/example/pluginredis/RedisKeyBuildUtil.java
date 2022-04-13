@@ -24,9 +24,9 @@ public class RedisKeyBuildUtil {
      * @param args   参数..
      * @return key
      */
-//    public static String keyBuilder(String module, String func, Object... args) {
-//        return keyBuilder(null, module, func, args);
-//    }
+    public static String keyBuilder(String module, String func, Object... args) {
+        return keyBuilder(null, module, func, args);
+    }
 
     /**
      * redis的key键规则定义
@@ -37,13 +37,13 @@ public class RedisKeyBuildUtil {
      * @return key
      */
     public static String keyBuilder(String module, String func, Object obj) {
-//        String[] fields = ObjToStrArray(obj);
-        return keyBuilder(null, module, func, obj);
+        String[] fields = ObjToStrArray(obj);
+        return keyBuilder(null, module, func, fields);
     }
 
     public static String keyBuilder(String prefix, String module, String func, Object obj) {
-//        String[] fields = ObjToStrArray(obj);
-        return keyBuilder(prefix, module, func, obj);
+        String[] fields = ObjToStrArray(obj);
+        return keyBuilder(prefix, module, func, fields);
     }
 
     /**

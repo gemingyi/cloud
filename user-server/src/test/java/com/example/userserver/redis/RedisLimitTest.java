@@ -3,6 +3,7 @@ package com.example.userserver.redis;
 import com.example.pluginredis.RedisKeyBuildUtil;
 import com.example.pluginredis.util.RedisRateLimit;
 import com.example.userserver.model.UserInfo;
+import com.example.userserver.model.UserLogin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class RedisLimitTest {
 
 //    @Autowired
@@ -44,7 +45,7 @@ public class RedisLimitTest {
         long start = System.currentTimeMillis();
         for (int i = 0; i < 1; i++) {
             String str = RedisKeyBuildUtil.keyBuilder("user", "list_user", userInfo);
-//            System.err.println(str);
+            System.err.println(str);
         }
         System.out.println(System.currentTimeMillis() - start);
 

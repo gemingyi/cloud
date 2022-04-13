@@ -25,7 +25,7 @@ public class RedisAutoConfig {
     private final static Logger LOGGER = LoggerFactory.getLogger(RedisAutoConfig.class);
 
 
-    @Bean
+    @Bean(name = "stringRedisTemplate")
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         StringRedisTemplate template = new StringRedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);

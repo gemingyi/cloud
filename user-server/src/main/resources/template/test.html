@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>报告模版</title>
+    <style>
+        <!-- 编写css   -->
+    </style>
+</head>
+<!--  引入字体  -->
+<body style="font-family: SimSun;">
+<div class="main">
+    报告模版
+</div>
+<div class="main2">
+    <span th:text="${template.name}">template.name</span>
+    <table>
+        <thead>
+        <tr class="recordhead">
+            <th style="width: 80px;">出险日期</th>
+            <th style="width: 80px;">描述</th>
+        </tr>
+        </thead>
+        <tbody th:if="${template.insuranceInfos}">
+        <tr th:each="m,var : ${template.insuranceInfos}">
+            <th th:text="${m.expirationDate}"></th>
+            <th th:text="${m.description}"></th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

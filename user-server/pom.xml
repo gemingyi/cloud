@@ -57,6 +57,17 @@
             <groupId>com.example</groupId>
             <artifactId>plugin-swagger</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>platform-commons</artifactId>
+        </dependency>
+
+        <!-- thymeleaf -->
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- seata -->
         <dependency>

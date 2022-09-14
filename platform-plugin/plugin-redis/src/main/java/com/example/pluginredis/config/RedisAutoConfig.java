@@ -37,6 +37,9 @@ public class RedisAutoConfig {
         return redisTemplate;
     }
 
+    /**
+     * https://blog.csdn.net/bai_bug/article/details/81222519
+     */
     @Bean(name = "jsonRedisTemplate")
     RedisTemplate<String, Object> jsonRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);

@@ -31,7 +31,7 @@ public class AbstractTemplate {
     /**
      * 模版名称
      */
-    protected String templateName() {
+    private String templateName() {
         return this.templateName;
     }
 
@@ -48,7 +48,7 @@ public class AbstractTemplate {
     /**
      * 解析模版，生成html
      */
-    public String process() {
+    private String process() {
         Context ctx = new Context();
         // 设置model
         ctx.setVariables(variables());
@@ -57,7 +57,7 @@ public class AbstractTemplate {
     }
 
 
-    public void parseToPdf(String targetPdfFilePath) throws IOException, DocumentException {
+    public final void parseToPdf(String targetPdfFilePath) throws IOException, DocumentException {
         String html = process();
         // 通过html转换成pdf
         PdfUtil.createPdfByHtml(html, targetPdfFilePath);

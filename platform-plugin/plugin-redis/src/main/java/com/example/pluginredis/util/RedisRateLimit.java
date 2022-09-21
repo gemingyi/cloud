@@ -13,6 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * https://www.codetd.com/article/13613671
+ * https://www.dazhuanlan.com/xuning690/topics/1420513
+ * https://www.zhangshengrong.com/p/Z9a23KkmNV/
+ * https://segmentfault.com/a/1190000019477128?utm_medium=referral&utm_source=tuicool
  * redis 限流
  */
 public class RedisRateLimit {

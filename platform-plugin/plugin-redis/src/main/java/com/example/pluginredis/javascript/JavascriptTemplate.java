@@ -1,18 +1,31 @@
 package com.example.pluginredis.javascript;
 
+import com.example.pluginredis.constant.RequestRateLimiter;
 import com.example.pluginredis.util.RedisLock;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RRateLimiter;
+import org.redisson.api.RateLimiterConfig;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.util.Objects;
+
+/**
+ * https://www.cnblogs.com/buguge/p/13256485.html
+ * https://blog.csdn.net/weixin_43303530/article/details/123130175
+ */
 @Slf4j
 @Component
 public class JavascriptTemplate {
 
     @Autowired
     private RedisLock redisLock;
+    @Autowired
+    private RedissonClient redissonClient;
+
 
 
     /**
@@ -49,6 +62,36 @@ public class JavascriptTemplate {
             log.info("###key已存在，打断 key={}", key);
             throw new RuntimeException("接口重复请求");
         }
+    }
+
+
+
+//    public <T> T limit(String key, RateType type, long rate, long rateInterval, RateIntervalUnit timeUnit, ExecuteMethod<T> executeMethod) {
+//        RRateLimiter rRateLimiter = limit();
+//        if (rRateLimiter.tryAcquire(1)) {
+//            return executeMethod.doExecute();
+//        } else {
+//            log.info("###key限流，打断 key={}", key);
+//            throw new RuntimeException("接口被限流");
+//        }
+//    }
+//
+    private RRateLimiter limit(RequestRateLimiter requestRateLimiter) {
+        RRateLimiter rRateLimiter = redissonClient.getRateLimiter(StringUtils.isBlank(requestRateLimiter.key()) ? "default:limiter" : requestRateLimiter.key());
+        // 设置限流
+        if (rRateLimiter.isExists()) {
+            RateLimiterConfig rateLimiterConfig = rRateLimiter.getConfig();
+            // 判断配置是否更新，如果更新，重新加载限流器配置
+            if (!Objects.equals(requestRateLimiter.rate(), rateLimiterConfig.getRate())
+                    || !Objects.equals(requestRateLimiter.timeUnit().toMillis(requestRateLimiter.rateInterval()), rateLimiterConfig.getRateInterval())
+                    || !Objects.equals(requestRateLimiter.type(), rateLimiterConfig.getRateType())) {
+                rRateLimiter.delete();
+                rRateLimiter.trySetRate(requestRateLimiter.type(), requestRateLimiter.rate(), requestRateLimiter.rateInterval(), requestRateLimiter.timeUnit());
+            }
+        } else {
+            rRateLimiter.trySetRate(requestRateLimiter.type(), requestRateLimiter.rate(), requestRateLimiter.rateInterval(), requestRateLimiter.timeUnit());
+        }
+        return rRateLimiter;
     }
 
 }

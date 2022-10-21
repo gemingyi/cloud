@@ -1,4 +1,4 @@
-package com.example.pluginredis;
+package com.example.pluginredis.util;
 
 import org.springframework.util.StringUtils;
 

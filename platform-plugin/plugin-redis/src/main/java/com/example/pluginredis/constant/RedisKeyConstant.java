@@ -13,6 +13,11 @@ public class RedisKeyConstant {
     public static final String KEY_SPLIT_CHAR = ":";
 
     /**
+     * 连接字符，默认[_]
+     */
+    public static final String KEY_CONNECT_CHAR = "_";
+
+    /**
      * 分布式锁，前缀
      */
     public static final String LOCK_NAME_PREFIX = "lock" + KEY_SPLIT_CHAR;

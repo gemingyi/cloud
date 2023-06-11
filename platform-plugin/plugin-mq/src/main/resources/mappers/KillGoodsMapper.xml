@@ -8,5 +8,12 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
     </resultMap>
 
+    <select id="selectPage" resultType="com.example.pluginmq.dao.entity.LocalMessage">
+        SELECT *
+        FROM local_message
+        WHERE message_status = 1
+        AND UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(update_time) >= POW(2, oh.retry_count) * 10
+        LIMIT #{startIndex}, #{endIndex}
+    </select>
 
 </mapper>

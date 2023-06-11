@@ -36,8 +36,8 @@ public class KafkaBusinessMessageProducer{
         @Override
         public void onSuccess(ProducerRecord producerRecord, RecordMetadata recordMetadata) {
             String key = producerRecord.key().toString();
-            log.info("kafka confirm message success [topic:{}], [key:{}], [partition:{}], [msg:{}]",
-                    producerRecord.topic(), key, producerRecord.partition(), producerRecord.value());
+            log.info("kafka confirm message success [topic:{}], [partition:{}], [key:{}], [msg:{}]",
+                    producerRecord.topic(), producerRecord.partition(), key, producerRecord.value());
             //
             LocalMessage entity = new LocalMessage();
             entity.setMessageStatus(1);
@@ -48,8 +48,8 @@ public class KafkaBusinessMessageProducer{
         @Override
         public void onError(ProducerRecord producerRecord, Exception exception) {
             String key = producerRecord.key().toString();
-            log.error("kafka confirm message fail [topic:{}], [key:{}], [partition:{}], [msg:{}], [cause:{}]",
-                    producerRecord.topic(), key, producerRecord.partition(), producerRecord.value(), exception);
+            log.error("kafka confirm message fail [topic:{}], [partition:{}], [key:{}], [msg:{}], [cause:{}]",
+                    producerRecord.topic(), producerRecord.partition(), key, producerRecord.value(), exception);
             //
             LocalMessage entity = new LocalMessage();
             entity.setMessageStatus(2);
@@ -74,6 +74,7 @@ public class KafkaBusinessMessageProducer{
         entity.setExchangeOrTopic(topic);
         entity.setRoutingKeyOrPartition(String.valueOf(partition));
         entity.setMessageId(uuid);
+        entity.setRetryCount(0);
         entity.setMessageStatus(0);
         entity.setMessageData(AliJsonUtil.objectToJsonStr(msg));
         Date currentDate= new Date();

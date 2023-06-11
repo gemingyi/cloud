@@ -1,8 +1,12 @@
 package com.example.pluginmq.dao.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.pluginmq.dao.entity.LocalMessage;
+import com.example.pluginmysql.strengthen.mapper.IBaseMapper;
+import org.apache.ibatis.annotations.Param;
 
-public interface LocalMessageMapper extends BaseMapper<LocalMessage> {
+import java.util.List;
 
+public interface LocalMessageMapper extends IBaseMapper<LocalMessage> {
+
+    List<LocalMessage> selectPage(@Param("startIndex") Long startIndex, @Param("endIndex") Long endIndex);
 }

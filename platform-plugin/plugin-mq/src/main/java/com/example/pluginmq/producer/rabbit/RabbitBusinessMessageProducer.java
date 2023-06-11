@@ -65,6 +65,7 @@ public class RabbitBusinessMessageProducer implements RabbitTemplate.ConfirmCall
         entity.setExchangeOrTopic(exchange);
         entity.setRoutingKeyOrPartition(routingKey);
         entity.setMessageId(correlationData.getId());
+        entity.setRetryCount(0);
         entity.setMessageStatus(0);
         entity.setMessageData(AliJsonUtil.objectToJsonStr(msg));
         Date currentDate= new Date();

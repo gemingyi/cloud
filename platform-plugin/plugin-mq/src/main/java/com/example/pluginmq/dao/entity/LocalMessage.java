@@ -23,6 +23,8 @@ public class LocalMessage implements Serializable {
 
     private String messageId;
 
+    private Integer retryCount;
+
     private Integer messageStatus;
 
     private String messageData;

@@ -47,6 +47,13 @@ public class RedissonConfig {
                 .setPassword("password")
                 .setDatabase(0);*/
 
+        //主从
+//        config.useMasterSlaveServers()
+//                //可以用"rediss://"来启用SSL连接
+//                .setMasterAddress("redis://127.0.0.1:6379")
+//                .addSlaveAddress("redis://127.0.0.1:6389", "redis://127.0.0.1:6332", "redis://127.0.0.1:6419")
+//                .addSlaveAddress("redis://127.0.0.1:6399");
+
 //        RedissonClient redissonClient = Redisson.create(config);
 //        return redissonClient;
     }

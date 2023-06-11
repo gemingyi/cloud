@@ -12,48 +12,57 @@ import java.util.Date;
  */
 public class BeanUtil {
 
-    public static <T> void setCreateValue(T t, String userName, Date date) {
+    public static <T> void setCreateValue(T t, String operationId, String operationName, Date date) {
         if (t == null) {
             return;
         }
         final BeanWrapper wrapper = new BeanWrapperImpl(t);
-
-        if (!StringUtils.isEmpty(userName)) {
-            if (!StringUtils.isEmpty(userName)) {
-                if (wrapper.isWritableProperty("createBy")) {
-                    wrapper.setPropertyValue("createBy", userName);
-                }
-            }
-        }
 
         if (!StringUtils.isEmpty(date)) {
             if (wrapper.isWritableProperty("createTime")) {
                 wrapper.setPropertyValue("createTime", date);
             }
+            if (wrapper.isWritableProperty("updateTime")) {
+                wrapper.setPropertyValue("updateTime", date);
+            }
         }
 
-        if (wrapper.isWritableProperty("isDelete")) {
-            wrapper.setPropertyValue("isDelete", 0);
+        if (!StringUtils.isEmpty(operationId)) {
+            if (wrapper.isWritableProperty("operationId")) {
+                wrapper.setPropertyValue("operationId", operationId);
+            }
+        }
+        if (!StringUtils.isEmpty(operationName)) {
+            if (wrapper.isWritableProperty("operationName")) {
+                wrapper.setPropertyValue("operationName", operationName);
+            }
+        }
+
+        if (wrapper.isWritableProperty("deleteFlag")) {
+            wrapper.setPropertyValue("deleteFlag", 0);
         }
     }
 
-    public static <T> void setModifyValue(T t, String userName, Date date) {
+    public static <T> void setModifyValue(T t, String operationId, String operationName, Date date) {
         if (t == null) {
             return;
         }
         final BeanWrapper wrapper = new BeanWrapperImpl(t);
 
-        if (!StringUtils.isEmpty(userName)) {
-            if (!StringUtils.isEmpty(userName)) {
-                if (wrapper.isWritableProperty("updateBy")) {
-                    wrapper.setPropertyValue("updateBy", userName);
-                }
-            }
-        }
-
         if (!StringUtils.isEmpty(date)) {
             if (wrapper.isWritableProperty("updateTime")) {
                 wrapper.setPropertyValue("updateTime", date);
+            }
+        }
+
+        if (!StringUtils.isEmpty(operationId)) {
+            if (wrapper.isWritableProperty("operationId")) {
+                wrapper.setPropertyValue("operationId", operationId);
+            }
+        }
+        if (!StringUtils.isEmpty(operationName)) {
+            if (wrapper.isWritableProperty("operationName")) {
+                wrapper.setPropertyValue("operationName", operationName);
             }
         }
     }

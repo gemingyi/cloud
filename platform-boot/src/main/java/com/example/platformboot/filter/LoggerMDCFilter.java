@@ -17,6 +17,10 @@ import org.slf4j.MDC;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
+/**
+ * https://blog.csdn.net/forezp/article/details/100060140
+ * https://blog.csdn.net/forezp/article/details/106626080
+ */
 @Slf4j
 //@WebFilter(filterName = "loggerMDCFilter", urlPatterns = "/*", asyncSupported = true)
 public class LoggerMDCFilter implements Filter {

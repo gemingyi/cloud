@@ -1,7 +1,7 @@
 package com.example.commonserver.service.impl;
 
 import com.example.commonserver.service.ICommonService;
-import com.example.pluginredis.RedisKeyBuildUtil;
+import com.example.pluginredis.util.RedisKeyBuildUtil;
 import com.example.pluginredis.constant.RedisKeyConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;

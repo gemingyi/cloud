@@ -1,17 +1,11 @@
 package com.example.userserver.redis;
 
-import com.example.pluginredis.RedisKeyBuildUtil;
-import com.example.pluginredis.util.RedisRateLimit;
-import com.example.userserver.dao.entity.UserInfo;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import com.example.pluginredis.util.RedisKeyBuildUtil;
+import com.example.userserver.model.UserInfo;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class RedisLimitTest {
 
 //    @Autowired
@@ -37,7 +31,7 @@ public class RedisLimitTest {
 
     public static void main(String[] args) {
         UserInfo userInfo = new UserInfo();
-        userInfo.setNickName("小明");
+        userInfo.setNickName("aaa");
         userInfo.setGender(1);
         userInfo.setPhone("123123");
 

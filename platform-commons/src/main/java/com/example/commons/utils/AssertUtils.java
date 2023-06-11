@@ -10,8 +10,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class RequestAssert {
-    public RequestAssert() {
+public class AssertUtils {
+    public AssertUtils() {
     }
 
     public static void state(boolean expression, String message) {

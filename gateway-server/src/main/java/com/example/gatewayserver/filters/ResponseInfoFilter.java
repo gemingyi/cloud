@@ -11,7 +11,6 @@ import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
@@ -28,12 +27,12 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 /**
- * @description:    全局响应filter
+ * @description: 全局响应filter
  * @author: mingyi ge
  * @date: 2021/2/2 19:00
  */
 @Slf4j
-//@Component
+@Component
 public class ResponseInfoFilter implements GlobalFilter, Ordered {
 
     @Override
@@ -83,7 +82,7 @@ public class ResponseInfoFilter implements GlobalFilter, Ordered {
                             responseData = new String(content, StandardCharsets.UTF_8);
                         }
                         //打印请求响应值
-                        log.info("bodyString: {}", responseData);
+                        log.info("gateway global response 响应参数=[{}]", responseData);
                         return bufferFactory.wrap(content);
                     }));
                 }

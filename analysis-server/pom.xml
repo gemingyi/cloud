@@ -22,11 +22,27 @@
     </properties>
 
     <dependencies>
-        <!-- plugin-kafka -->
+        <!-- platform-boot -->
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>plugin-kafka</artifactId>
+            <artifactId>platform-boot</artifactId>
+            <scope>compile</scope>
         </dependency>
+
+        <!-- plugin-mysql -->
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-mysql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-mq</artifactId>
+        </dependency>
+        <!-- plugin-kafka -->
+<!--        <dependency>-->
+<!--            <groupId>com.example</groupId>-->
+<!--            <artifactId>plugin-kafka</artifactId>-->
+<!--        </dependency>-->
         <!-- jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -44,5 +60,29 @@
             <artifactId>disruptor</artifactId>
         </dependency>
     </dependencies>
+
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.example.analysisserver.AnalysisServerApplicationTests</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

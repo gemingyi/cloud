@@ -2,7 +2,7 @@ package com.example.commonserver.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.commonserver.model.CommonImage;
+import com.example.commonserver.dao.entity.CommonImage;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;

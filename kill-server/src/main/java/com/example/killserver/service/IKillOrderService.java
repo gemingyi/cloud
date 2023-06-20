@@ -1,7 +1,7 @@
 package com.example.killserver.service;
 
 import com.example.commons.result.RestResult;
-import com.example.killserver.model.KillOrder;
+import com.example.killserver.dao.entity.KillOrder;
 
 import java.util.List;
 

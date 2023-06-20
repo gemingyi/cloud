@@ -18,6 +18,7 @@
         <module>plugin-swagger</module>
         <module>plugin-gray</module>
         <module>plugin-netty</module>
+        <module>plugin-mq</module>
     </modules>
 
     <groupId>com.example</groupId>

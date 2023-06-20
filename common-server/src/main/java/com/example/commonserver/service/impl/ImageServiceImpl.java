@@ -4,7 +4,7 @@
 //import com.baomidou.mybatisplus.core.metadata.IPage;
 //import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 //import com.example.commonserver.dao.CommonImageMapper;
-//import com.example.commonserver.model.CommonImage;
+//import com.example.commonserver.dao.model.CommonImage;
 //import com.example.commonserver.oss.OSSUtil;
 //import com.example.commonserver.service.IImageService;
 //import org.springframework.beans.factory.annotation.Autowired;

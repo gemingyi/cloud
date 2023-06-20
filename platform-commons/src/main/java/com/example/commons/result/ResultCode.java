@@ -27,7 +27,7 @@ public enum ResultCode {
 
     /* 接口错误：*/
     INTERFACE_EXCEED_LOAD(13001, "接口负载过高"),
-    INTERFACE_REPEAT_COMMIT(13002, "接口重复提交"),
+    INTERFACE_REPEAT_COMMIT(13002, "接口重复请求"),
     INTERFACE_NOT_FOUND(13003, "找不到接口"),
 
     /* 权限错误：*/
@@ -35,10 +35,10 @@ public enum ResultCode {
     PERMISSION_NO_ACCESS(14003, "无访问权限"),
 
     /* 微服务 */
-    NO_PERMISSION(21001, "服务未授权"),
+    SERVICE_NO_PERMISSION(21001, "服务未授权"),
     SERVICE_DEMOTION(21002, "服务超时"),
-    SERVICE_EXCEPTION(21003, "服务被调用方异常"),
-    SERVICE_DOWNGRADE(21004, "服务被调用方降级");
+    SERVICE_DOWNGRADE(21003, "服务暂时不可用"),
+    SERVICE_CALL_EXCEPTION(21004, "服务调用异常");
 
     /* 用户错误：*/
 

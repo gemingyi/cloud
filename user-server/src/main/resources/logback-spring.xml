@@ -76,7 +76,7 @@
 
     <!-- 开发、测试环境 -->
     <springProfile name="dev,test">
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE_INFO"/>
             <appender-ref ref="FILE_WARN"/>

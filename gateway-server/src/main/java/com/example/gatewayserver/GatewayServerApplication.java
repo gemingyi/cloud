@@ -20,15 +20,15 @@ public class GatewayServerApplication {
     }
 
 
-    /**
-     * 网关服务降级
-     */
-    @RestController
-    public class FallBackController {
-        @RequestMapping("/fallback")
-        public RestResult<Object> fallback() {
-            return RestResult.failure(ResultCode.SERVICE_DEMOTION);
-        }
-    }
+//    /**
+//     * 网关服务降级
+//     */
+//    @RestController
+//    public class FallBackController {
+//        @RequestMapping("/fallback")
+//        public RestResult<Object> fallback() {
+//            return RestResult.failure(ResultCode.SERVICE_DEMOTION);
+//        }
+//    }
 
 }

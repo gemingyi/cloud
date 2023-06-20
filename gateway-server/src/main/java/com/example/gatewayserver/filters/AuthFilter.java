@@ -17,6 +17,7 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -70,11 +71,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
         //未传token
-//        String token = request.getHeaders().getFirst(AUTHORIZATION);
-//        if (StringUtils.isEmpty(token)) {
-//            return this.serviceUnauthorized(response);
-//        }
-        String token = "aaa";
+        String token = request.getHeaders().getFirst(AUTHORIZATION);
+        if (StringUtils.isEmpty(token)) {
+            return this.serviceUnauthorized(response);
+        }
         //调用鉴权服务 判断请求token
         RestResult<Object> result = authClient.info(token);
         if (!ResultCode.SUCCESS.code().equals(result.getCode())) {
@@ -121,7 +121,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     private Mono<Void> serviceUnauthorized(ServerHttpResponse response) {
         response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        RestResult<ResultCode> result = RestResult.failure(ResultCode.NO_PERMISSION);
+        RestResult<ResultCode> result = RestResult.failure(ResultCode.SERVICE_NO_PERMISSION);
         String restResultStr = JSON.toJSONString(result);
         DataBuffer buffer = response.bufferFactory().wrap(restResultStr.getBytes(StandardCharsets.UTF_8));
         return response.writeWith(Mono.just(buffer));

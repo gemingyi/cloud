@@ -1,8 +1,8 @@
 package com.example.killserver.controller;
 
 import com.example.commons.result.RestResult;
-import com.example.killserver.model.KillGoods;
-import com.example.killserver.model.KillOrder;
+import com.example.killserver.dao.entity.KillGoods;
+import com.example.killserver.dao.entity.KillOrder;
 import com.example.killserver.service.IKillGoodsService;
 import com.example.killserver.service.IKillOrderService;
 import org.springframework.beans.factory.annotation.Autowired;

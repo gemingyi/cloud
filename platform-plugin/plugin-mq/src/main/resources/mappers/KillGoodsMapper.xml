@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.pluginmq.dao.mapper.LocalMessageMapper">
+    <resultMap id="BaseResultMap" type="com.example.pluginmq.dao.entity.LocalMessage">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+    </resultMap>
+
+    <select id="selectPage" resultType="com.example.pluginmq.dao.entity.LocalMessage">
+        SELECT *
+        FROM local_message
+        WHERE message_status = 1
+        AND UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(update_time) >= POW(2, oh.retry_count) * 10
+        LIMIT #{startIndex}, #{endIndex}
+    </select>
+
+</mapper>

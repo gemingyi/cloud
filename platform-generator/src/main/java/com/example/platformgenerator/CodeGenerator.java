@@ -25,15 +25,15 @@ public class CodeGenerator {
     private static final String dataSource = "127.0.0.1:3306/";
     private static final String user = "root";
     private static final String password = "123456";
-    private static final String dataBaseName = "test1";
+    private static final String dataBaseName = "kill";
     // 需要生成的表 ,分割
-    private static final String tables = "common_image,common_sms";
+    private static final String tables = "trans_message";
 
     static {
         // 设置模块信息
         moduleInfoList = new ArrayList<>();
         // 模块名， 包名， 表前缀
-        moduleInfoList.add(ModuleInfo.instance("common-server", "com.example.commonserver", ""));
+        moduleInfoList.add(ModuleInfo.instance("kill-server", "com.example.killserver", ""));
     }
 
     /**
@@ -138,8 +138,8 @@ public class CodeGenerator {
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setModuleName(null);
         packageConfig.setParent(moduleInfo.getPackageInfo());
-        packageConfig.setMapper("dao");
-        packageConfig.setEntity("model");
+        packageConfig.setMapper("dao.mapper");
+        packageConfig.setEntity("dao.entity");
         packageConfig.setService("service");
         packageConfig.setServiceImpl("service.impl");
         packageConfig.setController("controller");

@@ -1,5 +1,6 @@
 package com.example.pluginredis.util;
 
+import com.example.pluginredis.constant.RedisKeyConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,7 +10,6 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.UUID;
 
-import static com.example.pluginredis.constant.RedisKeyConstant.LOCK_NAME_PREFIX;
 
 /**
  * redis 锁
@@ -35,7 +35,7 @@ public class RedisLock {
      */
     public String acquireLock(String lockName, long expire) {
         String identifier = this.generateIdentifier();
-        String lockKey = LOCK_NAME_PREFIX + lockName;
+        String lockKey = RedisKeyConstant.LOCK_NAME_PREFIX + lockName;
         try {
             Long result = redisTemplate.execute(lockScript, Collections.singletonList(lockKey), identifier, String.valueOf(expire));
             log.info("distributedLock.key{}: - identifier:{}: - result:{} - expire:{}", lockKey, identifier, result, expire);
@@ -59,7 +59,7 @@ public class RedisLock {
      */
     public String acquireLockWithTimeOut(String lockName, long expire, long acquireTimeOut) {
         String identifier = this.generateIdentifier();
-        String lockKey = LOCK_NAME_PREFIX + lockName;
+        String lockKey = RedisKeyConstant.LOCK_NAME_PREFIX + lockName;
         try {
             long endTime = System.currentTimeMillis() + acquireTimeOut * 1000;
             while (System.currentTimeMillis() < endTime) {
@@ -83,7 +83,7 @@ public class RedisLock {
      * @param identifier 锁的唯一ID
      */
     public boolean releaseLock(String lockName, String identifier) {
-        String lockKey = LOCK_NAME_PREFIX + lockName;
+        String lockKey = RedisKeyConstant.LOCK_NAME_PREFIX + lockName;
         Long result = redisTemplate.execute(unlockScript, Collections.singletonList(lockKey), identifier);
         log.info("distributedLock.key{}: - uuid:{}: - result:{}", lockKey, identifier, result);
         if (!StringUtils.isEmpty(result) && result == 1) {

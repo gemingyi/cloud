@@ -25,6 +25,9 @@ public interface TestFeign {
     @PostMapping("seata")
     RestResult<Object> seataTest();
 
+    @PostMapping("seata2")
+    RestResult<Object> seataTest2();
+
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     RestResult<Object> testImport(@RequestPart(value = "file", required = false) MultipartFile file);

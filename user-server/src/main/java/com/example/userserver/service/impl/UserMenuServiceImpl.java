@@ -1,9 +1,9 @@
 package com.example.userserver.service.impl;
 
 import com.example.commons.IAbstractService;
-import com.example.userserver.dao.UserMenuMapper;
-import com.example.userserver.dao.UserRelRoleMapper;
-import com.example.userserver.model.UserMenu;
+import com.example.userserver.dao.mapper.UserMenuMapper;
+import com.example.userserver.dao.mapper.UserRelRoleMapper;
+import com.example.userserver.dao.entity.UserMenu;
 import com.example.userserver.service.IUserMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

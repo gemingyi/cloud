@@ -4,9 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.SessionCallback;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.BitSet;
@@ -97,6 +101,27 @@ public class RedisBitMapTest {
             }
         }
         System.out.println(signMap);
+    }
+
+    // https://blog.csdn.net/yzh_1346983557/article/details/119837981
+    public void test7() {
+        List<Object> pipelinedResultList = redisTemplate.executePipelined(new SessionCallback<Object>() {
+            @Override
+            public <K, V> Object execute(RedisOperations<K, V> operations) throws DataAccessException {
+                ValueOperations<String, Object> valueOperations = (ValueOperations<String, Object>) operations.opsForValue();
+
+                valueOperations.set("yzh1", "hello world");
+                valueOperations.set("yzh2", "hello redis");
+
+                valueOperations.get("yzh1");
+                valueOperations.get("yzh2");
+
+                // 返回null即可，因为返回值会被管道的返回值覆盖，外层取不到这里的返回值
+                return null;
+            }
+        });
+        System.out.println("pipelinedResultList=" + pipelinedResultList);
+
     }
 
     private static BitSet fromByteArrayReverse(final byte[] bytes) {

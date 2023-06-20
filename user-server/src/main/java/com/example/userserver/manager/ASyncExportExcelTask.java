@@ -28,8 +28,7 @@ public class ASyncExportExcelTask implements Callable<Boolean> {
     private SelectTypeEnum selectType;
     private SelectReq selectReq;
 
-    private ASyncExportExcelTask() {
-    }
+    public ASyncExportExcelTask() {}
 
     public ASyncExportExcelTask(Long taskId, SelectTypeEnum selectType, SelectReq selectReq) {
         this.taskId = taskId;
@@ -39,7 +38,7 @@ public class ASyncExportExcelTask implements Callable<Boolean> {
 
 
     @Override
-    public Boolean call() throws Exception {
+    public Boolean call() {
         try {
             // 更新任务 导出中
 
@@ -50,11 +49,13 @@ public class ASyncExportExcelTask implements Callable<Boolean> {
                 return false;
             }
 
-            // 上传aliyun服务器
+            // 上传aliyun服务器  更新任务 导出完成
             boolean result = true;
             if (!result) {
                 throw new RuntimeException("上传aliyun服务器失败");
             }
+
+            // 更新任务成功
 
             return true;
         } catch (Exception e) {
@@ -68,18 +69,24 @@ public class ASyncExportExcelTask implements Callable<Boolean> {
     }
 
 
+    /**
+     * 导出 处理数据
+     * @param selectType    导出查询类型
+     * @param selectReq 查询条件
+     */
     private File handlerData(SelectTypeEnum selectType, SelectReq selectReq) throws Exception {
-        Map<String, String> headerMap = null;
+        Map<String, String> headerMap;
         File uploadFile = null;
 
         // 测试导出类型1
-        // 抽方法
         if (SelectTypeEnum.TEST_ONE.equals(selectType)) {
             String excelTitleName = DateUtil8.getNowDate_CN();
+            // excel表头
             headerMap = this.getExcelHeadByEnum(selectType);
 
             // 查询数据
             int total = 1;
+            // 数据量大  导出为zip文件
             if (total == 1) {
                 String zipName = "E:\\test\\tozip" + "_" + DateUtil8.getNowDate_CN() + ".zip";
                 File zipFile = new File(zipName);
@@ -120,6 +127,10 @@ public class ASyncExportExcelTask implements Callable<Boolean> {
         return uploadFile;
     }
 
+    /**
+     * 根据类型 获取导出头
+     * @param selectType    类型
+     */
     public Map<String, String> getExcelHeadByEnum(SelectTypeEnum selectType) {
         Map<String, String> resultMap;
         switch (selectType) {

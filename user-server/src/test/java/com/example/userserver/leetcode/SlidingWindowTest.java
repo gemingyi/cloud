@@ -11,17 +11,20 @@ import java.util.Set;
 public class SlidingWindowTest {
 
     public static void main(String[] args) {
-        char[] arr = {'a', 'b', 'c', 'a', 'b', 'c', 'b', 'b'};
-        System.out.println(test1(arr));
+//        char[] arr = {'a', 'b', 'c', 'a', 'b', 'c', 'b', 'b'};
+//        System.out.println(test1(arr));
+//
+//
+//        int[] arr2 = {1, 1, -3, 4, -1, 2, 1, -5, 4};
+//        System.out.println(test2(arr2));
+//        System.out.println(test3(arr2));
+//
+//
+//        int[] arr3 = {-3, 3, 1, -3, 2, 4, 7};
+//        System.out.println(test4(arr3, 3));
 
-
-        int[] arr2 = {1, 1, -3, 4, -1, 2, 1, -5, 4};
-        System.out.println(test2(arr2));
-        System.out.println(test3(arr2));
-
-
-        int[] arr3 = {-3, 3, 1, -3, 2, 4, 7};
-        System.out.println(test4(arr3, 3));
+        int[] arr5 = {1, -1, 5, -2, 3};
+        System.out.println(test5(arr5, 3));
     }
 
 
@@ -129,6 +132,36 @@ public class SlidingWindowTest {
             count ++;
             while (count >= n) {
                 max = max - arr[j];
+                count --;
+                j++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 最大子数组之和为k
+     * 输入: nums = [1, -1, 5, -2, 3], k = 3
+     * 输出: 4
+     * 解释:
+     * 子数组[1, -1, 5, -2]的和为3，且长度最大
+     */
+    public static int test5(int[] arr, int k) {
+        if (k > arr.length) {
+            return 0;
+        }
+
+        int j = 0;
+        int count = 0;
+
+        int sum = 0;
+        int result = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum = sum + arr[i];
+            count ++;
+            while (sum == 3) {
+                sum = sum - arr[j];
+                result = Math.max(result, count);
                 count --;
                 j++;
             }

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
@@ -65,17 +66,31 @@ public class JavascriptTemplate {
     }
 
 
+    //---------------------------- limit ----------------------------
 
-//    public <T> T limit(String key, RateType type, long rate, long rateInterval, RateIntervalUnit timeUnit, ExecuteMethod<T> executeMethod) {
-//        RRateLimiter rRateLimiter = limit();
-//        if (rRateLimiter.tryAcquire(1)) {
-//            return executeMethod.doExecute();
-//        } else {
-//            log.info("###key限流，打断 key={}", key);
-//            throw new RuntimeException("接口被限流");
-//        }
-//    }
-//
+
+    public <T> T limit(Class<?> clazz, String methodName, Class<?>[] params, ExecuteMethod<T> executeMethod) {
+        Method method = null;
+        try {
+            method = clazz.getMethod(methodName, params);
+        } catch (NoSuchMethodException e) {
+            log.error("###key限流，method not fund key={}", executeMethod);
+            throw new RuntimeException("method not fund");
+        }
+
+        //
+        RequestRateLimiter requestRateLimiter = method.getAnnotation(RequestRateLimiter.class);
+        System.out.println(requestRateLimiter);
+
+        RRateLimiter rRateLimiter = limit(requestRateLimiter);
+        if (rRateLimiter.tryAcquire(1)) {
+            return executeMethod.doExecute();
+        } else {
+            log.info("###key限流，打断 key={}", rRateLimiter);
+            throw new RuntimeException("接口被限流");
+        }
+    }
+
     private RRateLimiter limit(RequestRateLimiter requestRateLimiter) {
         RRateLimiter rRateLimiter = redissonClient.getRateLimiter(StringUtils.isBlank(requestRateLimiter.key()) ? "default:limiter" : requestRateLimiter.key());
         // 设置限流

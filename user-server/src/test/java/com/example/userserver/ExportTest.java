@@ -21,7 +21,7 @@ public class ExportTest {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
-
+        //更新任务 开始
         task(executorService);
 
     }
@@ -50,7 +50,7 @@ public class ExportTest {
 //
 //        boolean cancelled = future.isCancelled();
 //        if (cancelled) {
-//            // 更新状态为取消
+//            // 更新任务 取消
 //        }
 //    }
 

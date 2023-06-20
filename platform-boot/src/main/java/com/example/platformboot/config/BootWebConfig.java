@@ -9,23 +9,32 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * https://www.cnblogs.com/crazy-lc/p/12312715.html 处理JSON
  * https://www.jianshu.com/p/becf73e7b06e   WebMvcConfigurationSupport 详解
+ * <p>
+ * http://t.zoukankan.com/lb477-p-14752162.html gson配置
+ * https://www.cnblogs.com/object360/p/14266821.html
+ * https://www.jianshu.com/p/bcedf364a5c9
  */
 @Configuration
 public class BootWebConfig extends WebMvcConfigurationSupport {
@@ -33,25 +42,40 @@ public class BootWebConfig extends WebMvcConfigurationSupport {
 
 //    @Override
 //    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        /**
-//         * 序列换成json时,将全部的long变成string
-//         * 由于js中得数字类型不能包含全部的java long值
-//         */
-//        SimpleModule simpleModule = new SimpleModule();
-//        simpleModule.addSerializer(Long.class, new CustomLongSerializer());
-//        simpleModule.addSerializer(Long.TYPE, new CustomLongSerializer());
-//        objectMapper.registerModule(simpleModule);
-//        jackson2HttpMessageConverter.setObjectMapper(objectMapper);
-//        converters.add(jackson2HttpMessageConverter);
+//        GsonHttpMessageConverter gsonHttpMessageConverter = new GsonHttpMessageConverter();
+//        gsonHttpMessageConverter.setGson(
+//                new GsonBuilder()
+//                        .setLongSerializationPolicy(LongSerializationPolicy.STRING)
+//                        .setDateFormat("yyyy-MM-dd HH:mm:ss")//日期格式化
+//                        .create());
+//        converters.add(gsonHttpMessageConverter);
 //    }
+
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        // long 转string
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Long.class, new CustomLongSerializer());
+        simpleModule.addSerializer(Long.TYPE, new CustomLongSerializer());
+        objectMapper.registerModule(simpleModule);
+        // 时间返回格式化
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        objectMapper.setDateFormat(simpleDateFormat);
+        // 反序列化时忽略多余字段
+//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        jackson2HttpMessageConverter.setObjectMapper(objectMapper);
+        converters.add(jackson2HttpMessageConverter);
+    }
 
 
     /**
      * 使用阿里 fastjson 作为 JSON MessageConverter
      */
-    @Override
+   /* @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
         FastJsonConfig config = new FastJsonConfig();
@@ -114,8 +138,7 @@ public class BootWebConfig extends WebMvcConfigurationSupport {
         converter.setDefaultCharset(StandardCharsets.UTF_8);
 
         converters.add(converter);
-    }
-
+    }*/
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath*:/META-INF/resources/");
@@ -156,21 +179,21 @@ class LongToStringSerializer implements ObjectSerializer {
 }
 
 
-//class CustomLongSerializer extends JsonSerializer<Long> {
-//    /**
-//     * Method that can be called to ask implementation to serialize
-//     * values of type this serializer handles.
-//     *
-//     * @param value       Value to serialize; can <b>not</b> be null.
-//     * @param gen         Generator used to output resulting Json content
-//     * @param serializers Provider that can be used to get serializers for
-//     */
-//    @Override
-//    public void serialize(Long value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//        if (value != null && value.toString().length() > 16) {
-//            gen.writeString(value.toString());
-//        } else {
-//            gen.writeNumber(value);
-//        }
-//    }
-//}
+class CustomLongSerializer extends JsonSerializer<Long> {
+    /**
+     * Method that can be called to ask implementation to serialize
+     * values of type this serializer handles.
+     *
+     * @param value       Value to serialize; can <b>not</b> be null.
+     * @param gen         Generator used to output resulting Json content
+     * @param serializers Provider that can be used to get serializers for
+     */
+    @Override
+    public void serialize(Long value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        if (value != null && value.toString().length() > 16) {
+            gen.writeString(value.toString());
+        } else {
+            gen.writeNumber(value);
+        }
+    }
+}

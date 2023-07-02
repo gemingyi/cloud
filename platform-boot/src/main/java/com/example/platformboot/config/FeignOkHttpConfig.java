@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @Description: ok-feign3配置
  * https://blog.csdn.net/chinasi2012/article/details/105891207
+ * https://blog.csdn.net/chinasi2012/article/details/126662922
  * @author mingyi ge
  * @date 2020/12/17 20:35
  */
@@ -35,10 +36,10 @@ public class FeignOkHttpConfig {
     @Bean
     public okhttp3.OkHttpClient okHttpClient() {
         return new okhttp3.OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(120, TimeUnit.SECONDS)
-                .connectionPool(new ConnectionPool())
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .connectionPool(new ConnectionPool(10, 5L, TimeUnit.MINUTES))
 //                .addInterceptor(new LoggingInterceptor())
                 .build();
     }

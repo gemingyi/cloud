@@ -1,7 +1,7 @@
 package com.example.pluginmq.producer.rabbit;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.commons.utils.AliJsonUtil;
+import com.example.commons.utils.json.FastJsonUtil;
 import com.example.pluginmq.dao.entity.LocalMessage;
 import com.example.pluginmq.dao.mapper.LocalMessageMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +67,7 @@ public class RabbitBusinessMessageProducer implements RabbitTemplate.ConfirmCall
         entity.setMessageId(correlationData.getId());
         entity.setRetryCount(0);
         entity.setMessageStatus(0);
-        entity.setMessageData(AliJsonUtil.objectToJsonStr(msg));
+        entity.setMessageData(FastJsonUtil.objectToJsonStr(msg));
         Date currentDate= new Date();
         entity.setCreateTime(currentDate);
         entity.setUpdateTime(currentDate);

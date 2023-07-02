@@ -1,4 +1,4 @@
-package com.example.platformboot.filter;
+package com.example.platformboot.filter.mdc;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -18,6 +18,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
 /**
+ * 接入skywalking可直接打印     https://blog.csdn.net/feiying0canglang/article/details/120147462
  * https://blog.csdn.net/forezp/article/details/100060140
  * https://blog.csdn.net/forezp/article/details/106626080
  */
@@ -27,8 +28,10 @@ public class LoggerMDCFilter implements Filter {
 
     public LoggerMDCFilter() {}
 
+    @Override
     public void init(FilterConfig filterConfig) {}
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         this.beforeFilter(request);
 
@@ -42,11 +45,14 @@ public class LoggerMDCFilter implements Filter {
         }
     }
 
+    @Override
     public void destroy() {
     }
 
 
-    void beforeFilter(ServletRequest servletRequest) throws IOException {
+    //------------------ private ------------------
+
+    private void beforeFilter(ServletRequest servletRequest) throws IOException {
         String traceId = servletRequest.getParameter("req.traceId");
 
         if (servletRequest instanceof HttpServletRequest) {
@@ -82,7 +88,7 @@ public class LoggerMDCFilter implements Filter {
 //        MDC.put("req.userId", "anonymous");
     }
 
-    void afterFilter() {
+    private void afterFilter() {
         MDC.clear();
 //        MDC.remove("req.traceId");
 //        MDC.remove("req.requestURI");

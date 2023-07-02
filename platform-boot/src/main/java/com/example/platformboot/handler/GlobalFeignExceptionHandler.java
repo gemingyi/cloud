@@ -2,7 +2,7 @@ package com.example.platformboot.handler;
 
 import com.example.commons.exceptionHandle.exceptions.InternalServerException;
 import com.example.commons.result.SysErrorResult;
-import com.example.commons.utils.AliJsonUtil;
+import com.example.commons.utils.json.FastJsonUtil;
 import feign.Response;
 import feign.Util;
 import feign.codec.ErrorDecoder;
@@ -16,8 +16,8 @@ import org.springframework.context.annotation.Configuration;
  * @Date 2020/9/25 17:29
  */
 @Slf4j
-@Configuration
-@ConditionalOnProperty(name = "feign.hystrix.enabled", havingValue = "false")
+//@Configuration
+//@ConditionalOnProperty(name = "feign.hystrix.enabled", havingValue = "false")
 public class GlobalFeignExceptionHandler implements ErrorDecoder {
 
     @Override
@@ -33,7 +33,7 @@ public class GlobalFeignExceptionHandler implements ErrorDecoder {
         if (message == null) {
             return internalServerException;
         }
-        SysErrorResult sysErrorResult = AliJsonUtil.jsonStrToBean(message, SysErrorResult.class);
+        SysErrorResult sysErrorResult = FastJsonUtil.jsonStrToBean(message, SysErrorResult.class);
         internalServerException.setCode(String.valueOf(sysErrorResult.getCode()));
         internalServerException.setMessage(sysErrorResult.getMessage());
         return internalServerException;

@@ -5,7 +5,7 @@ import com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBloc
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.example.commons.result.RestResult;
 import com.example.commons.result.ResultCode;
-import com.example.commons.utils.AliJsonUtil;
+import com.example.commons.utils.json.FastJsonUtil;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerCodecConfigurer;
@@ -43,7 +43,7 @@ public class GlobalSentinelExceptionHandler extends SentinelGatewayBlockExceptio
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
         serverHttpResponse.getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
-        byte[] datas = AliJsonUtil.objectToJsonStr(RestResult.failure(ResultCode.INTERFACE_EXCEED_LOAD)).getBytes(StandardCharsets.UTF_8);
+        byte[] datas = FastJsonUtil.objectToJsonStr(RestResult.failure(ResultCode.INTERFACE_EXCEED_LOAD)).getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = serverHttpResponse.bufferFactory().wrap(datas);
         return serverHttpResponse.writeWith(Mono.just(buffer));
     }

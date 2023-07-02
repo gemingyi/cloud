@@ -30,11 +30,11 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/10/15 17:00
  */
 @Slf4j
-@Component
+//@Component
 /**
  * 没有引入gray依赖 && 没有开启service灰度
  */
-@ConditionalOnMissingClass("com.example.plugingray.config.FeignGrayscaleLoadBalancerAutoConfig")
+//@ConditionalOnMissingClass("com.example.plugingray.config.FeignGrayscaleLoadBalancerAutoConfig")
 //@ConditionalOnProperty(prefix = "loverent.gray", value = "service-open", havingValue = "false")
 public class FeignHystrixConfig extends HystrixConcurrencyStrategy {
 

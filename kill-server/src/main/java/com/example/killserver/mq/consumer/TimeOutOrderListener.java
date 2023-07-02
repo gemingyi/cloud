@@ -1,6 +1,6 @@
 package com.example.killserver.mq.consumer;
 
-import com.example.commons.utils.AliJsonUtil;
+import com.example.commons.utils.json.FastJsonUtil;
 import com.example.killserver.dao.mapper.KillOrderMapper;
 import com.example.killserver.dao.entity.KillGoods;
 import com.example.killserver.dao.entity.KillOrder;
@@ -39,7 +39,7 @@ public class TimeOutOrderListener {
             KillOrder dataBaseKillOrder = killOrderMapper.selectById(killOrder.getId());
             //
             if ("new".equals(dataBaseKillOrder.getStatus())) {
-                System.out.println("killOrder:" + AliJsonUtil.objectToJsonStr(killOrder));
+                System.out.println("killOrder:" + FastJsonUtil.objectToJsonStr(killOrder));
                 //删除redis中秒杀订单
                 redisTemplate.opsForHash().delete("kill:order", killOrder.getOrderNumber());
                 //更新用户订单状态(超时关闭)

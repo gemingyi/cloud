@@ -1,12 +1,12 @@
 package com.example.commons.utils;
 
+import com.example.commons.utils.json.FastJsonUtil;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -48,7 +48,7 @@ public class IPUtil {
         String params = "";
         Map<String, String[]> paramMap = request.getParameterMap();
         if (!paramMap.isEmpty()) {
-            params = AliJsonUtil.mapToJsonStr(paramMap);
+            params = FastJsonUtil.mapToJsonStr(paramMap);
             return params;
         }
         params = request.getQueryString();

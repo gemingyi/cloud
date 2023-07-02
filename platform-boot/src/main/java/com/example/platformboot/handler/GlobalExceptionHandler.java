@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Description: 单体全局异常处理
  * @Author: mingyi ge
@@ -28,7 +30,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<SysErrorResult<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 //        SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.PARAM_IS_INVALID, e);
         SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(ResultCode.PARAM_IS_INVALID, e.getBindingResult().getFieldError().getDefaultMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
+        return ResponseEntity.status(HttpStatus.OK).body(defaultErrorResult);
     }
 
     /**
@@ -37,17 +39,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<SysErrorResult<Object>> handleBusinessException(BusinessException e) {
         SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
+        return ResponseEntity.status(HttpStatus.OK).body(defaultErrorResult);
     }
 
     /**
      * 处理运行时异常
      */
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<SysErrorResult<Object>> handleThrowable(Throwable e) {
+    public ResponseEntity<SysErrorResult<Object>> handleThrowable(HttpServletRequest request, Throwable e) {
         SysErrorResult<Object> defaultErrorResult = SysErrorResult.failure(new InternalServerException());
+//        String method = request.getMethod();
+//        String uri = request.getRequestURI();
+//        String tid = request.getHeader("tid");
         //TODO 可通过邮件、发送信息至开发人员、记录存档等操作
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(defaultErrorResult);
+        return ResponseEntity.status(HttpStatus.OK).body(defaultErrorResult);
     }
 
 }

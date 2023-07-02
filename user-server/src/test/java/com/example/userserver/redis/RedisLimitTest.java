@@ -1,7 +1,7 @@
 package com.example.userserver.redis;
 
 import com.example.pluginredis.util.RedisKeyBuildUtil;
-import com.example.userserver.model.UserInfo;
+import com.example.userserver.dao.entity.UserInfo;
 
 
 //@RunWith(SpringRunner.class)

@@ -1,4 +1,4 @@
-package com.example.commons.utils;
+package com.example.commons.utils.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class AliJsonUtil {
+public class FastJsonUtil {
 
     private static final SerializeConfig config;
 

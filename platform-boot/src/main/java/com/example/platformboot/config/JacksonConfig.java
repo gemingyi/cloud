@@ -24,19 +24,21 @@
 //        return new Jackson2ObjectMapperBuilderCustomizer() {
 //            @Override
 //            public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+//                //若POJO对象的属性值为null，序列化时不进行显示
+////                jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
+//                //针对于Date类型，文本格式化
+////                jacksonObjectMapperBuilder.simpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                // long转字符串
 //                jacksonObjectMapperBuilder.serializerByType(Long.class,new CustomLongSerialize());
 //                jacksonObjectMapperBuilder.serializerByType(Long.TYPE, new CustomLongSerialize());
 //            }
 //        };
 //    }
-//
 //}
 //
 //
 //
 //class CustomLongSerialize extends JsonSerializer<Long> {
-//
-//
 //    /**
 //     * Method that can be called to ask implementation to serialize
 //     * values of type this serializer handles.

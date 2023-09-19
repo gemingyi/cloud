@@ -1,4 +1,4 @@
-package com.example.userserver.manager;
+package com.example.userserver.manager.asyncExport;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;

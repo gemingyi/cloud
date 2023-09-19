@@ -1,6 +1,7 @@
 package com.example.userserver.redis;
 
 import com.example.pluginredis.util.RedisUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.redisson.api.RLock;
@@ -16,6 +17,8 @@ import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -49,18 +52,23 @@ public class RedissionTest {
         ScanOptions scanOptions = ScanOptions.NONE;
         Cursor<Map.Entry<Object, Object>> cursor = redisUtil.hScan("key", scanOptions);
 
+        List<String> delKeys = new ArrayList<>(500);
         while(cursor.hasNext()) {
             Map.Entry<Object, Object> next = cursor.next();
-            redisUtil.hDelete("key", String.valueOf(next.getKey()));
+            delKeys.add(String.valueOf(next.getKey()));
+            if (delKeys.size() > 500) {
+                redisUtil.hDelete("key", delKeys.toArray());
+                delKeys = new ArrayList<>(500);
+            }
+        }
+        if (CollectionUtils.isNotEmpty(delKeys)) {
+            redisUtil.hDelete("key", delKeys.toArray());
         }
 
         try {
             cursor.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        if (redisUtil.hSize("key") <= 0) {
-            redisUtil.delete("key");
         }
     }
 

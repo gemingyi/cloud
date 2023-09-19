@@ -1,7 +1,9 @@
-package com.example.userserver.manager;
+package com.example.userserver.manager.asyncExport;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * @description:
@@ -10,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class SelectReq {
+public class SelectReq implements Serializable {
 
     private SelectReqOne selectReqOne;
 

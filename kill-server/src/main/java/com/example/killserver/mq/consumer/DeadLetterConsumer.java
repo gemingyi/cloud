@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * https://blog.csdn.net/hdu09075340/article/details/79494859
  * @description:    死信队列消费者
  * @author: mingyi ge
  * @date: 2021/6/23 16:11

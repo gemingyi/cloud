@@ -1,3 +1,4 @@
+/*
 package com.example.pluginnetty.netty.handler.webSocket;
 
 import com.example.pluginnetty.config.SocketConfiguration;
@@ -25,11 +26,13 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import java.util.Map;
 
 
+*/
 /**
  * @description:
  * @author: mingyi ge
  * @date: 2021/2/4 15:05
- */
+ *//*
+
 public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private WebSocketServerHandshaker handshaker;
@@ -61,7 +64,7 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
     public void channelInactive(ChannelHandlerContext ctx) {
         System.out.println("连接断开=" + ctx.channel().toString());
         ctx.fireChannelInactive();
-        socketConfiguration.getChannelMap().remove(ctx.channel().id());
+//        socketConfiguration.getChannelMap().remove(ctx.channel().id());
     }
 
     @Override
@@ -69,6 +72,11 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
         ctx.flush();
     }
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        System.out.println("异常发生 " + cause.getMessage());
+        ctx.close(); //关闭连接
+    }
 
     private void handleHttpRequest(ChannelHandlerContext ctx, HttpRequest req) {
         //解码http失败返回
@@ -107,23 +115,23 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
             return;
         }
 
+        // 文本帧
         if (frame instanceof TextWebSocketFrame) {
-            // 文本或者二进制
             String text = ((TextWebSocketFrame) frame).text();
             System.out.println("收到消息" + text);
-//            ctx.channel().writeAndFlush(text);
+            ctx.channel().writeAndFlush(text);
 //            ctx.writeAndFlush(text);
 
-            ChannelId id = ctx.channel().id();
-            System.out.println(id);
-            Map<ChannelId, Channel> map = socketConfiguration.getChannelMap();
-            map.forEach((k,v) -> {
-                System.out.println("current" + ctx.channel().id() + ", map" + v.id());
-//                if(id.toString().equals(k)){
-//                    return;
-//                }
-                v.writeAndFlush(text);
-            });
+//            ChannelId id = ctx.channel().id();
+//            System.out.println(id);
+//            Map<ChannelId, Channel> map = socketConfiguration.getChannelMap();
+//            map.forEach((k,v) -> {
+//                System.out.println("current" + ctx.channel().id() + ", map" + v.id());
+////                if(id.toString().equals(k)){
+////                    return;
+////                }
+//                v.writeAndFlush(text);
+//            });
         }
 
     }
@@ -144,3 +152,4 @@ public class TextWebSocketFrameServerHandler extends SimpleChannelInboundHandler
     }
 
 }
+*/

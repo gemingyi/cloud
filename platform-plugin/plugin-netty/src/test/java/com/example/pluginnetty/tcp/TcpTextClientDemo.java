@@ -1,6 +1,8 @@
 package com.example.pluginnetty.tcp;
 
+import com.example.pluginnetty.netty.codec.Message;
 import com.example.pluginnetty.util.ByteUtil;
+import com.example.pluginnetty.util.SerializationUtil;
 import io.netty.util.CharsetUtil;
 
 import java.io.IOException;
@@ -42,6 +44,9 @@ public class TcpTextClientDemo {
             byte[] msg = "hello".getBytes();
             //服务端socket包方案，在前面加上4个字节的长度.  websocket可以忽略
             byte[] sendMsg = ByteUtil.concat(ByteUtil.intToByteArray(msg.length), msg);
+
+//            Message p = new Message(1L, "gmy");
+//            byte[] sendMsg = SerializationUtil.serializer(p);
 
             for (;;) {
                 //数据放入缓冲区

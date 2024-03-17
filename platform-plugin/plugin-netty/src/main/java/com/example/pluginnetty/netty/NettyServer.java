@@ -2,12 +2,13 @@ package com.example.pluginnetty.netty;
 
 
 import com.example.pluginnetty.config.SocketConfiguration;
+import com.example.pluginnetty.config.SslInfo;
 import com.example.pluginnetty.netty.adapter.ChannelPipelineAdapter;
 import com.example.pluginnetty.netty.handler.HeartBeatServerHandler;
+import com.example.pluginnetty.netty.handler.SslFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
@@ -59,6 +60,8 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
 
 
     public void start() {
+        SslInfo sslInfo = socketConfiguration.getSslInfo();
+
         ServerBootstrap bootstrap = new ServerBootstrap();
 
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
@@ -80,8 +83,8 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
                     ChannelPipeline pipeline = channel.pipeline();
 
                     //
-                    socketConfiguration.getChannelMap().put(channel.id(), channel);
-                    log.info("new channel{}", channel);
+//                    socketConfiguration.getChannelMap().put(channel.id(), channel);
+//                    log.info("new channel{}", channel);
 
 //                    channel.closeFuture().addListener((ChannelFutureListener) future -> {
 //                        log.info("channel close future {}", channel);
@@ -89,7 +92,7 @@ public class NettyServer implements ApplicationRunner, DisposableBean {
 //                    });
 
                     // 开启SSL验证
-//                  pipeline.addLast("ssl", SslFactory.createSslContext(sslInfo.getCertFilePath(), sslInfo.getKeyFilePath()).newHandler(socketChannel.alloc()));
+//                    pipeline.addLast("ssl", SslFactory.createSslContext(sslInfo.getCertFilePath(), sslInfo.getKeyFilePath()).newHandler(channel.alloc()));
 
                     // 设置N秒没有读到数据，则触发一个READER_IDLE事件。
                     pipeline.addLast(new IdleStateHandler(socketConfiguration.getHeartTimeout(), 0, 0, TimeUnit.SECONDS));

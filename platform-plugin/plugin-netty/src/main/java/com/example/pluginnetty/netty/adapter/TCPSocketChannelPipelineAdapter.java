@@ -1,6 +1,7 @@
 package com.example.pluginnetty.netty.adapter;
 
 import com.example.pluginnetty.config.SocketConfiguration;
+import com.example.pluginnetty.netty.codec.MessageCodecJson;
 import com.example.pluginnetty.netty.handler.ServiceWriteChannelHandler;
 import com.example.pluginnetty.netty.handler.tcp.ByteTcpSocketServerHandler;
 import com.example.pluginnetty.netty.handler.tcp.TextTcpSocketServerHandler;
@@ -30,6 +31,7 @@ public class TCPSocketChannelPipelineAdapter implements ChannelPipelineAdapter {
         }else{
             pipeline.addLast(new ByteTcpSocketServerHandler());
         }
+//        pipeline.addLast(new MessageCodecJson());
     }
 
 }

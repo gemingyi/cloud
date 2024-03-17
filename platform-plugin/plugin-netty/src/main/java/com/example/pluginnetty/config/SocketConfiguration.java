@@ -3,6 +3,7 @@ package com.example.pluginnetty.config;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -47,8 +48,17 @@ public class SocketConfiguration {
     /**
      * SSL相关配置
      */
-//    SslInfo sslInfo = new SslInfo();
+    private SslInfo sslInfo;
 
+//    /**
+//     *
+//     */
+//    public String certFilePath = "";
+//
+//    /**
+//     *
+//     */
+//    public String keyFilePath = "";
 
     //连接id与容器的关系
     private Map<ChannelId, Channel> channelMap = new ConcurrentHashMap<>();

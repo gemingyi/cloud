@@ -1,6 +1,6 @@
 package com.example.pluginnetty.webSocket.byteArray;
 
-import com.example.pluginnetty.util.Person;
+import com.example.pluginnetty.netty.codec.Message;
 import com.example.pluginnetty.util.SerializationUtil;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -33,7 +33,7 @@ public class Client extends WebSocketClient {
 
     public void onMessage(ByteBuffer bytes) {
         byte[] contentBytes = decode(bytes);
-        System.out.println("byte message:" + SerializationUtil.deserializer(contentBytes, Person.class));
+        System.out.println("byte message:" + SerializationUtil.deserializer(contentBytes, Message.class));
     }
 
     public byte[] decode(ByteBuffer bytes) {
@@ -74,7 +74,7 @@ public class Client extends WebSocketClient {
                         e.printStackTrace();
                     }
                 }
-                Person p = new Person("gmy");
+                Message p = new Message(1L, "gmy");
 //                String p ="1000|1000|{\"name\":\"GLOBAL\"}";
                 client.send(SerializationUtil.serializer(p));
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dddinfrastructure.mapper.CommonSmsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.dddinfrastructure.eo.CommonSms">
+        <id column="id" property="id" />
+        <result column="sms_phone" property="smsPhone" />
+        <result column="sms_content" property="smsContent" />
+        <result column="sms_code" property="smsCode" />
+        <result column="sms_type" property="smsType" />
+        <result column="is_user" property="isUser" />
+        <result column="create_time" property="createTime" />
+        <result column="client_ip" property="clientIp" />
+        <result column="client_agent" property="clientAgent" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, sms_phone, sms_content, sms_code, sms_type, is_user, create_time, client_ip, client_agent
+    </sql>
+
+</mapper>

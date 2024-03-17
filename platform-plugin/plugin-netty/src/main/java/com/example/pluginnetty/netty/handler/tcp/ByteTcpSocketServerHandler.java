@@ -3,6 +3,7 @@ package com.example.pluginnetty.netty.handler.tcp;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.CharsetUtil;
 
 /**
  * @description:
@@ -15,6 +16,7 @@ public class ByteTcpSocketServerHandler extends SimpleChannelInboundHandler<Byte
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) {
         byte[] contentBytes = new byte[byteBuf.readableBytes()];
         byteBuf.readBytes(contentBytes);
+        System.out.println("收到消息"+ new String(contentBytes, CharsetUtil.UTF_8));
         channelHandlerContext.writeAndFlush(contentBytes);
 //        doHandler(() -> socketMsgHandler.onMessage(ctx, contentBytes), ctx);
     }

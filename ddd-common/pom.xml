@@ -11,10 +11,10 @@
 
     <modules>
         <!-- ddd -->
-        <module>ddd-common-domain</module>
-        <module>ddd-common-infrastructure</module>
         <module>ddd-common-interface</module>
         <module>ddd-common-application</module>
+        <module>ddd-common-domain</module>
+        <module>ddd-common-infrastructure</module>
     </modules>
 
     <groupId>com.example</groupId>

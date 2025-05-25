@@ -26,6 +26,11 @@ public @interface RequestRateLimiter {
     String key();
 
     /**
+     *
+     */
+    String prefix();
+
+    /**
      * 限流模式,默认单机
      */
     RateType type() default RateType.PER_CLIENT;

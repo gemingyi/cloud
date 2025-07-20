@@ -1,16 +1,17 @@
-package com.example.platformboot.config;
+package com.example.platformboot.config.threadPool;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.core.Ordered;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
@@ -21,13 +22,13 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 
-@EnableConfigurationProperties
-public class ThreadPoolAutoConfig implements ImportBeanDefinitionRegistrar, EnvironmentAware, PriorityOrdered {
+//@Configuration
+//@Import(ThreadPoolConfig.class)
+public class ThreadPoolAutoConfig {
 
-    private Logger log = LoggerFactory.getLogger(ThreadPoolAutoConfig.class);
+}
 
-    public ThreadPoolAutoConfig() {
-    }
+class ThreadPoolConfig implements ImportBeanDefinitionRegistrar, EnvironmentAware, PriorityOrdered {
 
     private Environment environment;
 
@@ -39,7 +40,7 @@ public class ThreadPoolAutoConfig implements ImportBeanDefinitionRegistrar, Envi
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         Binder binder = Binder.get(this.environment);
-        Map<String, ThreadPoolProperties> map = binder.bind("spring.ttl.threadpool",
+        Map<String, ThreadPoolProperties> map = binder.bind("thread.pool",
                 Bindable.mapOf(String.class, ThreadPoolProperties.class)).orElseGet(HashMap::new);
         map.forEach((name, threadPoolProperties) -> {
             BeanDefinition beanDefinition = new RootBeanDefinition(Executor.class, () -> {
@@ -50,21 +51,19 @@ public class ThreadPoolAutoConfig implements ImportBeanDefinitionRegistrar, Envi
                 executor.setKeepAliveSeconds(threadPoolProperties.getKeepAliveSeconds());
                 executor.setThreadNamePrefix(name + "-ttl-executor-");
                 executor.setRejectedExecutionHandler((r, executor1) -> {
-                    log.error("task Reject!");
                 });
-                log.info("====mainExecutor=====coreSize: {}, queueSize:{}, maxSize:{}",
-                        threadPoolProperties.getCorePoolSize(), threadPoolProperties.getQueueCapacity(), threadPoolProperties.getMaxPoolSize());
                 executor.initialize();
                 ExecutorService ex = executor.getThreadPoolExecutor();
                 return TtlExecutors.getTtlExecutor(ex);
             });
-            beanDefinition.setPrimary(threadPoolProperties.getPrimaryFlag());
-            registry.registerBeanDefinition(name + "TtlExecutor", beanDefinition);
+            beanDefinition.setPrimary(Boolean.TRUE.equals(threadPoolProperties.getPrimaryFlag()));
+            String beanName = StringUtils.uncapitalize(name) + "TtlExecutor";
+            registry.registerBeanDefinition(beanName, beanDefinition);
         });
     }
 
     @Override
     public int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }

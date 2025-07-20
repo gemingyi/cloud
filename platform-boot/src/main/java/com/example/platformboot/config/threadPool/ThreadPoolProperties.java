@@ -1,17 +1,16 @@
-package com.example.platformboot.config;
+package com.example.platformboot.config.threadPool;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
  * @author mingyi ge
- * @Description: 开启灰度负载 配置类
+ * @Description: 线程池 配置类
  * @date 2020/12/14 14:01
  */
 @Component
 @ConfigurationProperties(prefix = "thread.pool")
 public class ThreadPoolProperties {
-
 
     private Integer corePoolSize;
 
@@ -21,7 +20,7 @@ public class ThreadPoolProperties {
 
     private Integer keepAliveSeconds;
 
-    private Boolean primaryFlag;
+    private Boolean primaryFlag = false;
 
     public Integer getCorePoolSize() {
         return corePoolSize;

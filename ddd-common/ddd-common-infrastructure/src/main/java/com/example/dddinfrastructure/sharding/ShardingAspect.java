@@ -22,8 +22,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class ShardingAspect {
 
     private static Map<String, TableRule> rules = new HashMap<>();

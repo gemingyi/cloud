@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,22 +21,14 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
-//@Aspect
-//@Component
+@Aspect
+@Component
 public class ShardingAspect {
-
-    private static Map<String, TableRule> rules = new HashMap<>();
-
-    // 表读写规则
-//    static {
-//        TableRule rule = new TableRule();
-//        rule.setReadRule("old");
-//        rule.setWriteRule("all");
-//        rules.put("test_db", rule);
-//    }
 
     @Autowired
     private TableRuleProperties tableRuleProperties;
+
+    private static Map<String, TableRule> rules = new HashMap<>();
 
     @PostConstruct
     public void init() {
@@ -51,7 +42,7 @@ public class ShardingAspect {
 
     @Around("sharding()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        String className = ((Class) AopUtils.getTargetClass(joinPoint.getTarget()).getGenericInterfaces()[0]).getSimpleName();
+//        String className = ((Class) AopUtils.getTargetClass(joinPoint.getTarget()).getGenericInterfaces()[0]).getSimpleName();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         //获取类上的注解

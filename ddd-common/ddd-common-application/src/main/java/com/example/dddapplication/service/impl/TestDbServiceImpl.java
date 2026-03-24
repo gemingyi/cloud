@@ -3,8 +3,9 @@ package com.example.dddapplication.service.impl;
 import com.example.dddapplication.service.ITestDbService;
 import com.example.ddddomain.model.TestDbModel;
 import com.example.ddddomain.repository.TestDbRepository;
-import com.example.dddinfrastructure.multiple.DataSource;
-import com.example.dddinfrastructure.multiple.DataSourceType;
+import com.example.ddddomain.req.TestDbModelDetailReq;
+import com.example.ddddomain.req.TestDbModelQueryReq;
+import com.example.pluginmysql.model.page.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,6 @@ import java.util.List;
 
 
 @Service
-@DataSource(value = DataSourceType.SLAVE)
 public class TestDbServiceImpl implements ITestDbService {
 
     @Autowired
@@ -49,6 +49,31 @@ public class TestDbServiceImpl implements ITestDbService {
         testDbModel.setName("1");
         testDbRepository.save(testDbModel);
         return 0;
+    }
+
+    @Override
+    public Integer insert(TestDbModel req) {
+        return testDbRepository.save(req);
+    }
+
+    @Override
+    public Integer delete(TestDbModelDetailReq req) {
+        return testDbRepository.delete(req.getId());
+    }
+
+    @Override
+    public Integer update(TestDbModel req) {
+        return testDbRepository.update(req);
+    }
+
+    @Override
+    public PageVO<TestDbModel> findPage(TestDbModelQueryReq req) {
+        return testDbRepository.findPage(req);
+    }
+
+    @Override
+    public TestDbModel findDetail(TestDbModelDetailReq req) {
+        return testDbRepository.findDetail(req.getId());
     }
 
 }

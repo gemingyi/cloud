@@ -19,6 +19,7 @@
         <module>plugin-gray</module>
         <module>plugin-netty</module>
         <module>plugin-mq</module>
+        <module>plugin-desensitize</module>
     </modules>
 
     <groupId>com.example</groupId>

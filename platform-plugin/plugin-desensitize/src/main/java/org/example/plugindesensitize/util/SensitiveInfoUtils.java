@@ -1,6 +1,7 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
 
 /**
  * @description:

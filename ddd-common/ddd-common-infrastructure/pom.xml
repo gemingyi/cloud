@@ -26,12 +26,12 @@
         </dependency>
 
         <!-- sharding-jdbc -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere</groupId>-->
-<!--            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>-->
-<!--            <version>4.1.1</version>-->
-<!--&lt;!&ndash;            <version>4.0.0-RC1</version>&ndash;&gt;-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>4.1.1</version>
+            <!--<version>4.0.0-RC1</version>-->
+        </dependency>
         <!-- plugin-mysql -->
         <dependency>
             <groupId>com.example</groupId>
@@ -49,7 +49,7 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- emai -->
+        <!-- mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>

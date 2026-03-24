@@ -1,11 +1,10 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import lombok.Setter;
+import org.example.plugindesensitize.constant.SensitivityConstants;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
 
-import java.util.Date;
 import java.util.Map;
 
 
@@ -30,15 +29,6 @@ public class JsonUtils {
 //        objectMapperSensitivity.setSerializerFactory(objectMapperSensitivity.getSerializerFactory().withSerializerModifier(new SensitiveSerializerModifier()));
 //    }
 
-
-    public static void main(String[] args) {
-        JsonUtils.DemoDTO demoDTO = new DemoDTO();
-        demoDTO.setId(1L);
-        demoDTO.setPhone("18774987061");
-        demoDTO.setEmail("915674992@qq.com");
-        String s = toJsonStringWithSensitivity(demoDTO);
-        System.out.println(s);
-    }
 
 
     /**
@@ -96,38 +86,6 @@ public class JsonUtils {
             }
         }
         return mapValue;
-    }
-
-
-    @Getter
-    @Setter
-    static
-    class DemoDTO {
-        private Long id;
-
-        private String name;
-
-        private Integer age;
-
-        @SensitiveInfo(SensitiveTypeEnum.MOBILE_PHONE)
-        private String phone;
-
-        @SensitiveInfo(SensitiveTypeEnum.EMAIL)
-        private String email;
-
-        private String delFlag;
-
-        private Long createUser;
-
-        private String createName;
-
-        private Date createTime;
-
-        private Long updateUser;
-
-        private String updateName;
-
-        private Date updateTime;
     }
 
 }

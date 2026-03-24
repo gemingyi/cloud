@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class DataSourceAspect {
 
     @Pointcut("@annotation(com.example.dddinfrastructure.multiple.DataSource)")

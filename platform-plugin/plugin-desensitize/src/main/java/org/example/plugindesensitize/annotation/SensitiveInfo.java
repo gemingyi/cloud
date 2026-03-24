@@ -1,7 +1,9 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.example.plugindesensitize.serializer.SensitiveInfoSerialize;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

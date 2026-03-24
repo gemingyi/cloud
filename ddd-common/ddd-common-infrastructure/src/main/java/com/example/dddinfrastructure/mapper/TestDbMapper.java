@@ -14,7 +14,7 @@ import com.example.dddinfrastructure.sharding.Invoke;
  * @author GMY_GENERATE
  * @since 2020-10-17
  */
-@Invoke(tableName = "test_db", writeMethod = {"insert", "deleteById"})
+@Invoke(tableName = "test_db", writeMethod = {"insert", "deleteById", "update"})
 @DataSource(value = DataSourceType.SLAVE)
 public interface TestDbMapper extends BaseMapper<TestDb> {
 

@@ -1,9 +1,13 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.serializer;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
+import org.example.plugindesensitize.annotation.SensitiveInfo;
+import org.example.plugindesensitize.constant.SensitivityConstants;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
+import org.example.plugindesensitize.serializer.SensitiveInfoSerialize;
 
 import java.util.List;
 import java.util.Map;

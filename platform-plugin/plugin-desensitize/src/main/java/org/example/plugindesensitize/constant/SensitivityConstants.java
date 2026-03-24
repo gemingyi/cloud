@@ -1,4 +1,6 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.constant;
+
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
 
 import java.util.HashMap;
 import java.util.Map;

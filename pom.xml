@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.15.RELEASE</version>
-<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+        <relativePath/>
     </parent>
 
     <modules>
@@ -117,6 +117,11 @@
             <dependency>
                 <groupId>com.example</groupId>
                 <artifactId>plugin-mysql</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>plugin-desensitize</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

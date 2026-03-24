@@ -44,5 +44,10 @@
             <groupId>com.example</groupId>
             <artifactId>plugin-swagger</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>plugin-desensitize</artifactId>
+        </dependency>
     </dependencies>
 </project>

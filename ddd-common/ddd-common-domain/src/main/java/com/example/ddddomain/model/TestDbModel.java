@@ -3,6 +3,8 @@ package com.example.ddddomain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.plugindesensitize.annotation.SensitiveInfo;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
 
 /**
  * <p>
@@ -22,6 +24,7 @@ public class TestDbModel {
 
     private Long userId;
 
+    @SensitiveInfo(SensitiveTypeEnum.REAL_NAME)
     private String name;
 
 }

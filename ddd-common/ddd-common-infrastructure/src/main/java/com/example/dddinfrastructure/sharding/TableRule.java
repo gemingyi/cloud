@@ -2,6 +2,14 @@ package com.example.dddinfrastructure.sharding;
 
 
 public class TableRule {
+    public static final String NEW = "new";
+
+    public static final String OLD = "old";
+
+    public static final String BOTH = "all";
+
+    //-------------------
+
     private String tableName;
     private String readRule;
     private String writeRule;

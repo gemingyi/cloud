@@ -1,4 +1,4 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.enums;
 
 /**
  * @description:

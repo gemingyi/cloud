@@ -27,7 +27,7 @@ public class CodeGenerator {
     private static final String password = "123456";
     private static final String dataBaseName = "kill";
     // 需要生成的表 ,分割
-    private static final String tables = "trans_message";
+    private static final String tables = "user_history";
 
     static {
         // 设置模块信息

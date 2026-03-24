@@ -22,12 +22,13 @@ import java.util.concurrent.TimeUnit;
  * @Description: ok-feign3配置
  * https://blog.csdn.net/chinasi2012/article/details/105891207
  * https://blog.csdn.net/chinasi2012/article/details/126662922
+ * https://blog.csdn.net/eric520zenobia/article/details/103547552
  * @author mingyi ge
  * @date 2020/12/17 20:35
  */
-@Configuration
-@ConditionalOnClass(Feign.class)
-@AutoConfigureBefore(FeignAutoConfiguration.class)
+//@Configuration
+//@ConditionalOnClass(Feign.class)
+//@AutoConfigureBefore(FeignAutoConfiguration.class)
 public class FeignOkHttpConfig {
 
     private Logger log = LoggerFactory.getLogger(FeignOkHttpConfig.class);

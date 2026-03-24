@@ -1,4 +1,4 @@
-package com.example.commons.utils.json.desensitization;
+package org.example.plugindesensitize.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import org.example.plugindesensitize.annotation.SensitiveInfo;
+import org.example.plugindesensitize.enums.SensitiveTypeEnum;
+import org.example.plugindesensitize.util.SensitiveInfoUtils;
 
 import java.io.IOException;
 import java.util.Objects;

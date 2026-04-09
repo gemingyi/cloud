@@ -24,5 +24,5 @@ public interface ISmsService {
     /**
      * 根据手机号 获取最新的短信信息
      */
-    CommonSms getLatestSmsByPhone(String phone);
+    CommonSms getLatestSmsByPhone(String phone, Integer smsType);
 }

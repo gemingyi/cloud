@@ -18,7 +18,7 @@ public interface TestDbRepository {
 
     int save(TestDbModel model);
 
-    int delete(Integer id);
+    int delete(Long userId, Integer id);
 
     int update(TestDbModel model);
 

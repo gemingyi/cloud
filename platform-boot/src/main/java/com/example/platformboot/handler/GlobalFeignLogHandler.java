@@ -1,7 +1,7 @@
 package com.example.platformboot.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.example.commons.utils.IPUtil;
+import com.example.commons.utils.http.IPUtil;
 import com.google.common.base.Stopwatch;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.aspectj.lang.JoinPoint;

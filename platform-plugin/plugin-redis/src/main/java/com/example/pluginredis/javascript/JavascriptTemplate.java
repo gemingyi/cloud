@@ -39,7 +39,7 @@ public class JavascriptTemplate {
      * @Date 2020/9/30 15:25
      */
     public <T> T execute(String key, long expire, ExecuteMethod<T> executeMethod) {
-        return execute(key, expire, executeMethod, true);
+        return doExecute(key, expire, executeMethod, true);
     }
 
     /**
@@ -48,7 +48,7 @@ public class JavascriptTemplate {
      * @Author mingyi ge
      * @Date 2020/9/30 16:18
      */
-    private <T> T execute(String key, long expireMS, ExecuteMethod<T> executeMethod, boolean isAutoReleaseLock) {
+    private <T> T doExecute(String key, long expireMS, ExecuteMethod<T> executeMethod, boolean isAutoReleaseLock) {
         Assert.hasText(key, "redis key不能为空");
         String identifier = redisLock.acquireLock(key, expireMS);
         if (StringUtils.isNotBlank(identifier)) {

@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.commonserver.dao.entity.CommonSms;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * <p>
  * 短信 Mapper 接口
@@ -15,6 +18,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CommonSmsMapper extends BaseMapper<CommonSms> {
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 更新短信使用状态
@@ -27,13 +31,21 @@ public interface CommonSmsMapper extends BaseMapper<CommonSms> {
     }
 
     /**
-     * 根据手机查询z最新发送的短信
+     * 根据手机查询最新发送的短信
      */
-    default CommonSms selectLatestByPhone(String phone) {
+    default CommonSms selectLatestByPhone(String phone, Integer smsType) {
         QueryWrapper<CommonSms> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("create_time");
         queryWrapper.eq("sms_phone", phone);
+        queryWrapper.eq("sms_type", smsType);
         return this.selectOne(queryWrapper);
     }
 
+    default Integer countSameDayByPhone(String phone, Integer smsType) {
+        QueryWrapper<CommonSms> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("sms_phone", phone);
+        queryWrapper.eq("sms_type", smsType);
+        queryWrapper.eq("create_time", sdf.format(new Date()));
+        return this.selectCount(queryWrapper);
+    }
 }

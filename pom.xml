@@ -19,8 +19,6 @@
         <!--  -->
         <module>pay-server</module>
         <!--  -->
-        <module>analysis-server</module>
-        <!--  -->
         <module>kill-server</module>
 
         <!-- boot -->

@@ -9,4 +9,6 @@ public class TestDbModelDetailReq {
 
     private Integer id;
 
+    private Long userId;
+
 }

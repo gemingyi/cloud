@@ -1,7 +1,6 @@
 package com.example.pluginmysql.model.page;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -17,7 +16,7 @@ public class PageVO<T> {
     /**
      * 当前页码
      */
-    private int pageNum;
+    private int currentPage;
 
     /**
      * 每页大小
@@ -43,7 +42,7 @@ public class PageVO<T> {
     }
 
     public PageVO(PageQO pageQO) {
-        this.setPageNum(pageQO.getCurrentPage());
+        this.setCurrentPage(pageQO.getCurrentPage());
         this.setPageSize(pageQO.getPageSize());
     }
 
@@ -54,7 +53,7 @@ public class PageVO<T> {
     public PageVO(List<T> poList) {
         this.records = poList == null ? new ArrayList<>() : poList;
         // 仅传入列表时，默认分页参数为 0（表示不分页）
-        this.pageNum = 0;
+        this.currentPage = 0;
         this.pageSize = 0;
         this.total = poList == null ? 0 : poList.size();
         this.pages = getPages(this.total, this.pageSize);
@@ -80,7 +79,7 @@ public class PageVO<T> {
         PageVO<T> pageVO = new PageVO<>();
         if (page != null) {
             // 复制分页核心属性
-            pageVO.setPageNum((int) page.getCurrent());
+            pageVO.setCurrentPage((int) page.getCurrent());
             pageVO.setPageSize((int) page.getSize());
             pageVO.setTotal(page.getTotal());
             pageVO.setPages(getPages(page.getTotal(), (int) page.getSize()));
@@ -101,7 +100,7 @@ public class PageVO<T> {
         PageVO<T> pageVO = new PageVO<>();
         if (page != null) {
             // 复制分页核心属性
-            pageVO.setPageNum((int) page.getCurrent());
+            pageVO.setCurrentPage((int) page.getCurrent());
             pageVO.setPageSize((int) page.getSize());
             pageVO.setTotal(page.getTotal());
             pageVO.setPages(getPages(page.getTotal(), (int) page.getSize()));
@@ -138,7 +137,7 @@ public class PageVO<T> {
         if (poPage != null) {
             BeanUtils.copyProperties(poPage, page, "list");
             // 修正MyBatis-Plus Page与PageVO的字段映射
-            page.setPageNum((int) poPage.getCurrent());
+            page.setCurrentPage((int) poPage.getCurrent());
             page.setPageSize((int) poPage.getSize());
             page.setTotal(poPage.getTotal());
             page.setPages(getPages(poPage.getTotal(), (int) poPage.getSize()));
@@ -169,12 +168,12 @@ public class PageVO<T> {
     }
 
     // Getter & Setter 方法保持不变
-    public int getPageNum() {
-        return pageNum;
+    public int getCurrentPage() {
+        return currentPage;
     }
 
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
     }
 
     public int getPageSize() {

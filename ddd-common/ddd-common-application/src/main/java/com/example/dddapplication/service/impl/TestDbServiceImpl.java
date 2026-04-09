@@ -58,7 +58,7 @@ public class TestDbServiceImpl implements ITestDbService {
 
     @Override
     public Integer delete(TestDbModelDetailReq req) {
-        return testDbRepository.delete(req.getId());
+        return testDbRepository.delete(req.getUserId(), req.getId());
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.example.commonserver.rest;
 
 import com.example.commons.exceptionHandle.exceptions.DataConflictException;
 import com.example.commons.result.RestResult;
-import com.example.commonserver.service.ICommonService;
+import com.example.commonserver.service.IVerificationService;
 import com.example.commonserver.service.ITestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,7 +16,7 @@ public class TestRest {
     @Autowired
     private ITestService testService;
     @Autowired
-    private ICommonService commonService;
+    private IVerificationService commonService;
 
 
     /**
@@ -60,15 +60,6 @@ public class TestRest {
     public RestResult<Object> testImport(@RequestPart(value = "file", required = false) MultipartFile file) {
         System.out.println(file.getName());
         return RestResult.success();
-    }
-
-    /**
-     * 校验图片验证码
-     */
-    @GetMapping(value = "/checkValidateCode")
-    public RestResult<Object> checkValidateCode(@RequestParam("token") String token, @RequestParam("validateCode")String validateCode) {
-        boolean flag = commonService.checkValidateCode(token, validateCode);
-        return RestResult.success(flag);
     }
 
 }

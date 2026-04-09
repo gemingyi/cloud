@@ -39,8 +39,11 @@ public class TestDbRepositoryImpl extends ServiceImpl<TestDbMapper, TestDb> impl
     }
 
     @Override
-    public int delete(Integer id) {
-        return testDbMapper.deleteById(id);
+    public int delete(Long userId, Integer id) {
+        QueryWrapper<TestDb> updateWrapper = new QueryWrapper<>();
+        updateWrapper.eq("user_id", userId);
+        updateWrapper.eq("id", id);
+        return testDbMapper.delete(updateWrapper);
     }
 
     @Override

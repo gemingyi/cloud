@@ -2,6 +2,8 @@ package com.example.commons.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.commons.utils.encryption.AESUtils;
+import com.example.commons.utils.encryption.RSAUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -144,9 +146,9 @@ public class Channel {
             try {
                 // 判断数据是否需要解密
                 if (StringUtils.isNotEmpty(standardRes.getData())) {
-                    String aseKey = EncryptionUtil.RSA.decrypt(standardRes.getKey(), EncryptionUtil.RSA.getPrivateKey(MY_PRIVATE_KEY));
+                    String aseKey = RSAUtils.decrypt(standardRes.getKey(), RSAUtils.getPrivateKey(MY_PRIVATE_KEY));
                     log.debug("response ase key:{}", aseKey);
-                    decryptData = EncryptionUtil.AES.decrypt(standardRes.getData(), aseKey);
+                    decryptData = AESUtils.decrypt(standardRes.getData(), aseKey);
                 }
                 standardRes.setData(decryptData);
                 log.info("verifyDecryption isSuccess responseData:{}", JSONObject.toJSONString(standardRes));
@@ -200,11 +202,11 @@ public class Channel {
 
         //随机生成aes秘钥
 //        String aesKey = randomString(BASE_STRING, 16);
-        String aesKey = EncryptionUtil.AES.generateKey();
+        String aesKey = AESUtils.generateKey();
         // AES加密Params
-        String encryptParams = EncryptionUtil.AES.encrypt(JSON.toJSONString(dataMap), aesKey);
+        String encryptParams = AESUtils.encrypt(JSON.toJSONString(dataMap), aesKey);
         // 生成的RSA公钥加密的密文
-        String rsaKey = EncryptionUtil.RSA.encrypt(aesKey, EncryptionUtil.RSA.getPublicKey(MY_PUBLIC_KEY));
+        String rsaKey = RSAUtils.encrypt(aesKey, RSAUtils.getPublicKey(MY_PUBLIC_KEY));
         //组装resp
         Map<String, Object> channelResp = new TreeMap<>();
         channelResp.put("success", Boolean.TRUE);
@@ -220,7 +222,7 @@ public class Channel {
         String beforeSign2 = beforeSign.substring(0, beforeSign.length() - 1);
         log.debug("beforeSign={}", beforeSign2);
         // 私钥加签
-        String sign = EncryptionUtil.RSA.privateSinge(beforeSign2, EncryptionUtil.RSA.getPrivateKey(CHANNEL_PRIVATE_KEY));
+        String sign = RSAUtils.privateSinge(beforeSign2, RSAUtils.getPrivateKey(CHANNEL_PRIVATE_KEY));
         channelResp.put("sign", sign);
         return channelResp;
     }
@@ -228,11 +230,11 @@ public class Channel {
     public static String encryptParams(String param, String appId, String method, String version, String agreeId, String oppoPrivateKey, String channelPublicKey) throws Exception {
 
 //        String aesKey = randomString(BASE_STRING, 16);
-        String aesKey = EncryptionUtil.AES.generateKey();
+        String aesKey = AESUtils.generateKey();
         // AES加密Params
-        String encryptParams = EncryptionUtil.AES.encrypt(param, aesKey);
+        String encryptParams = AESUtils.encrypt(param, aesKey);
         // 生成的RSA公钥加密的密文
-        String rsaKey = EncryptionUtil.RSA.encrypt(aesKey, EncryptionUtil.RSA.getPublicKey(channelPublicKey));
+        String rsaKey = RSAUtils.encrypt(aesKey, RSAUtils.getPublicKey(channelPublicKey));
         String flowNo = appId + randomString(BASE_STRING, 29);
         // treeMap保证字段按照key排序
         Map<String, Object> treeMap = new TreeMap<>();
@@ -252,7 +254,7 @@ public class Channel {
         String beforeSign2 = beforeSign.substring(0, beforeSign.length() - 1);
         log.debug("beforeSign={}", beforeSign2);
         // 私钥加签
-        String sign = EncryptionUtil.RSA.privateSinge(beforeSign2, EncryptionUtil.RSA.getPrivateKey(oppoPrivateKey));
+        String sign = RSAUtils.privateSinge(beforeSign2, RSAUtils.getPrivateKey(oppoPrivateKey));
         treeMap.put("sign", sign);
         if (StringUtils.isNotEmpty(agreeId)) {
             treeMap.put("agreeId", agreeId);
@@ -309,7 +311,7 @@ public class Channel {
             log.debug("verify sign string: {}", beforeSign.toString());
 
             // 使用公钥方公钥验签
-            return EncryptionUtil.RSA.publicVerify(beforeSign.toString(), sign, EncryptionUtil.RSA.getPublicKey(publicKey));
+            return RSAUtils.publicVerify(beforeSign.toString(), sign, RSAUtils.getPublicKey(publicKey));
         } catch (Exception e) {
             log.error("channel verify sign error", e);
             return false;
@@ -319,11 +321,11 @@ public class Channel {
     private static String channelDecryptParam(String params, String rsaKey, String channelPrivateKey) throws Exception {
         try {
             // 使用渠道私钥解密RSA密钥
-            String aesKey = EncryptionUtil.RSA.decrypt(rsaKey, EncryptionUtil.RSA.getPrivateKey(channelPrivateKey));
+            String aesKey = RSAUtils.decrypt(rsaKey, RSAUtils.getPrivateKey(channelPrivateKey));
             log.debug("decrypt aes key: {}", aesKey);
 
             // 使用AES密钥解密业务参数
-            return EncryptionUtil.AES.decrypt(params, aesKey);
+            return AESUtils.decrypt(params, aesKey);
         } catch (Exception e) {
             log.error("channel decrypt param error", e);
             throw e;
